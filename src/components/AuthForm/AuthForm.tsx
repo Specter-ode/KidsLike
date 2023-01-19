@@ -4,16 +4,16 @@ const { REACT_APP_BACKEND_URL } = process.env;
 
 const AuthForm: React.FC = () => {
   return (
-    <div className="sTablet:mx-auto sTablet:w-[394px] sTablet:px-[32px] sTablet:py-[40px] sTablet:shadow-form">
+    <div className="sTablet:shadow-base sTablet:mx-auto sTablet:w-[394px] sTablet:px-[32px] sTablet:py-[40px]">
       <div className="mb-[20px]">
         <h3 className="mb-[20px] text-xs font-normal text-second-color">
           Вы можете авторизоваться с помощью Google Account:
         </h3>
         <a
           href={`${REACT_APP_BACKEND_URL}/auth/google`}
-          className=" flex h-[42px] w-[48%] items-center justify-center rounded-[6px] bg-third-bg-color shadow-header sTablet:w-[160px]"
+          className=" flex h-[42px] w-[48%] items-center justify-center rounded-[6px] bg-third-bg-color shadow-header hover:bg-accent-color sTablet:w-[160px] "
         >
-          <Google className="w-[80px]" />
+          <Google className="w-[80px] hover:bg-accent-color" />
         </a>
       </div>
       <h3 className="mb-[20px] text-[12px] font-normal text-second-color">
@@ -43,12 +43,8 @@ const AuthForm: React.FC = () => {
           />
         </div>
         <div className="flex justify-between">
-          <button className="flex w-[48%]  items-center justify-center rounded-[6px] bg-accent-color py-[15px]  text-[12px] font-normal text-white sTablet:w-[160px]">
-            Войти
-          </button>
-          <button className="flex w-[48%] items-center justify-center  rounded-[6px] bg-accent-color py-[15px] text-[12px] font-normal text-white sTablet:w-[160px]">
-            Зарегистрироваться
-          </button>
+          <button className="btn">Войти</button>
+          <button className="btn">Зарегистрироваться</button>
         </div>
       </form>
     </div>
