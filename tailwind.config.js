@@ -16,6 +16,7 @@ module.exports = {
         'bg-color': '#E5E5E5',
         'second-bg-color': '#F1F1F1',
         'third-bg-color': '#F6F7FB',
+        'main-bg': '#FFFFFF',
       },
       boxShadow: {
         header: '0px 2px 4px rgba(0, 0, 0, 0.15)',

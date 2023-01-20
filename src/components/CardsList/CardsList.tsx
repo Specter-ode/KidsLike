@@ -1,6 +1,5 @@
 import { useLocation } from 'react-router-dom';
 import { ICard } from '../../types/Cards';
-import AddBtn from '../AddBtn/AddBtn';
 import Card from '../Card/Card';
 
 interface IProps {

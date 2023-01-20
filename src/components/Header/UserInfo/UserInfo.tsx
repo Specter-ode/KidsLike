@@ -1,11 +1,9 @@
-import { ReactComponent as Logout } from '../../../assets/icons/logout.svg';
-
 const UserInfo = () => {
   return (
     <>
       <div className="ml-[40px] flex items-center">
         <div className="flex items-center border-r-2 border-second-color pr-[24px]">
-          <p className="mr-[8px] flex h-[24px] w-[24px] items-center justify-center rounded-full  bg-third-color text-[16px] font-bold text-white">
+          <p className="mr-[8px] flex h-[24px] w-[24px] items-center justify-center rounded-full  bg-third-color text-[16px] font-bold text-main-bg">
             V
           </p>
           <p className=" text-xs font-bold text-second-color">Email</p>

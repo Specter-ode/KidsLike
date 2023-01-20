@@ -13,7 +13,7 @@ export const links = [
   },
   {
     id: '3',
-    to: '/gifts',
+    to: '/awards',
     text: 'Награды',
     private: true,
   },

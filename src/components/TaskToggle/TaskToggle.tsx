@@ -8,8 +8,8 @@ const TaskToggle: React.FC = () => {
     <>
       <label className="relative inline-flex cursor-pointer items-center">
         <input type="checkbox" value="" className="peer sr-only" checked={false} />
-        <div className="peer h-[24px] w-[48px] rounded-full bg-error-color after:absolute after:top-[2px] after:left-[3px] after:h-[20px] after:w-[20px] after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-fourth-color peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:ring-2 peer-focus:ring-gray-300 ">
-          <p className="absolute right-[12px] text-[16px] font-semibold text-white">!</p>
+        <div className="peer h-[24px] w-[48px] rounded-full bg-error-color after:absolute after:top-[2px] after:left-[3px] after:h-[20px] after:w-[20px] after:rounded-full after:border after:border-gray-300 after:bg-main-bg after:transition-all after:content-[''] peer-checked:bg-fourth-color peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:ring-2 peer-focus:ring-gray-300 ">
+          <p className="absolute right-[12px] text-[16px] font-semibold text-main-bg">!</p>
           <div className="absolute left-[8px] top-[8px]">
             <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path

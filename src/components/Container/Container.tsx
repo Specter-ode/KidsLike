@@ -1,6 +1,9 @@
 // import { useLocation } from 'react-router-dom';
 
-const Container = ({ children }) => {
+interface IProps {
+  children: React.ReactNode;
+}
+const Container: React.FC<IProps> = ({ children }) => {
   //   const { pathname } = useLocation();
 
   //   if (pathname === '/main') {
