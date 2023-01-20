@@ -12,7 +12,7 @@ const Header: React.FC = () => {
     <header className="shadow-header">
       <Container>
         <div className="flex items-center py-6">
-          <Logo logoTextStyles="mr-2 text-base font-bold text-main-color " />
+          <Logo logoTextStyles="mr-2 text-base font-bold text-main-color hover:text-third-color transition duration-500" />
           {isAuth ? (
             <>
               <UserNav />

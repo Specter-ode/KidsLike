@@ -15,9 +15,9 @@ const TaskToggle: React.FC = () => {
               <path
                 d="M1 4.85185L4.42857 9L11 1"
                 stroke="white"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
           </div>

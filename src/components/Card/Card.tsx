@@ -1,21 +1,11 @@
+import { getScoreString } from '../../services/helpers/getScoreString';
 import { ICard } from '../../types/Cards';
 import TaskToggle from '../TaskToggle/TaskToggle';
 const Card: React.FC<ICard> = ({ id, imageURL, title, isCompleted, isSelected, reward }) => {
-  console.log('imageURL: ', imageURL);
-  const rewardArr = Array.from('' + reward).map(Number);
-  const lastNum = rewardArr[rewardArr.length - 1];
-  const stringReward =
-    reward === 11 || reward === 12
-      ? 'Баллов'
-      : lastNum === 1
-      ? 'Балл'
-      : lastNum > 1 && lastNum < 5
-      ? 'Балла'
-      : 'Баллов';
+  const stringReward = getScoreString(reward).toUpperCase();
 
-  // const result = test.[test.length-1]
   return (
-    <li className="w-full shadow-base sTablet:w-[336px] sLaptop:w-[288px] ">
+    <li className="w-full overflow-hidden rounded-[6px] shadow-base sTablet:w-[336px] sLaptop:w-[288px]">
       <div className="h-[194px] w-full bg-second-color">Image</div>
       {/* <img alt={title} src={imageURL} width={280} className="block" /> */}
       <div className="flex items-center justify-between bg-accent-color px-[20px] py-[16px]">
@@ -36,9 +26,9 @@ const Card: React.FC<ICard> = ({ id, imageURL, title, isCompleted, isSelected, r
               <path
                 d="M1 4.85185L4.42857 9L11 1"
                 stroke="white"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               />
             </svg>
           </div>

@@ -8,7 +8,7 @@ interface IProps {
 
 const Logo: React.FC<IProps> = ({ logoTextStyles, logoIconStyles }) => {
   return (
-    <Link to="/" className="flex">
+    <Link to="/" className="flex transition duration-500 hover:scale-150 ">
       <p className={logoTextStyles}>KidsLike</p>
       <LogoSVG className={logoIconStyles} />
     </Link>

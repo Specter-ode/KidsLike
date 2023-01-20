@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import CardList from '../../components/CardsList/CardsList';
+import Container from '../../components/Container/Container';
 import ProgressBar from '../../components/ProgressBar/ProgressBar';
 import WeekTabs from '../../components/WeekTabs/WeekTabs';
 import useWindowDimensions from '../../services/hooks/useDimensions';
 import { ICard } from '../../types/Cards';
 
-const data = [
+export const data = [
   {
     id: '1',
     imageURL: 'src/assets/img/bed-mobile.jpg',
@@ -67,7 +68,6 @@ const data = [
 const MainPage: React.FC = () => {
   const [cards, setCards] = useState<ICard[]>(data);
   const { width } = useWindowDimensions();
-  const weekTabsWidth = width - 1159;
   const mobile = width < 768;
   const tablet = 767 < width && width < 1280;
   const laptop = width > 1279;
@@ -81,19 +81,22 @@ const MainPage: React.FC = () => {
       </div>
       {mobile && (
         <>
-          <p className="mb-[20px] text-center ">Неделя: 21-27 декабря</p>
-          <div className="text-center ">
-            <p className="text-[12px] font-medium text-second-color ">Мои задачи:</p>
-            <p className="text-[12px]  font-bold tracking-widest text-main-color">ВТОРНИК, 22-12-2020</p>
-          </div>
-          <CardList cards={cards} />
+          <Container>
+            <p className="mb-[20px] text-center ">Неделя: 21-27 декабря</p>
+            <div className="text-center ">
+              <p className="text-[12px] font-medium text-second-color ">Мои задачи:</p>
+              <p className="text-[12px]  font-bold tracking-widest text-main-color">ВТОРНИК, 22-12-2020</p>
+            </div>
+
+            <CardList cards={cards} />
+          </Container>
           <div className="fixed left-0 bottom-0 mx-auto w-full bg-second-bg-color">
             <ProgressBar />
           </div>
         </>
       )}
       {tablet && (
-        <>
+        <Container>
           <div className="mt-[40px]">
             <ProgressBar />
           </div>
@@ -102,7 +105,7 @@ const MainPage: React.FC = () => {
             <p className="text-[12px] font-bold tracking-widest text-main-color ">ВТОРНИК, 22-12-2020</p>
           </div>
           <CardList cards={cards} />
-        </>
+        </Container>
       )}
       {laptop && (
         <div className="ml-[107px] max-w-[1280px]">
