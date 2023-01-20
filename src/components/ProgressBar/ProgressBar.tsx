@@ -3,13 +3,13 @@ import { Line } from 'rc-progress';
 
 const ProgressBar: React.FC = () => {
   return (
-    <div className="py-[12px]  sTablet:text-center sLaptop:m-0 sLaptop:text-end lessTablet:px-[20px] lessLaptop:mx-auto">
+    <div className="sTablet:text-center  sLaptop:m-0 sLaptop:flex sLaptop:flex-col sLaptop:items-end sLaptop:text-end lessTablet:max-w-[480px] lessTablet:px-[20px] lessTablet:py-[12px] lessLaptop:mx-auto">
       <p className="text-[12px] font-medium text-fifth-color  sTablet:hidden ">Заработано баллов:</p>
-      <p className="hidden text-[12px] font-medium text-fifth-color sTablet:mb-[10px] sTablet:block sLaptop:mb-[12px]">
+      <p className="hidden text-[12px] font-medium text-fifth-color sTablet:mb-[10px] sTablet:block">
         Заработано баллов за эту неделю:
         <span className="ml-[14px] text-[12px] font-bold text-main-color  ">8</span>
       </p>
-      <p className="hidden text-[12px] font-medium text-fifth-color sTablet:mb-[10px] sTablet:block sLaptop:mb-[12px]">
+      <p className="hidden text-[12px] font-medium text-fifth-color sTablet:mb-[10px] sTablet:block ">
         Запланировано баллов на эту неделю:<span className="ml-[14px] text-[12px] font-bold text-main-color">16</span>
       </p>
       <div className=" flex items-center sTablet:justify-center">

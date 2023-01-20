@@ -10,6 +10,7 @@ module.exports = {
         'fourth-color': '#8EC63F',
         'fifth-color': '#A6ABB9',
         'line-color': '#E3E2E7',
+        'error-color': '#FF4965',
         'accent-color': '#FFBC33',
         'second-accent-color': '#FFE9A5',
         'bg-color': '#E5E5E5',

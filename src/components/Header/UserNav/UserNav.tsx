@@ -1,6 +1,5 @@
 import { NavLink } from 'react-router-dom';
 import { links } from './links';
-import { ReactComponent as Burger } from '../../../assets/icons/menu.svg';
 import useWindowDimensions from '../../../services/hooks/useDimensions';
 // const getLinkClassName = ({ isActive: any }) => {
 //   return isActive ? 'active' : 'link';
@@ -42,8 +41,6 @@ const UserNav: React.FC = () => {
           >
             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
           </svg>
-
-          {/* <Burger className="fill-accent-color stroke-main-color" /> */}
         </button>
       ) : (
         <ul className="flex items-center justify-between">{elements}</ul>

@@ -67,12 +67,13 @@ const data = [
 const MainPage: React.FC = () => {
   const [cards, setCards] = useState<ICard[]>(data);
   const { width } = useWindowDimensions();
+  const weekTabsWidth = width - 1159;
   const mobile = width < 768;
   const tablet = 767 < width && width < 1280;
   const laptop = width > 1279;
   return (
-    <main className="sLaptop:relative">
-      <div className="flex items-center justify-center py-[20px] sTablet:bg-accent-color sTablet:py-[22px]  sLaptop:w-[18%] sLaptop:items-start sLaptop:py-[140px] sLaptop:pl-[48px]">
+    <main className="sLaptop:flex sLaptop:justify-center sLaptop:pr-[16px]">
+      <div className="flex items-center justify-center py-[20px] sTablet:bg-accent-color sTablet:py-[22px]  sLaptop:w-[229px] sLaptop:items-start sLaptop:pt-[150px] sLaptop:pl-[48px]">
         <p className="hidden text-[14px] font-normal text-main-color sTablet:mr-[28px] sTablet:block sLaptop:hidden">
           Неделя: 21-27 декабря
         </p>
@@ -80,40 +81,46 @@ const MainPage: React.FC = () => {
       </div>
       {mobile && (
         <>
-          <p className="text-center ">Неделя: 21-27 декабря</p>
+          <p className="mb-[20px] text-center ">Неделя: 21-27 декабря</p>
           <div className="text-center ">
             <p className="text-[12px] font-medium text-second-color ">Мои задачи:</p>
-            <p className="text-[12px]  font-bold text-main-color ">ВТОРНИК, 22-12-2020</p>
+            <p className="text-[12px]  font-bold tracking-widest text-main-color">ВТОРНИК, 22-12-2020</p>
           </div>
           <CardList cards={cards} />
-          <ProgressBar />
+          <div className="fixed left-0 bottom-0 mx-auto w-full bg-second-bg-color">
+            <ProgressBar />
+          </div>
         </>
       )}
       {tablet && (
         <>
-          <ProgressBar />
-          <div className="text-center ">
-            <p className="text-[12px] font-medium text-second-color ">Мои задачи:</p>
-            <p className="text-[12px]  font-bold text-main-color ">ВТОРНИК, 22-12-2020</p>
+          <div className="mt-[40px]">
+            <ProgressBar />
+          </div>
+          <div className="mt-[20px] flex justify-center">
+            <p className="mr-[20px] text-[12px] font-medium text-second-color ">Мои задачи:</p>
+            <p className="text-[12px] font-bold tracking-widest text-main-color ">ВТОРНИК, 22-12-2020</p>
           </div>
           <CardList cards={cards} />
         </>
       )}
       {laptop && (
-        <div className="ml-auto w-[928px] pt-[32px] pb-[40px] pr-[16px]">
-          <div className="flex">
-            <div className="w-1/2">
-              <p className="mb-[32px]">Неделя: 21-27 декабря</p>
-              <div>
-                <p className="mr-[20px] inline text-[12px] font-medium text-second-color ">Мои задачи:</p>
-                <p className="inline text-[12px] font-bold text-main-color ">ВТОРНИК, 22-12-2020</p>
+        <div className="ml-[107px] max-w-[1280px]">
+          <div className=" mx-left w-[928px] pt-[32px] pb-[40px]">
+            <div className="flex">
+              <div className="w-1/2">
+                <p className="mb-[38px]">Неделя: 21-27 декабря</p>
+                <div className="flex">
+                  <p className="mr-[20px] text-[12px] font-medium text-second-color ">Мои задачи:</p>
+                  <p className="text-[12px] font-bold tracking-widest text-main-color">ВТОРНИК, 22-12-2020</p>
+                </div>
+              </div>
+              <div className="w-1/2 sLaptop:relative">
+                <ProgressBar />
               </div>
             </div>
-            <div className="w-1/2 sLaptop:relative lessTablet:fixed lessTablet:left-0 lessTablet:bottom-0 lessTablet:bg-second-bg-color">
-              <ProgressBar />
-            </div>
+            <CardList cards={cards} />
           </div>
-          <CardList cards={cards} />
         </div>
       )}
     </main>
