@@ -3,9 +3,9 @@ import { ICard } from '../../types/Cards';
 import TaskToggle from '../TaskToggle/TaskToggle';
 const Card: React.FC<ICard> = ({ id, imageURL, title, isCompleted, isSelected, reward }) => {
   const stringReward = getScoreString(reward).toUpperCase();
-
+  // w-full sTablet:w-[336px] sLaptop:w-[288px]
   return (
-    <li className="w-full overflow-hidden rounded-[6px] shadow-base sTablet:w-[336px] sLaptop:w-[288px]">
+    <li className="overflow-hidden rounded-[6px] shadow-base">
       <div className="h-[194px] w-full bg-second-color">Image</div>
       {/* <img alt={title} src={imageURL} width={280} className="block" /> */}
       <div className="flex items-center justify-between bg-accent-color px-[20px] py-[16px]">

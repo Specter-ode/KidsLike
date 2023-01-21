@@ -36,7 +36,7 @@ const Modal: React.FC<IProps> = ({ onClose, children }) => {
   return createPortal(
     // <div onClick={onBackdropClose} className={s.overlay}>
     <div className="fixed top-0 left-0 z-50 flex h-[100vh] w-[100vw] items-center justify-center  bg-black/25">
-      <div className="absolute rounded-[6px]  bg-main-bg">
+      <div className="absolute max-h-[80vh]  overflow-scroll rounded-[6px] bg-main-bg">
         <>
           <button
             type="button"

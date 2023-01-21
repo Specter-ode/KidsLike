@@ -33,6 +33,11 @@ module.exports = {
         lessTablet: { max: '767px' },
         lessLaptop: { max: '1267px' },
       },
+      gridTemplateColumns: {
+        award: 'repeat(auto-fill, minmax(100px, 1fr))',
+        tablet: 'repeat(auto-fill, minmax(336px, 1fr))',
+        laptop: 'repeat(auto-fit, minmax(288px, 1fr))',
+      },
     },
   },
   plugins: [],

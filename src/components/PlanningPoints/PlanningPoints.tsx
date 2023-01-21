@@ -10,7 +10,7 @@ const PlanningPoints: React.FC = () => {
   return (
     <>
       <Container>
-        <div className="mb-[32px] mt-[20px] sTablet:my-[40px] sLaptop:flex sLaptop:items-center sLaptop:justify-between">
+        <div className="mb-[32px] sTablet:mb-[40px] sLaptop:flex sLaptop:items-center sLaptop:justify-between">
           <div className="text-center sTablet:mb-[20px] sTablet:flex sTablet:justify-center sLaptop:mb-0 sLaptop:items-center">
             <p className="text-[18px] font-normal tracking-widest text-main-color sTablet:mr-[10px] lessTablet:mb-[8px]">
               План на неделю:
@@ -21,7 +21,7 @@ const PlanningPoints: React.FC = () => {
           </div>
           <div className="hidden sTablet:mb-[20px] sTablet:flex sTablet:items-center sTablet:justify-center sLaptop:mb-0">
             <p className="text-[14px] font-medium text-second-color">Определены задачи на </p>
-            <p className="text-main-bg mx-[5px] flex h-[36px] w-[36px] items-center justify-center rounded-full bg-fourth-color text-[16px] font-semibold">
+            <p className="mx-[5px] flex h-[36px] w-[36px] items-center justify-center rounded-full bg-fourth-color text-[16px] font-semibold text-main-bg">
               {points}
             </p>
             <p className="text-[14px] font-medium text-second-color">{pointsString}</p>
@@ -38,7 +38,7 @@ const PlanningPoints: React.FC = () => {
         <div className="relative mx-auto flex max-w-[calc(100%-2rem)] justify-center">
           <div className="relative flex h-[36px] w-[36px] items-center justify-center rounded-full bg-fourth-color">
             <p className="absolute left-[-138px] text-[12px] font-medium text-second-color">Определены задачи на</p>
-            <p className="text-main-bg inline text-[16px] font-semibold">{points}</p>
+            <p className="inline text-[16px] font-semibold text-main-bg">{points}</p>
             <p className="absolute right-[-40px]  text-[12px] font-medium text-second-color">{pointsString}</p>
           </div>
           <div className="absolute right-[0] top-[-6px] sTablet:hidden">

@@ -15,7 +15,10 @@ const UserNav: React.FC = () => {
 
   const elements = links.map(({ id, to, text }) => (
     <li key={id} className="border-l-2 border-second-color px-[16px] first:border-none first:pl-0 last:pr-0">
-      <NavLink className="text-[12px] font-medium text-second-color hover:text-accent-color" to={to}>
+      <NavLink
+        className="text-[12px] font-medium text-second-color transition duration-300 hover:text-accent-color"
+        to={to}
+      >
         <p className="py-[3px]"> {text}</p>
       </NavLink>
     </li>
