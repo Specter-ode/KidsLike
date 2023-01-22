@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import CardList from '../../components/CardsList/CardsList';
 import Container from '../../components/Container/Container';
+import NoTasks from '../../components/NoTasks/NoTasks';
 import ProgressBar from '../../components/ProgressBar/ProgressBar';
 import WeekTabs from '../../components/WeekTabs/WeekTabs';
 import useWindowDimensions from '../../services/hooks/useDimensions';
@@ -71,32 +72,37 @@ const MainPage: React.FC = () => {
   const mobile = width < 768;
   const tablet = 767 < width && width < 1280;
   const laptop = width > 1279;
+  const yellowBlockLeftPadding = (width - 1280) / 2 + 48;
+  console.log('yellowBlockLeftPadding: ', yellowBlockLeftPadding);
   return (
-    <>
-      <main className="sLaptop:relative sLaptop:flex sLaptop:justify-center sLaptop:pr-[16px]">
-        <div className="sLaptop: absolute left-0 top-0 flex items-center  justify-center py-[20px] sTablet:bg-accent-color sTablet:py-[22px] sLaptop:w-[229px] sLaptop:items-start sLaptop:pt-[150px] sLaptop:pl-[48px]">
-          <p className="hidden text-[14px] font-normal text-main-color sTablet:mr-[28px] sTablet:block sLaptop:hidden">
-            Неделя: 21-27 декабря
-          </p>
-          <WeekTabs />
-        </div>
-        {mobile && (
-          <>
-            <Container>
-              <p className="mb-[20px] text-center ">Неделя: 21-27 декабря</p>
-              <div className="text-center ">
-                <p className="text-[12px] font-medium text-second-color ">Мои задачи:</p>
-                <p className="text-[12px]  font-bold tracking-widest text-main-color">ВТОРНИК, 22-12-2020</p>
-              </div>
-
-              <CardList cards={tasks} />
-            </Container>
-            <div className="fixed left-0 bottom-0 mx-auto w-full bg-second-bg-color">
-              <ProgressBar />
+    <main className="sLaptop:relative sLaptop:flex sLaptop:justify-center sLaptop:pr-[16px]">
+      {mobile && (
+        <>
+          <div className="flex items-center justify-center py-[20px]">
+            <WeekTabs />
+          </div>
+          <Container>
+            <p className="mb-[20px] text-center ">Неделя: 21-27 декабря</p>
+            <div className="text-center ">
+              <p className="text-[12px] font-medium text-second-color ">Мои задачи:</p>
+              <p className="text-[12px]  font-bold tracking-widest text-main-color">ВТОРНИК, 22-12-2020</p>
             </div>
-          </>
-        )}
-        {tablet && (
+            <div></div>
+            {/* <CardList cards={tasks} /> */}
+          </Container>
+          <NoTasks />
+          <div className="fixed left-0 bottom-0 mx-auto w-full bg-second-bg-color">
+            <ProgressBar />
+          </div>
+        </>
+      )}
+
+      {tablet && (
+        <>
+          <div className="flex items-center justify-center  bg-accent-color py-[22px]">
+            <p className="mr-[28px] text-[14px] font-normal text-main-color">Неделя: 21-27 декабря</p>
+            <WeekTabs />
+          </div>
           <Container>
             <div className="mt-[40px]">
               <ProgressBar />
@@ -105,30 +111,38 @@ const MainPage: React.FC = () => {
               <p className="mr-[20px] text-[12px] font-medium text-second-color ">Мои задачи:</p>
               <p className="text-[12px] font-bold tracking-widest text-main-color ">ВТОРНИК, 22-12-2020</p>
             </div>
-            <CardList cards={tasks} />
+            {/* <CardList cards={tasks} /> */}
           </Container>
-        )}
-        {laptop && (
-          <div className="ml-[336px] max-w-[1280px]">
-            <div className=" mx-left w-[928px] pt-[32px] pb-[40px]">
-              <div className="flex">
-                <div className="w-1/2">
-                  <p className="mb-[38px]">Неделя: 21-27 декабря</p>
-                  <div className="flex">
-                    <p className="mr-[20px] text-[12px] font-medium text-second-color ">Мои задачи:</p>
-                    <p className="text-[12px] font-bold tracking-widest text-main-color">ВТОРНИК, 22-12-2020</p>
-                  </div>
-                </div>
-                <div className="w-1/2 sLaptop:relative">
-                  <ProgressBar />
-                </div>
-              </div>
-              <CardList cards={tasks} />
+          <NoTasks />
+        </>
+      )}
+
+      {laptop && (
+        <div className="relative ml-[336px] max-w-[1280px]">
+          <div className="absolute left-[-336px] top-0 flex h-[calc(100%+58px)] w-[229px] items-start justify-center bg-accent-color pl-[49px] pt-[150px]">
+            <div className="fixed">
+              <WeekTabs />
             </div>
           </div>
-        )}
-      </main>
-    </>
+          <div className=" mx-left w-[928px] pt-[32px] pb-[40px]">
+            <div className="flex">
+              <div className="w-1/2">
+                <p className="mb-[38px]">Неделя: 21-27 декабря</p>
+                <div className="flex">
+                  <p className="mr-[20px] text-[12px] font-medium text-second-color ">Мои задачи:</p>
+                  <p className="text-[12px] font-bold tracking-widest text-main-color">ВТОРНИК, 22-12-2020</p>
+                </div>
+              </div>
+              <div className="w-1/2 sLaptop:relative">
+                <ProgressBar />
+              </div>
+            </div>
+            {/* <CardList cards={tasks} /> */}
+            <NoTasks />
+          </div>
+        </div>
+      )}
+    </main>
   );
 };
 

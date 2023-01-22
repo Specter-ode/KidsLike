@@ -11,7 +11,7 @@ const Header: React.FC = () => {
   return (
     <header className="shadow-header">
       <Container>
-        <div className="flex items-center py-6">
+        <div className="flex items-center py-[16px]">
           <Logo
             logoTextStyles="mr-2 text-base font-bold text-main-color hover:text-third-color transition duration-500"
             scale="scale-150"

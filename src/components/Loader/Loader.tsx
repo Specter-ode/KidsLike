@@ -4,9 +4,9 @@ interface IProps {
   size?: number;
 }
 
-const Loader: React.FC<IProps> = ({ size = 200 }) => {
+const Loader: React.FC<IProps> = ({ size = 250 }) => {
   return (
-    <div className="mt-[150px] flex items-center justify-center">
+    <div className="flex h-[calc(100vh-124px)] items-center justify-center">
       <Spinner color="#ff9406" loading size={size} aria-label="Loading Spinner" speedMultiplier={0.7} />
     </div>
   );
