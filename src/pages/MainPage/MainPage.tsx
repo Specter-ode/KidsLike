@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import AddTask from '../../components/AddTask/AddTask';
 import CardList from '../../components/CardsList/CardsList';
 import Container from '../../components/Container/Container';
+import Modal from '../../components/Modal/Modal';
 import NoTasks from '../../components/NoTasks/NoTasks';
 import ProgressBar from '../../components/ProgressBar/ProgressBar';
 import WeekTabs from '../../components/WeekTabs/WeekTabs';
@@ -67,15 +69,25 @@ export const data = [
 ];
 
 const MainPage: React.FC = () => {
+  const [isModal, setIsModal] = useState<boolean>(true);
   const [tasks, setTasks] = useState<ICard[]>(data);
   const { width } = useWindowDimensions();
   const mobile = width < 768;
   const tablet = 767 < width && width < 1280;
   const laptop = width > 1279;
-  const yellowBlockLeftPadding = (width - 1280) / 2 + 48;
-  console.log('yellowBlockLeftPadding: ', yellowBlockLeftPadding);
+
+  const handleModalClose = () => {
+    setIsModal(false);
+    console.log('закрытие модалки');
+  };
   return (
     <main className="sLaptop:relative sLaptop:flex sLaptop:justify-center sLaptop:pr-[16px]">
+      {isModal && (
+        <Modal onClose={handleModalClose}>
+          <AddTask />
+        </Modal>
+      )}
+
       {mobile && (
         <>
           <div className="flex items-center justify-center py-[20px]">
@@ -88,9 +100,9 @@ const MainPage: React.FC = () => {
               <p className="text-[12px]  font-bold tracking-widest text-main-color">ВТОРНИК, 22-12-2020</p>
             </div>
             <div></div>
-            {/* <CardList cards={tasks} /> */}
+            <CardList cards={tasks} />
           </Container>
-          <NoTasks />
+          {/* <NoTasks /> */}
           <div className="fixed left-0 bottom-0 mx-auto w-full bg-second-bg-color">
             <ProgressBar />
           </div>
@@ -111,9 +123,9 @@ const MainPage: React.FC = () => {
               <p className="mr-[20px] text-[12px] font-medium text-second-color ">Мои задачи:</p>
               <p className="text-[12px] font-bold tracking-widest text-main-color ">ВТОРНИК, 22-12-2020</p>
             </div>
-            {/* <CardList cards={tasks} /> */}
+            <CardList cards={tasks} />
           </Container>
-          <NoTasks />
+          {/* <NoTasks /> */}
         </>
       )}
 
@@ -137,8 +149,8 @@ const MainPage: React.FC = () => {
                 <ProgressBar />
               </div>
             </div>
-            {/* <CardList cards={tasks} /> */}
-            <NoTasks />
+            <CardList cards={tasks} />
+            {/* <NoTasks /> */}
           </div>
         </div>
       )}

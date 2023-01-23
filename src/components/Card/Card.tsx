@@ -1,14 +1,29 @@
+import { useState } from 'react';
 import { getScoreString } from '../../services/helpers/getScoreString';
 import { ICard } from '../../types/Cards';
+import BtnAddPlanToCurrentTask from '../BtnAddPlanToCurrentTask/BtnAddPlanToCurrentTask';
+import DaysSelection from '../DaysSelection/DaysSelection';
 import TaskToggle from '../TaskToggle/TaskToggle';
+
+const dayDetailsData = [
+  { day: 'Пн', isChecked: true, isDisabled: true },
+  { day: 'Вт', isChecked: false, isDisabled: true },
+  { day: 'Ср', isChecked: false, isDisabled: true },
+  { day: 'Чт', isChecked: true, isDisabled: false },
+  { day: 'Пт', isChecked: false, isDisabled: false },
+  { day: 'Сб', isChecked: false, isDisabled: false },
+  { day: 'Вс', isChecked: false, isDisabled: false },
+];
+
 const Card: React.FC<ICard> = ({ id, imageURL, title, isCompleted, isSelected, reward }) => {
   const stringReward = getScoreString(reward).toUpperCase();
-  // w-full sTablet:w-[336px] sLaptop:w-[288px]
+  // const [selectedDays, setSelectedDays] = useState<string[]>(daysList);
+
   return (
-    <li className="overflow-hidden rounded-[6px] shadow-base">
+    <li className="rounded-[6px] shadow-base">
       <div className="h-[194px] w-full bg-second-color">Image</div>
       {/* <img alt={title} src={imageURL} width={280} className="block" /> */}
-      <div className="flex items-center justify-between bg-accent-color px-[20px] py-[16px]">
+      <div className="relative flex items-center justify-between bg-accent-color px-[20px] py-[16px]">
         <div>
           <p className="mb-[4px] text-[12px] font-bold text-main-color">{title}</p>
           <p className="w-[60px] bg-third-color text-center text-[10px] font-medium text-main-bg">
@@ -32,6 +47,7 @@ const Card: React.FC<ICard> = ({ id, imageURL, title, isCompleted, isSelected, r
               />
             </svg>
           </div>
+          <BtnAddPlanToCurrentTask cardId={id} dayDetailsData={dayDetailsData} />
           <TaskToggle />
         </div>
       </div>

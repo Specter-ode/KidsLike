@@ -35,12 +35,12 @@ const Modal: React.FC<IProps> = ({ onClose, children }) => {
 
   return createPortal(
     // <div onClick={onBackdropClose} className={s.overlay}>
-    <div className="fixed top-0 left-0 z-50 flex h-[100vh] w-[100vw] items-center justify-center  bg-black/25">
-      <div className="absolute max-h-[80vh]  overflow-scroll rounded-[6px] bg-main-bg">
+    <div className="fixed top-0 left-0 z-[100] flex h-[100vh] w-[100vw] items-center justify-center  bg-black/30">
+      <div className="absolute max-h-[80vh]  overflow-auto rounded-[6px] bg-main-bg">
         <>
           <button
             type="button"
-            className="absolute right-[20px] top-[20px] flex items-center justify-center border-none bg-transparent"
+            className="absolute right-[20px] top-[20px] z-50 flex items-center justify-center border-none bg-transparent"
             onClick={onClose}
           >
             <svg

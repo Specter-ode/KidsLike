@@ -3,7 +3,7 @@ const AwardTitle: React.FC = () => {
     <h2 className="flex items-center text-[14px] font-bold tracking-widest">
       <span className="mr-[16px]">
         <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g clip-path="url(#clip0_15_101)">
+          <g clipPath="url(#clip0_15_101)">
             <path
               d="M14.5161 15.5654V26.0002H23.1002C24.2159 26.0002 25.1207 25.0958 25.1207 23.9795V15.5654H14.5161Z"
               fill="#FFBC33"
