@@ -11,7 +11,7 @@ import { ICard } from '../../types/Cards';
 
 export const data = [
   {
-    id: '1',
+    id: '31',
     imageURL: 'src/assets/img/bed-mobile.jpg',
     title: 'Застелить постель',
     isCompleted: true,
@@ -19,7 +19,7 @@ export const data = [
     reward: 1,
   },
   {
-    id: '2',
+    id: '32',
     imageURL: 'src/assets/img/cleaner-mobile.jpg',
     title: 'Застелить 222222222',
     isCompleted: true,
@@ -27,7 +27,7 @@ export const data = [
     reward: 21,
   },
   {
-    id: '3',
+    id: '33',
     imageURL: '../../assets/img/flowers-mobile.jpg',
     title: 'Застелить 3333333333',
     isCompleted: true,
@@ -35,7 +35,7 @@ export const data = [
     reward: 11,
   },
   {
-    id: '4',
+    id: '34',
     imageURL: '../../assets/img/teeth-mobile.jpg',
     title: 'Застелить 44444444',
     isCompleted: false,
@@ -43,7 +43,7 @@ export const data = [
     reward: 27,
   },
   {
-    id: '5',
+    id: '35',
     imageURL: '../../assets/img/sweep-mobile.jpg',
     title: 'Почистить зубы',
     isCompleted: true,
@@ -51,7 +51,7 @@ export const data = [
     reward: 22,
   },
   {
-    id: '6',
+    id: '36',
     imageURL: '../../assets/img/garbage-mobile.jpg',
     title: 'Выкинуть мусор',
     isCompleted: true,
@@ -59,7 +59,7 @@ export const data = [
     reward: 100,
   },
   {
-    id: '7',
+    id: '37',
     imageURL: '../../assets/img/bed-mobile.jpg',
     title: 'Полить цветы',
     isCompleted: true,
@@ -69,7 +69,7 @@ export const data = [
 ];
 
 const MainPage: React.FC = () => {
-  const [isModal, setIsModal] = useState<boolean>(true);
+  const [isModal, setIsModal] = useState<boolean>(false);
   const [tasks, setTasks] = useState<ICard[]>(data);
   const { width } = useWindowDimensions();
   const mobile = width < 768;

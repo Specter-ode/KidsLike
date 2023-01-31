@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { getScoreString } from '../../services/helpers/getScoreString';
 import { ICard } from '../../types/Cards';
 import BtnAddPlanToCurrentTask from '../BtnAddPlanToCurrentTask/BtnAddPlanToCurrentTask';
-import DaysSelection from '../DaysSelection/DaysSelection';
 import TaskToggle from '../TaskToggle/TaskToggle';
 
 const dayDetailsData = [

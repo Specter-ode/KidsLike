@@ -20,8 +20,8 @@ const BtnAddPlanToCurrentTask: React.FC<IProps> = ({ cardId, dayDetailsData }) =
         <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g filter="url(#filter0_d_10_1414)">
             <circle cx="17" cy="16" r="15" fill="white" />
-            <path d="M17 11V21" stroke="#8EC63F" stroke-width="2" strokeLinecap="round" />
-            <path d="M12 16L22 16" stroke="#8EC63F" stroke-width="2" strokeLinecap="round" />
+            <path d="M17 11V21" stroke="#8EC63F" strokeWidth="2" strokeLinecap="round" />
+            <path d="M12 16L22 16" stroke="#8EC63F" strokeWidth="2" strokeLinecap="round" />
           </g>
           <defs>
             <filter
@@ -31,9 +31,9 @@ const BtnAddPlanToCurrentTask: React.FC<IProps> = ({ cardId, dayDetailsData }) =
               width="34"
               height="34"
               filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
+              colorInterpolationFilters="sRGB"
             >
-              <feFlood flood-opacity="0" result="BackgroundImageFix" />
+              <feFlood floodOpacity="0" result="BackgroundImageFix" />
               <feColorMatrix
                 in="SourceAlpha"
                 type="matrix"
@@ -49,7 +49,7 @@ const BtnAddPlanToCurrentTask: React.FC<IProps> = ({ cardId, dayDetailsData }) =
           </defs>
         </svg>
       </button>
-      <DaysSelection onChange={handleChange} cardId={cardId} dayDetailsData={dayDetailsData} />
+      {/* <DaysSelection onChange={handleChange} cardId={cardId} dayDetailsData={dayDetailsData} /> */}
     </div>
   );
 };

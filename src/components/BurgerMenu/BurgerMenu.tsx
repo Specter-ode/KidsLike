@@ -3,7 +3,7 @@ import closeIcon from '../../assets/icons/sprite.svg';
 import UserNav from '../UserNav/UserNav';
 import { createPortal } from 'react-dom';
 
-const modalRoot = document.querySelector('#modal-root') as HTMLElement;
+const modalRoot = document.querySelector('#modal-root') as HTMLDivElement;
 
 interface IProps {
   onClose: () => void;

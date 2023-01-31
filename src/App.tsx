@@ -4,18 +4,27 @@ import PageRoutes from './routes/PageRoutes';
 import { ToastContainer, Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Footer from './components/Footer/Footer';
-import BurgerMenu from './components/BurgerMenu/BurgerMenu';
-import { useState } from 'react';
+import { useAppDispatch, useAppSelector } from './redux/hooks';
+import { getCurrentUser } from './redux/auth/auth-operations';
+import { useEffect } from 'react';
+import { setToken } from './services/api/auth';
 
 const App: React.FC = () => {
-  const [isBurgerMenu, setIsBurgerMenu] = useState(false);
-  const onClose = () => {
-    setIsBurgerMenu(false);
-  };
+  const dispatch = useAppDispatch();
+  const { isAuth, token } = useAppSelector(store => store.auth);
+
+  useEffect(() => {
+    console.log('token: ', token);
+    console.log('isAuth: ', isAuth);
+    console.log('!isAuth && token: ', !isAuth && token);
+    if (!isAuth && token) {
+      setToken(token);
+      dispatch(getCurrentUser());
+    }
+  }, [isAuth, token]);
   return (
     <div className="pb-[64px] sTablet:pb-[40px]">
       <Header />
-      {/* <BurgerMenu onClose={onClose} /> */}
       <PageRoutes />
       <Footer />
       <ToastContainer autoClose={2000} hideProgressBar position="top-center" theme="colored" transition={Zoom} />

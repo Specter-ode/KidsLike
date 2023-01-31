@@ -1,10 +1,45 @@
+import React, { useState } from 'react';
 import { ReactComponent as Google } from '../../assets/icons/googleLogo.svg';
+import { handleLogin, handleRegistration } from '../../redux/auth/auth-operations';
+import { useAppDispatch } from '../../redux/hooks';
 
 const { REACT_APP_BACKEND_URL } = process.env;
+interface IFormInitialState {
+  email: string;
+  password: string;
+}
+const initialState = {
+  email: '',
+  password: '',
+};
 
 const AuthForm: React.FC = () => {
+  const [state, setState] = useState<IFormInitialState>(initialState);
+  const [buttonType, setButtonType] = useState<string>('');
+
+  const dispatch = useAppDispatch();
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = e.target;
+    setState(prevState => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleAuth = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log('buttonType: ', buttonType);
+    if (buttonType === 'register') {
+      dispatch(handleRegistration(state));
+    } else {
+      dispatch(handleLogin(state));
+    }
+    setState(initialState);
+  };
+
+  const { email, password } = state;
   return (
-    <div className="sTablet:shadow-base sTablet:mx-auto sTablet:w-[394px] sTablet:px-[32px] sTablet:py-[40px]">
+    <div className="sTablet:mx-auto sTablet:w-[394px] sTablet:px-[32px] sTablet:py-[40px] sTablet:shadow-base">
       <div className="mb-[20px]">
         <h3 className="mb-[20px] text-xs font-normal text-second-color">
           Вы можете авторизоваться с помощью Google Account:
@@ -19,12 +54,15 @@ const AuthForm: React.FC = () => {
       <h3 className="mb-[20px] text-[12px] font-normal text-second-color">
         Или зайти с помощью e-mail и пароля, предварительно зарегистрировавшись:
       </h3>
-      <form>
+      <form onSubmit={handleAuth}>
         <div className="mb-[24px]">
           <label htmlFor="email" className="text-[12px] font-normal text-second-color">
             *Email:
           </label>
           <input
+            onChange={handleChange}
+            value={email}
+            name="email"
             placeholder="your@email.com"
             id="email"
             type="text"
@@ -36,6 +74,9 @@ const AuthForm: React.FC = () => {
             *Пароль:
           </label>
           <input
+            onChange={handleChange}
+            value={password}
+            name="password"
             placeholder="мининум 8 символов"
             id="password"
             type="text"
@@ -43,8 +84,24 @@ const AuthForm: React.FC = () => {
           />
         </div>
         <div className="flex justify-between">
-          <button className="btn">Войти</button>
-          <button className="btn">Зарегистрироваться</button>
+          <button
+            className="btn"
+            type="submit"
+            onClick={() => {
+              setButtonType('login');
+            }}
+          >
+            Войти
+          </button>
+          <button
+            className="btn"
+            type="submit"
+            onClick={() => {
+              setButtonType('register');
+            }}
+          >
+            Зарегистрироваться
+          </button>
         </div>
       </form>
     </div>

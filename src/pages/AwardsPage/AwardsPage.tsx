@@ -24,7 +24,7 @@ const dataGift = [
 ];
 
 const AwardsPage: React.FC = () => {
-  const [isModal, setIsModal] = useState<boolean>(true);
+  const [isModal, setIsModal] = useState<boolean>(false);
   const [awards, setAwards] = useState<IAward[]>(dataGift);
   const [userAwards, setUserAwards] = useState<ICard[]>(data);
   const { width } = useWindowDimensions();

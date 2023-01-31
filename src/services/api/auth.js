@@ -15,12 +15,13 @@ export const setToken = (token = '') => {
 
 export const register = async data => {
   const result = await instance.post('/auth/register', data);
+  setToken(result.data.token);
   return result.data;
 };
 
 export const login = async data => {
   const result = await instance.post('/auth/login', data);
-  setToken(result.data.accessToken);
+  setToken(result.data.token);
   return result.data;
 };
 
@@ -32,6 +33,7 @@ export const logout = async data => {
 
 export const getCurrentUser = async () => {
   const result = await instance.get('/user/info');
+  console.log('result: ', result);
   return result.data;
 };
 

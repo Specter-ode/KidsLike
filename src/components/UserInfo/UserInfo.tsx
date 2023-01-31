@@ -1,4 +1,14 @@
-const UserInfo = () => {
+import { handleLogout } from '../../redux/auth/auth-operations';
+import { useAppDispatch } from '../../redux/hooks';
+
+const UserInfo: React.FC = () => {
+  const dispatch = useAppDispatch();
+
+  const onLogout = () => {
+    console.log('logout');
+    dispatch(handleLogout());
+  };
+
   return (
     <>
       <div className="flex items-center">
@@ -8,7 +18,7 @@ const UserInfo = () => {
           </p>
           <p className=" text-[12px] font-bold text-main-bg sTablet:text-second-color">Email</p>
         </div>
-        <button className="pl-[16px] transition duration-500 hover:scale-125 ">
+        <button className="pl-[16px] transition duration-500 hover:scale-125" type="button" onClick={() => onLogout()}>
           <svg
             width="18"
             height="18"

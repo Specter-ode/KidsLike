@@ -14,8 +14,8 @@ interface IProps {
 const Modal: React.FC<IProps> = ({ onClose, children }) => {
   const isLoading = false;
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.code === 'Escape') {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.code === 'Escape') {
         onClose();
       }
     };
