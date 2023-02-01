@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 import closeIcon from '../../assets/icons/sprite.svg';
 import Loader from '../Loader/Loader';
 
-const modalRoot = document.querySelector('#modal-root') as HTMLElement;
+const modalRoot = document.getElementById('#modal-root') as HTMLElement;
 
 interface IProps {
   onClose: () => void;

@@ -1,7 +1,14 @@
 import AuthForm from '../../components/AuthForm/AuthForm';
 import Container from '../../components/Container/Container';
+import { items } from './items';
 
-const AuthPage: React.FC = () => {
+const initialState = {
+  name: '',
+  email: '',
+  password: '',
+};
+
+const RegisterPage: React.FC = () => {
   return (
     <main className="w-full py-[40px] sTablet:pb-[60px] sLaptop:pb-[100px]">
       <Container>
@@ -17,7 +24,7 @@ const AuthPage: React.FC = () => {
               Выполняй задания,
               <br /> получи классные призы!
             </h2>
-            <AuthForm />
+            <AuthForm items={items} btnTitle="Зарегистрироваться" initialState={initialState} />
           </div>
         </div>
       </Container>
@@ -25,4 +32,4 @@ const AuthPage: React.FC = () => {
   );
 };
 
-export default AuthPage;
+export default RegisterPage;

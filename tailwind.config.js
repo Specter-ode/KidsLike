@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const plugin = require('tailwindcss/plugin');
+
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
@@ -40,5 +42,14 @@ module.exports = {
       },
     },
   },
-  plugins: [require('@tailwindcss/forms')],
+  plugins: [
+    require('@tailwindcss/forms')({
+      strategy: 'class', // only generate classes
+    }),
+    // plugin(function ({ addVariant }) {
+    //   addVariant('focusnshown', 'input:not:focus:not:placeholder-shown:invalid');
+    //   addVariant('hocus', ['&:hover', '&:focus']);
+    //   addVariant('inverted-colors', '@media (inverted-colors: inverted)');
+    // }),
+  ],
 };

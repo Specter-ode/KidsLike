@@ -21,7 +21,7 @@ const App: React.FC = () => {
       setToken(token);
       dispatch(getCurrentUser());
     }
-  }, [isAuth, token]);
+  }, [dispatch, isAuth, token]);
   return (
     <div className="pb-[64px] sTablet:pb-[40px]">
       <Header />

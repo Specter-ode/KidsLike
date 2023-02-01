@@ -3,17 +3,62 @@
 @tailwind components;
 @tailwind utilities;
 
-.btn {
-  @apply flex w-[48%] items-center  justify-center rounded-[6px] border-2 border-transparent bg-accent-color py-[15px] text-[12px] font-normal text-white hover:border-accent-color hover:bg-white hover:text-accent-color focus:outline-none focus:ring focus:ring-black sTablet:w-[160px];
-}
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
-    'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Montserrat', 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen', 'Ubuntu', 'Cantarell',
+    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  border: 1px solid rgb(209 213 219);
+  -webkit-text-fill-color: #858598;
+  -webkit-box-shadow: 0 0 0px 20px #fff;
+  transition: background-color 1000s ease-in-out 0s;
+  color: #fff;
+}
+
+.btn {
+  @apply flex w-[48%] items-center  justify-center rounded-[6px] border-2 border-transparent bg-accent-color py-[15px] text-[14px] font-normal text-white hover:border-accent-color hover:bg-white hover:text-accent-color focus:outline-none focus:ring focus:ring-black sTablet:w-[160px];
+}
+
+.input {
+  @apply h-[51px] w-full rounded-[6px] border border-gray-300 px-[16px] text-[12px] font-medium text-second-color shadow-sm outline-none focus:border-[2px] focus:border-accent-color;
+}
+
+.label {
+  @apply absolute top-[15px] left-[16px] text-[14px] font-normal text-second-color;
+}
+
+.error {
+  @apply ml-[16px] block min-h-[18px] text-[12px] font-normal text-error-color;
+}
+
+.helper {
+  @apply absolute top-0 right-[12px] hidden translate-y-[-50%]  bg-main-bg  px-[4px] text-[12px] font-normal text-error-color;
+}
+
+.input:focus ~ .label,
+.input:not(:focus):valid ~ .label {
+  @apply top-0 left-[12px] translate-y-[-50%] bg-main-bg  px-[4px] text-[12px] font-normal;
+}
+
+.input:not(:focus):not(:placeholder-shown):invalid {
+  @apply border-[2px] border-error-color;
+}
+
+.input:not(:focus):not(:placeholder-shown):invalid ~ .label {
+  @apply top-0 left-[12px] translate-y-[-50%] bg-main-bg px-[4px] text-[12px] font-normal  text-error-color;
+}
+
+.input:not(:focus):not(:placeholder-shown):invalid ~ .error,
+.input:not(:focus):not(:placeholder-shown):invalid ~ .helper {
+  @apply block;
 }
