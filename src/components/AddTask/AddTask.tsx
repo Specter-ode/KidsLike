@@ -1,3 +1,5 @@
+import addtask from '../../assets/img/addTask.jpg';
+
 const AddTask: React.FC = () => {
   return (
     <div className="w-[280px] overflow-hidden">
@@ -18,11 +20,7 @@ const AddTask: React.FC = () => {
             />
           </svg>
         </button>
-        <img
-          className="h-[131px] w-full bg-main-bg"
-          // src={modalcat}
-          alt="Hi, please add task"
-        />
+        <img className="h-[131px] w-full bg-main-bg" src={addtask} alt="Hi, please add task" />
         <div className=" px-[28px] pt-[24px] pb-[32px]">
           <div className=" relative mb-[5px] ">
             <div className="absolute top-[5px]">

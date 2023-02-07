@@ -81,7 +81,7 @@ const MainPage: React.FC = () => {
     console.log('закрытие модалки');
   };
   return (
-    <main className="sLaptop:relative sLaptop:flex sLaptop:justify-center sLaptop:pr-[16px]">
+    <section className="sLaptop:relative sLaptop:flex sLaptop:justify-center sLaptop:pr-[16px]">
       {isModal && (
         <Modal onClose={handleModalClose}>
           <AddTask />
@@ -154,7 +154,7 @@ const MainPage: React.FC = () => {
           </div>
         </div>
       )}
-    </main>
+    </section>
   );
 };
 

@@ -2,14 +2,7 @@ import { configureStore, ThunkAction, Action, createAsyncThunk, combineReducers 
 import authReducer from './auth/auth-slice';
 
 import { persistReducer } from 'redux-persist';
-import {
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from 'redux-persist';
+import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import persistStore from 'redux-persist/es/persistStore';
 
@@ -39,19 +32,14 @@ export const store = configureStore({
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
-export type AppThunk<ReturnType = void> = ThunkAction<
-  ReturnType,
-  RootState,
-  unknown,
-  Action<string>
->;
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;
 
 export const createAppAsyncThunk = createAsyncThunk.withTypes<{
-  state: RootState
-  dispatch: AppDispatch
-  rejectValue: string
-  extra: { s: string; n: number }
-}>()
+  state: RootState;
+  dispatch: AppDispatch;
+  rejectValue: string;
+  extra: { s: string; n: number };
+}>();
 
 export const persistor = persistStore(store);
 // import { configureStore } from '@reduxjs/toolkit';

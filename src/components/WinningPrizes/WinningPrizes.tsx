@@ -1,6 +1,6 @@
 import React from 'react';
 import { IAward } from '../../types/Award';
-// import modalcat from '../../assets/img/hero/img-1.png' ;
+import imageURL from '../../assets/img/hero/img-1.png';
 
 interface IProps {
   awards: IAward[];
@@ -13,8 +13,8 @@ const WinningPrizes: React.FC<IProps> = ({ awards }) => {
         {
           <img
             className="lesTablet:w-[132px] absolute left-[50%] top-0 block -translate-x-[50%] sTablet:w-[200px]"
-            // src={modalcat}
-            alt="modalcat"
+            src={imageURL}
+            alt="Congratulations"
           />
         }
         <h2 className="mb-[24px] text-center text-[18px] font-semibold text-main-color sTablet:mb-[32px] sTablet:text-[28px] sLaptop:text-[32px] lessTablet:max-w-[240px]">

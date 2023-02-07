@@ -1,9 +1,7 @@
 import axios from 'axios';
 
-const { REACT_APP_BACKEND_URL = 'http://localhost:4000/api' } = process.env;
-console.log('REACT_APP_BACKEND_URL: ', REACT_APP_BACKEND_URL);
 const instance = axios.create({
-  baseURL: REACT_APP_BACKEND_URL,
+  baseURL: 'https://kidslike-v1-backend.goit.global',
 });
 
 export const setToken = (token = '') => {
@@ -14,26 +12,29 @@ export const setToken = (token = '') => {
 };
 
 export const register = async data => {
-  const result = await instance.post('/auth/register', data);
-  setToken(result.data.token);
-  return result.data;
+  await instance.post('/auth/register', data);
 };
 
 export const login = async data => {
   const result = await instance.post('/auth/login', data);
-  setToken(result.data.token);
+  setToken(result.data.accessToken);
   return result.data;
 };
 
-export const logout = async data => {
-  const result = await instance.get('/auth/logout', data);
+export const logout = async () => {
+  const result = await instance.post('/auth/logout');
   setToken('');
   return result.data;
 };
 
+export const refresh = async data => {
+  const result = await instance.post('/auth/refresh', data);
+  setToken(result.data.accessToken);
+  return result.data;
+};
+
 export const getCurrentUser = async () => {
-  const result = await instance.get('/user/info');
-  console.log('result: ', result);
+  const result = await instance.get('/user');
   return result.data;
 };
 

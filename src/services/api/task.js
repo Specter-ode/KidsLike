@@ -1,57 +1,41 @@
 import instance from './auth';
 
-export const addTask = async newTask => {
-  const { data } = await instance.patch(`/task/${newTask}`);
-  return data;
-};
-// {
-// title: string
-// reward: integer
-// file: string($binary) Image file
-// }
-// ===========================================================================
-export const getTaskActiveStatus = async taskData => {
-  const { data } = await instance.patch('/task/active', taskData);
-  return data;
+export const getTasks = async () => {
+  const result = await instance.get('/task');
+  return result.data;
 };
 
-// {
-//   "tasks": [
-//     {
-//       "taskId": "507f1f77bcf86cd799439011",
-//       "days": [
-//         {
-//           "date": "2020-12-28",
-//           "isActive": false,
-//           "isCompleted": false
-//         },
-//         {
-//           "date": "2020-12-29",
-//           "isActive": false,
-//           "isCompleted": false
-//         },..............
-// ===========================================================================
-export const getTaskActiveStatusById = async (taskId, days) => {
-  const { data } = await instance.patch(`/task/single-active/${taskId}`, days);
-  return data;
+export const getFinishedTasks = async childId => {
+  const result = await instance.get(`/task/finished/${childId}`);
+  return result.data;
 };
-// {
-//   "days": [
-//     true,
-//     true,
-//     false,
-//     true,
-//     false,
-//     false,
-//     false
-//   ]
-// }
 
-// ===========================================================================
-export const switchTaskCompleteStatus = async (taskId, date) => {
-  const { data } = await instance.delete(`/task/switch/${taskId}`, date);
-  return data;
+export const addTask = async (data, childId) => {
+  const result = await instance.post(`/task/${childId}`, data);
+  return result.data;
 };
-// {
-//   "date": "2020-12-31"
-// }
+
+export const changeTask = async (data, taskId) => {
+  const result = await instance.patch(`/task/${taskId}`, data);
+  return result.data;
+};
+
+export const removeTask = async taskId => {
+  const result = await instance.delete(`/task/${taskId}`);
+  return result.data;
+};
+
+export const confirmTask = async (date, taskId) => {
+  const result = await instance.patch(`/task/confirm/${taskId}`, date);
+  return result.data;
+};
+
+export const cancelTask = async (date, taskId) => {
+  const result = await instance.patch(`/task/cancel/${taskId}`, date);
+  return result.data;
+};
+
+export const resetTask = async (date, taskId) => {
+  const result = await instance.patch(`/task/reset/${taskId}`, date);
+  return result.data;
+};

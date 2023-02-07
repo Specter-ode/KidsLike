@@ -28,7 +28,7 @@
     "noImplicitReturns": true,                        /* Enable error reporting for codepaths that do not explicitly return in a function. */
   },
   "include": [
-    "src", "src/custom.d.ts"
+    "src", "src/types/custom.d.ts"
   ],
   "exclude": [
     "node_modules",

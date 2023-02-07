@@ -9,12 +9,12 @@ const PlanningPage: React.FC = () => {
   const [cards, setCards] = useState<ICard[]>(data);
 
   return (
-    <main className="py-[20px] sTablet:py-[40px] sLaptop:pt-[32px]">
+    <section className="py-[20px] sTablet:py-[40px] sLaptop:pt-[32px]">
       <PlanningPoints />
       <Container>
         <CardList cards={cards} />
       </Container>
-    </main>
+    </section>
   );
 };
 

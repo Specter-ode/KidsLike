@@ -21,7 +21,7 @@ const Card: React.FC<ICard> = ({ id, imageURL, title, isCompleted, isSelected, r
   return (
     <li className="rounded-[6px] shadow-base">
       <div className="h-[194px] w-full bg-second-color">Image</div>
-      {/* <img alt={title} src={imageURL} width={280} className="block" /> */}
+      <img alt={title} src={imageURL} width={280} className="block" />
       <div className="relative flex items-center justify-between bg-accent-color px-[20px] py-[16px]">
         <div>
           <p className="mb-[4px] text-[12px] font-bold text-main-color">{title}</p>

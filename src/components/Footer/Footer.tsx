@@ -1,4 +1,4 @@
-// import ps from '../../assets/img/hero/img-2.png';
+import imageURL from '../../assets/img/hero/img-2.png';
 import Logo from '../Logo/Logo';
 
 const Footer: React.FC = () => {
@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
         <p className="ml-3 border-l-2 border-line-color pl-3 text-xs font-normal text-second-color">2023</p>
       </div>
       <p className="sLaptop:hidden">IMAGES</p>
-      {/* <img className="w-full" src={ps} alt="game" width={320} /> */}
+      <img className="w-[280px]" src={imageURL} alt="game" width={320} />
     </footer>
   );
 };

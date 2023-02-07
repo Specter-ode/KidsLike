@@ -38,7 +38,7 @@ const AwardsPage: React.FC = () => {
   };
 
   return (
-    <main className="py-[20px] sTablet:py-[40px] sLaptop:pt-[32px]">
+    <section className="py-[20px] sTablet:py-[40px] sLaptop:pt-[32px]">
       {mobile && (
         <>
           <Container>
@@ -75,7 +75,7 @@ const AwardsPage: React.FC = () => {
           <WinningPrizes awards={awards} />
         </Modal>
       )}
-    </main>
+    </section>
   );
 };
 

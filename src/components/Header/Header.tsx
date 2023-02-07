@@ -11,7 +11,7 @@ import UserNav from '../UserNav/UserNav';
 const Header: React.FC = () => {
   const [isBurgerMenu, setIsBurgerMenu] = useState(false);
   const { width } = useWindowDimensions();
-  const isAuth = true;
+  const isAuth = false;
   const onClose = () => {
     setIsBurgerMenu(false);
   };
@@ -23,72 +23,70 @@ const Header: React.FC = () => {
             logoTextStyles="mr-2 text-base font-bold text-main-color hover:text-third-color transition duration-500"
             scale="scale-150"
           />
-          {isAuth ? (
+          {/* {isAuth ? (
+            <> */}
+          {width < 768 && (
             <>
-              {width < 768 && (
-                <>
-                  <Balance />
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setIsBurgerMenu(true);
-                    }}
+              <Balance />
+              <button
+                type="button"
+                onClick={() => {
+                  setIsBurgerMenu(true);
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="h-[32px] w-[32px]  stroke-second-color hover:stroke-accent-color focus:stroke-accent-color "
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+              </button>
+            </>
+          )}
+
+          {width > 767 && (
+            <div className="ml-[40px] flex w-full items-center justify-between sLaptop:ml-[130px]">
+              <Balance />
+              <div className="flex items-center">
+                <button
+                  className="sLaptop:hidden"
+                  type="button"
+                  onClick={() => {
+                    setIsBurgerMenu(true);
+                  }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="h-[32px] w-[32px]  stroke-second-color hover:stroke-accent-color focus:stroke-accent-color "
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="h-[32px] w-[32px]  stroke-second-color hover:stroke-accent-color focus:stroke-accent-color "
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                      />
-                    </svg>
-                  </button>
-                </>
-              )}
-
-              {width > 767 && (
-                <div className="ml-[40px] flex w-full items-center justify-between sLaptop:ml-[130px]">
-                  <Balance />
-                  <div className="flex items-center">
-                    <button
-                      className="sLaptop:hidden"
-                      type="button"
-                      onClick={() => {
-                        setIsBurgerMenu(true);
-                      }}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="h-[32px] w-[32px]  stroke-second-color hover:stroke-accent-color focus:stroke-accent-color "
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                        />
-                      </svg>
-                    </button>
-                    <div className="hidden sLaptop:block">
-                      <UserNav />
-                    </div>
-                    <div className="ml-[32px] sLaptop:ml-[40px]">
-                      <UserInfo />
-                    </div>
-                  </div>
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                    />
+                  </svg>
+                </button>
+                <div className="hidden sLaptop:block">
+                  <UserNav />
                 </div>
-              )}
+                {isAuth && (
+                  <div className="ml-[32px] sLaptop:ml-[40px]">
+                    <UserInfo />
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
 
-              {/* <div className="flex items-center justify-between">
+          {/* <div className="flex items-center justify-between">
                 <button className="sLaptop:hidden">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -109,12 +107,12 @@ const Header: React.FC = () => {
                   <UserNav />
                 </div>
               </div> */}
-            </>
+          {/* </>
           ) : (
             <Link to="/auth" className="ml-auto flex items-center text-xs font-medium text-main-color">
               Авторизация
             </Link>
-          )}
+          )} */}
         </div>
         {isBurgerMenu && <BurgerMenu onClose={onClose} />}
       </Container>
