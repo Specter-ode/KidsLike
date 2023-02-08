@@ -1,6 +1,6 @@
 import { nanoid } from '@reduxjs/toolkit';
 import React, { useState } from 'react';
-import { ReactComponent as Google } from '../../assets/icons/googleLogo.svg';
+import sprite from '../../assets/icons/sprite.svg';
 import { handleLogin } from '../../redux/auth/auth-operations';
 import { useAppDispatch } from '../../redux/hooks';
 import Button from '../Button/Button';
@@ -52,7 +52,9 @@ const RegisterForm: React.FC = () => {
           href={`${REACT_APP_BACKEND_URL}/auth/google`}
           className=" flex h-[42px] w-[48%] items-center justify-center rounded-[6px] border-gray-300 shadow-base hover:bg-accent-color sTablet:w-[160px] "
         >
-          <Google className="w-[80px] hover:bg-accent-color" />
+          <svg width="85" height="20">
+            <use href={sprite + '#google'}></use>
+          </svg>
         </a>
       </div>
       <h3 className="mb-[20px] text-[12px] font-normal text-second-color">
@@ -60,7 +62,6 @@ const RegisterForm: React.FC = () => {
       </h3>
       <form onSubmit={handleAuth}>
         <FormTextField
-          key={nanoid()}
           onChange={handleChange}
           value={email}
           name="email"
@@ -72,7 +73,6 @@ const RegisterForm: React.FC = () => {
           label="Электронная почта"
         />
         <FormTextField
-          key={nanoid()}
           onChange={handleChange}
           value={password}
           name="password"
@@ -83,8 +83,8 @@ const RegisterForm: React.FC = () => {
           title="Пароль должен содержать от 8 до 40 символов."
           label="Пароль"
         />
-        <div className="flex justify-between">
-          <Button title="Войти" />
+        <div className="flex justify-center">
+          <Button title="Войти" width="100%" />
         </div>
       </form>
     </div>

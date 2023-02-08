@@ -1,6 +1,6 @@
 import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getUser } from '../auth/auth-operations';
-import { addChild } from './info-operations';
+import { getUser, handleLogin } from '../auth/auth-operations';
+import { addChild, addTask } from './info-operations';
 import { IChild, IInfoState, IResponseError } from './info-types';
 
 const initialState: IInfoState = {
@@ -9,18 +9,26 @@ const initialState: IInfoState = {
   error: null,
 };
 
-const authSlice = createSlice({
+const infoSlice = createSlice({
   name: 'info',
   initialState,
   reducers: {},
   extraReducers: builder => {
     builder
+      .addCase(handleLogin.fulfilled, (store, { payload }) => {
+        store.children = { ...payload.data.children };
+        store.isLoading = false;
+      })
       .addCase(getUser.fulfilled, (store, { payload }) => {
         store.children = { ...payload.children };
         store.isLoading = false;
       })
       .addCase(addChild.fulfilled, (store, { payload }) => {
         store.children = [...store.children, payload];
+        store.isLoading = false;
+      })
+
+      .addCase(addTask.fulfilled, (store, { payload }) => {
         store.isLoading = false;
       })
 
@@ -43,4 +51,4 @@ function Loading(action: AnyAction) {
 }
 
 // export const { updateModalStatus, setAccessToken, setRefreshToken } = authSlice.actions;
-export default authSlice.reducer;
+export default infoSlice.reducer;

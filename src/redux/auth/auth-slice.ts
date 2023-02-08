@@ -60,6 +60,7 @@ const authSlice = createSlice({
         store.username = payload.username;
         store.id = payload.id;
         store.isLoading = false;
+        store.isAuth = true;
       })
 
       .addCase(handleLogout.fulfilled, () => ({ ...initialState }))

@@ -1,4 +1,3 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
 import * as api from '../../services/api/auth';
 import { toast } from 'react-toastify';
 import {
@@ -11,14 +10,20 @@ import {
   IUserResponse,
 } from './auth-types';
 import { AxiosError } from 'axios';
+import { RootState } from '../store';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { useNavigate } from 'react-router-dom';
 
 export const handleRegistration = createAsyncThunk<void, IRegisterData, { rejectValue: IResponseError }>(
   'auth/register',
   async (data, { rejectWithValue }) => {
+    console.log('handleRegistration data: ', data);
     try {
       const result = await api.register(data);
       console.log('handleRegistration result: ', result);
       toast.success(`Registration is success.`);
+      const navigate = useNavigate();
+      navigate('/login');
       return result;
     } catch (error) {
       const err = error as AxiosError<IResponseError>;
@@ -64,7 +69,7 @@ export const handleLogout = createAsyncThunk<undefined, undefined, { rejectValue
 );
 
 export const handleRefresh = createAsyncThunk<IRefreshResponse, IRefreshData, { rejectValue: IResponseError }>(
-  'auth/logout',
+  'auth/refresh',
   async (_, { rejectWithValue }) => {
     try {
       const result = await api.refresh();
@@ -76,8 +81,8 @@ export const handleRefresh = createAsyncThunk<IRefreshResponse, IRefreshData, { 
   }
 );
 
-export const getUser = createAsyncThunk<IUserResponse, undefined, { rejectValue: IResponseError }>(
-  'getCurrentUser',
+export const getUser = createAsyncThunk<IUserResponse, undefined, { rejectValue: IResponseError; state: RootState }>(
+  'auth/getUser',
   async (_, { rejectWithValue }) => {
     try {
       const result = await api.getCurrentUser();
@@ -85,7 +90,7 @@ export const getUser = createAsyncThunk<IUserResponse, undefined, { rejectValue:
       return result;
     } catch (error) {
       toast.error(`Sorry, getUser failed. Try again.`);
-      // return rejectWithValue(error);
+      return rejectWithValue(error as IResponseError);
     }
   }
   // {

@@ -3,6 +3,7 @@ import { getScoreString } from '../../services/helpers/getScoreString';
 import { ICard } from '../../types/Cards';
 import BtnAddPlanToCurrentTask from '../BtnAddPlanToCurrentTask/BtnAddPlanToCurrentTask';
 import TaskToggle from '../TaskToggle/TaskToggle';
+import sprite from '../../assets/icons/sprite.svg';
 
 const dayDetailsData = [
   { day: 'Пн', isChecked: true, isDisabled: true },
@@ -19,33 +20,34 @@ const Card: React.FC<ICard> = ({ id, imageURL, title, isCompleted, isSelected, r
   // const [selectedDays, setSelectedDays] = useState<string[]>(daysList);
 
   return (
-    <li className="rounded-[6px] shadow-base">
-      <div className="h-[194px] w-full bg-second-color">Image</div>
-      <img alt={title} src={imageURL} width={280} className="block" />
+    <li className="overflow-hidden rounded-[6px] shadow-base">
+      <div className="h-[194px] w-full bg-second-color">
+        <img alt={title} src={imageURL} width={280} className="block" />
+      </div>
+
       <div className="relative flex items-center justify-between bg-accent-color px-[20px] py-[16px]">
         <div>
           <p className="mb-[4px] text-[12px] font-bold text-main-color">{title}</p>
-          <p className="w-[60px] bg-third-color text-center text-[10px] font-medium text-main-bg">
+          <p className="inline rounded-[3px] bg-third-color py-[3px] px-[10px] text-center text-[10px] font-medium text-main-bg">
             <>
               {reward} {stringReward}
             </>
           </p>
         </div>
         <div>
-          <div className="flex h-[30px] w-[30px] items-center justify-center rounded-full bg-error-color">
-            <p className="text-[16px] font-semibold text-main-bg">!</p>
-          </div>
-          <div className="flex h-[30px] w-[30px] items-center justify-center rounded-full bg-fourth-color">
-            <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M1 4.85185L4.42857 9L11 1"
-                stroke="white"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
+          <button type="button" className="flex h-[30px] w-[30px] items-center justify-center rounded-full border-none">
+            <svg className="fill-current" width={30} height={30}>
+              <use href={sprite + '#attention'}></use>
             </svg>
-          </div>
+          </button>
+          <button
+            type="button"
+            className="flex h-[30px] w-[30px] items-center justify-center rounded-full bg-fourth-color"
+          >
+            <svg className="fill-current" width={30} height={30}>
+              <use href={sprite + '#yes'}></use>
+            </svg>
+          </button>
           <BtnAddPlanToCurrentTask cardId={id} dayDetailsData={dayDetailsData} />
           <TaskToggle />
         </div>

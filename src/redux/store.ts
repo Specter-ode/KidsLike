@@ -1,6 +1,6 @@
 import { configureStore, ThunkAction, Action, createAsyncThunk, combineReducers } from '@reduxjs/toolkit';
 import authReducer from './auth/auth-slice';
-
+import infoReducer from './info/info-slice';
 import { persistReducer } from 'redux-persist';
 import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -9,14 +9,13 @@ import persistStore from 'redux-persist/es/persistStore';
 const authPersistConfig = {
   key: 'auth',
   storage,
-  whitelist: ['token'],
+  whitelist: ['accessToken', 'sid'],
 };
 const persistedAuth = persistReducer(authPersistConfig, authReducer);
 
 const rootReducer = combineReducers({
   auth: persistedAuth,
-  // task: taskReducer,
-  // gift: giftReducer,
+  info: infoReducer,
 });
 
 export const store = configureStore({
@@ -42,16 +41,3 @@ export const createAppAsyncThunk = createAsyncThunk.withTypes<{
 }>();
 
 export const persistor = persistStore(store);
-// import { configureStore } from '@reduxjs/toolkit';
-// import todoReducer from './todoSlice';
-
-// const store = configureStore({
-//   reducer: {
-//     todos: todoReducer,
-//   },
-// });
-
-// export default store;
-
-// export type RootState = ReturnType<typeof store.getState>;
-// export type AppDispatch = typeof store.dispatch;

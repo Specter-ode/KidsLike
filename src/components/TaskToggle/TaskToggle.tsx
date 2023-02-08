@@ -1,26 +1,24 @@
 import { useState } from 'react';
 import DotedLoader from '../Loader/DotedLoader';
+import sprite from '../../assets/icons/sprite.svg';
 
 const TaskToggle: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
-
+  const [isCompleted, setIsCompleted] = useState(false);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { checked } = e.target;
+    setIsCompleted(checked);
+  };
   return (
     <>
       <label className="relative inline-flex cursor-pointer items-center">
-        <input type="checkbox" value="" className="peer sr-only" checked={false} />
-        <div className="peer h-[24px] w-[48px] rounded-full bg-error-color after:absolute after:top-[2px] after:left-[3px] after:h-[20px] after:w-[20px] after:rounded-full after:border after:border-gray-300 after:bg-main-bg after:transition-all after:content-[''] peer-checked:bg-fourth-color peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:ring-2 peer-focus:ring-gray-300 ">
-          <p className="absolute right-[12px] text-[16px] font-semibold text-main-bg">!</p>
-          <div className="absolute left-[8px] top-[8px]">
-            <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M1 4.85185L4.42857 9L11 1"
-                stroke="white"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </div>
+        <input type="checkbox" checked={isCompleted} className="peer sr-only" onChange={handleChange} />
+
+        <div className="peer h-[24px] w-[48px] rounded-full bg-error-color after:absolute after:top-[2px] after:left-[2px] after:h-[20px] after:w-[20px] after:rounded-full after:border after:border-red-700 after:bg-main-bg after:transition-all after:content-[''] peer-checked:bg-fourth-color peer-checked:after:translate-x-[24px] peer-checked:after:border-green-700">
+          <p className="absolute right-[10px] top-0 text-[16px] font-bold text-main-bg">!</p>
+          <svg className="absolute top-[7px] left-[7px]" width={12} height={10}>
+            <use href={sprite + '#yes-checked'}></use>
+          </svg>
         </div>
         {isLoading && (
           <div className="absolute top-[24px] left-0 z-10">

@@ -1,6 +1,5 @@
-import { nanoid } from '@reduxjs/toolkit';
 import React, { useState } from 'react';
-import { ReactComponent as Google } from '../../assets/icons/googleLogo.svg';
+import sprite from '../../assets/icons/sprite.svg';
 import { handleRegistration } from '../../redux/auth/auth-operations';
 import { useAppDispatch } from '../../redux/hooks';
 import Button from '../Button/Button';
@@ -8,13 +7,13 @@ import FormTextField from '../FormTextField/FormTextField';
 const { REACT_APP_BACKEND_URL } = process.env;
 
 interface IState {
-  name: string;
+  username: string;
   email: string;
   password: string;
 }
 
 const initialState = {
-  name: '',
+  username: '',
   email: '',
   password: '',
 };
@@ -44,7 +43,7 @@ const RegisterForm: React.FC = () => {
     setState(initialState);
   };
 
-  const { name, email, password } = state;
+  const { username, email, password } = state;
 
   return (
     <div className="sTablet:mx-auto sTablet:w-[394px] sTablet:px-[32px] sTablet:py-[40px] sTablet:shadow-base ">
@@ -54,28 +53,26 @@ const RegisterForm: React.FC = () => {
         </h3>
         <a
           href={`${REACT_APP_BACKEND_URL}/auth/google`}
-          className=" flex h-[42px] w-[48%] items-center justify-center rounded-[6px] border-gray-300 shadow-base hover:bg-accent-color sTablet:w-[160px] "
+          className=" flex h-[42px] w-[48%] items-center justify-center rounded-[6px] border-gray-300 shadow-base transition duration-500 hover:bg-accent-color sTablet:w-[160px] "
         >
-          <Google className="w-[80px] hover:bg-accent-color" />
+          <svg width="85" height="20">
+            <use href={sprite + '#google'}></use>
+          </svg>
         </a>
       </div>
-      <h3 className="mb-[20px] text-[12px] font-normal text-second-color">
-        Или зайти с помощью e-mail и пароля, предварительно зарегистрировавшись:
-      </h3>
+      <h3 className="mb-[20px] text-[12px] font-normal text-second-color">Или зарегистрироваться с помощью формы:</h3>
       <form onSubmit={handleAuth}>
         <FormTextField
-          key={nanoid()}
           onChange={handleChange}
-          value={name}
-          name="name"
+          value={username}
+          name="username"
           type="text"
-          error={validationErrors.name}
+          error={validationErrors.username}
           helper="от 3 до 40 символов"
           title="Имя пользователя должно содержать от 3 до 40 символов."
           label="Имя пользователя"
         />
         <FormTextField
-          key={nanoid()}
           onChange={handleChange}
           value={email}
           name="email"
@@ -87,7 +84,6 @@ const RegisterForm: React.FC = () => {
           label="Электронная почта"
         />
         <FormTextField
-          key={nanoid()}
           onChange={handleChange}
           value={password}
           name="password"
@@ -98,9 +94,7 @@ const RegisterForm: React.FC = () => {
           title="Пароль должен содержать от 8 до 40 символов."
           label="Пароль"
         />
-        <div className="flex justify-between">
-          <Button title="Регистрация" />
-        </div>
+        <Button title="Регистрация" width="100%" />
       </form>
     </div>
   );

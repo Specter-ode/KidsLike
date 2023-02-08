@@ -1,7 +1,7 @@
 import { IChild } from '../info/info-types';
 
 export interface IRegisterData {
-  name: string;
+  username: string;
   email: string;
   password: string;
 }

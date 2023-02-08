@@ -61,3 +61,12 @@ export interface INewChildData {
   name: string;
   gender: 'male' | 'female';
 }
+
+export interface ITaskData {
+  data: {
+    name: string;
+    reward: number;
+    daysToComplete: number;
+  };
+  childId: string;
+}

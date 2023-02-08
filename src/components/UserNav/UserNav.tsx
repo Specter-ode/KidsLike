@@ -12,8 +12,7 @@ import { links } from './links';
 // }
 
 const UserNav: React.FC = () => {
-  // const { isAuth } = useAppSelector(store => store.auth);
-  const isAuth = false;
+  const isAuth = useAppSelector(store => store.auth.isAuth);
   const elements = links
     .filter(el => el.auth === isAuth)
     .map(({ id, to, text }) => {

@@ -1,17 +1,18 @@
 import { Link } from 'react-router-dom';
-import { ReactComponent as LogoSVG } from '../../assets/icons/logo.svg';
+import sprite from '../../assets/icons/sprite.svg';
 
 interface IProps {
   logoTextStyles: string;
   logoIconStyles?: string;
-  scale: string;
 }
 
-const Logo: React.FC<IProps> = ({ scale, logoTextStyles, logoIconStyles }) => {
+const Logo: React.FC<IProps> = ({ logoTextStyles, logoIconStyles }) => {
   return (
-    <Link to="/" className={`flex transition duration-500  hover:${scale}`}>
+    <Link to="/" className={`flex items-center transition duration-500 hover:scale-125`}>
       <p className={logoTextStyles}>KidsLike</p>
-      <LogoSVG className={logoIconStyles} />
+      <svg className={logoIconStyles} width={13} height={18}>
+        <use href={sprite + '#logo'}></use>
+      </svg>
     </Link>
   );
 };

@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import sprite from '../../assets/icons/sprite.svg';
+import { useAppSelector } from '../../redux/hooks';
 import useWindowDimensions from '../../services/hooks/useDimensions';
 import Balance from '../Balance/Balance';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
@@ -9,9 +10,9 @@ import UserInfo from '../UserInfo/UserInfo';
 import UserNav from '../UserNav/UserNav';
 
 const Header: React.FC = () => {
+  const isAuth = useAppSelector(store => store.auth.isAuth);
   const [isBurgerMenu, setIsBurgerMenu] = useState(false);
   const { width } = useWindowDimensions();
-  const isAuth = false;
   const onClose = () => {
     setIsBurgerMenu(false);
   };
@@ -19,30 +20,19 @@ const Header: React.FC = () => {
     <header className="shadow-header">
       <Container>
         <div className="flex items-center py-[16px] lessTablet:justify-between">
-          <Logo
-            logoTextStyles="mr-2 text-base font-bold text-main-color hover:text-third-color transition duration-500"
-            scale="scale-150"
-          />
-          {/* {isAuth ? (
-            <> */}
+          <Logo logoTextStyles="mr-2 text-base font-bold text-main-color hover:text-third-color transition duration-500" />
           {width < 768 && (
             <>
               <Balance />
               <button
+                className=" py-[5px] text-second-color outline-none hover:text-accent-color focus:border focus:text-accent-color"
                 type="button"
                 onClick={() => {
                   setIsBurgerMenu(true);
                 }}
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="h-[32px] w-[32px]  stroke-second-color hover:stroke-accent-color focus:stroke-accent-color "
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                <svg className="h-[14px] w-[22px] stroke-current transition duration-500 ">
+                  <use href={sprite + '#menu'} width={22} height={14}></use>
                 </svg>
               </button>
             </>
@@ -53,25 +43,14 @@ const Header: React.FC = () => {
               <Balance />
               <div className="flex items-center">
                 <button
-                  className="sLaptop:hidden"
+                  className="py-[5px] text-second-color outline-none hover:text-accent-color focus:border focus:text-accent-color sLaptop:hidden"
                   type="button"
                   onClick={() => {
                     setIsBurgerMenu(true);
                   }}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="h-[32px] w-[32px]  stroke-second-color hover:stroke-accent-color focus:stroke-accent-color "
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                    />
+                  <svg className="h-[14px] w-[22px] stroke-current transition duration-500 ">
+                    <use href={sprite + '#menu'} width={22} height={14}></use>
                   </svg>
                 </button>
                 <div className="hidden sLaptop:block">
@@ -85,34 +64,6 @@ const Header: React.FC = () => {
               </div>
             </div>
           )}
-
-          {/* <div className="flex items-center justify-between">
-                <button className="sLaptop:hidden">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="h-[32px] w-[32px]  stroke-second-color hover:stroke-accent-color focus:stroke-accent-color "
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                    />
-                  </svg>
-                </button>
-                <div className="hidden sLaptop:block">
-                  <UserNav />
-                </div>
-              </div> */}
-          {/* </>
-          ) : (
-            <Link to="/auth" className="ml-auto flex items-center text-xs font-medium text-main-color">
-              Авторизация
-            </Link>
-          )} */}
         </div>
         {isBurgerMenu && <BurgerMenu onClose={onClose} />}
       </Container>

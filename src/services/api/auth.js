@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'https://kidslike-v1-backend.goit.global',
+  baseURL: 'https://kidslike-backend.goit.global',
 });
 
 export const setToken = (token = '') => {

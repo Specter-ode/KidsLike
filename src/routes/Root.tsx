@@ -56,9 +56,30 @@ const Root = (
       />
     </Route>
     <Route element={<PrivateLayout />}>
-      <Route path="main" element={<MainPage />} />
-      <Route path="planning" element={<PlanningPage />} />
-      <Route path="awards" element={<AwardsPage />} />
+      <Route
+        path="main"
+        element={
+          <Suspense fallback={<Loader />}>
+            <MainPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="planning"
+        element={
+          <Suspense fallback={<Loader />}>
+            <PlanningPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="awards"
+        element={
+          <Suspense fallback={<Loader />}>
+            <AwardsPage />
+          </Suspense>
+        }
+      />
     </Route>
   </Route>
 );

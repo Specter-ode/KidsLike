@@ -1,5 +1,5 @@
 import UserInfo from '../UserInfo/UserInfo';
-import closeIcon from '../../assets/icons/sprite.svg';
+import sprite from '../../assets/icons/sprite.svg';
 import UserNav from '../UserNav/UserNav';
 import { createPortal } from 'react-dom';
 
@@ -18,15 +18,11 @@ const BurgerMenu: React.FC<IProps> = ({ onClose }) => {
           </div>
           <button
             type="button"
-            className="absolute right-[20px] top-[20px] z-50 flex items-center justify-center border-none bg-transparent"
+            className="absolute right-[20px] top-[20px] z-50 flex items-center justify-center border-none bg-transparent text-main-bg outline-none transition duration-500 hover:scale-125 hover:text-main-color focus:scale-125 focus:text-main-color"
             onClick={onClose}
           >
-            <svg
-              className="scale-125 stroke-main-bg transition duration-300 hover:stroke-accent-color focus:stroke-accent-color"
-              width={14}
-              height={14}
-            >
-              <use href={closeIcon + '#modal-close'}></use>
+            <svg className="fill-current" width={14} height={14}>
+              <use href={sprite + '#modal-close'}></use>
             </svg>
           </button>
         </div>
