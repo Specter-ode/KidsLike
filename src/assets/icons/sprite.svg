@@ -72,5 +72,12 @@
 <path fill="none" stroke="#fff" style="stroke: var(--color1, #fff)" stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.3704" d="M16 10.667v10.667"></path>
 <path fill="none" stroke="#fff" style="stroke: var(--color1, #fff)" stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2.3704" d="M10.667 16h10.667"></path>
 </symbol>
+<symbol id="unchecked" viewBox="0 0 32 32">
+<path fill="none" stroke="#A6ABB9" style="stroke: var(--color1, #A6ABB9)" stroke-linejoin="miter" stroke-linecap="butt" stroke-miterlimit="4" stroke-width="2.0" d="M31.2 16c0 8.395-6.805 15.2-15.2 15.2s-15.2-6.805-15.2-15.2c0-8.395 6.805-15.2 15.2-15.2s15.2 6.805 15.2 15.2z"></path>
+</symbol>
+<symbol id="checked" viewBox="0 0 32 32">
+<path fill="none" stroke="#ffbc33" style="stroke: var(--color2, #ffbc33)" stroke-linejoin="miter" stroke-linecap="butt" stroke-miterlimit="4" stroke-width="2.0" d="M31.2 16c0 8.395-6.805 15.2-15.2 15.2s-15.2-6.805-15.2-15.2c0-8.395 6.805-15.2 15.2-15.2s15.2 6.805 15.2 15.2z"></path>
+<path fill="#ffbc33" style="fill: var(--color2, #ffbc33)" d="M24 16c0 4.418-3.582 8-8 8s-8-3.582-8-8c0-4.418 3.582-8 8-8s8 3.582 8 8z"></path>
+</symbol>
 </defs>
 </svg>

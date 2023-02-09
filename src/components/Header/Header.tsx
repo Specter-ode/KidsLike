@@ -19,11 +19,11 @@ const Header: React.FC = () => {
   return (
     <header className="shadow-header">
       <Container>
-        <div className="flex items-center py-[16px] lessTablet:justify-between">
+        <div className="flex items-center justify-between py-[16px]">
           <Logo logoTextStyles="mr-2 text-base font-bold text-main-color hover:text-third-color transition duration-500" />
           {width < 768 && (
             <>
-              <Balance />
+              {isAuth && <Balance />}
               <button
                 className=" py-[5px] text-second-color outline-none hover:text-accent-color focus:border focus:text-accent-color"
                 type="button"
@@ -31,7 +31,7 @@ const Header: React.FC = () => {
                   setIsBurgerMenu(true);
                 }}
               >
-                <svg className="h-[14px] w-[22px] stroke-current transition duration-500 ">
+                <svg className="h-[14px] w-[22px] justify-end stroke-current transition duration-500 ">
                   <use href={sprite + '#menu'} width={22} height={14}></use>
                 </svg>
               </button>
@@ -39,8 +39,11 @@ const Header: React.FC = () => {
           )}
 
           {width > 767 && (
-            <div className="ml-[40px] flex w-full items-center justify-between sLaptop:ml-[130px]">
-              <Balance />
+            <div
+              className="ml-[40px] flex w-full items-center  sLaptop:ml-[130px]"
+              style={isAuth ? { justifyContent: 'space-between' } : { justifyContent: 'flex-end' }}
+            >
+              {isAuth && <Balance />}
               <div className="flex items-center">
                 <button
                   className="py-[5px] text-second-color outline-none hover:text-accent-color focus:border focus:text-accent-color sLaptop:hidden"

@@ -1,4 +1,3 @@
-import { nanoid } from '@reduxjs/toolkit';
 import React, { useState } from 'react';
 import sprite from '../../assets/icons/sprite.svg';
 import { handleLogin } from '../../redux/auth/auth-operations';

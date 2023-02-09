@@ -1,11 +1,15 @@
 import { useState } from 'react';
-import AddTask from '../../components/AddTask/AddTask';
+import AddBtn from '../../components/AddBtn/AddBtn';
+import AddChildForm from '../../components/AddChildForm/AddChildForm';
+import AddTaskForm from '../../components/AddTaskForm/AddTaskForm';
 import CardList from '../../components/CardsList/CardsList';
 import Container from '../../components/Container/Container';
+import KidsProfile from '../../components/KidsProfile/KidsProfile';
 import Modal from '../../components/Modal/Modal';
 import NoTasks from '../../components/NoTasks/NoTasks';
 import ProgressBar from '../../components/ProgressBar/ProgressBar';
 import WeekTabs from '../../components/WeekTabs/WeekTabs';
+import { useAppSelector } from '../../redux/hooks';
 import useWindowDimensions from '../../services/hooks/useDimensions';
 import { ICard } from '../../types/Cards';
 
@@ -69,28 +73,28 @@ export const data = [
 ];
 
 const MainPage: React.FC = () => {
+  const [currentChild, setCurrentChild] = useState<string>('');
   const [isModal, setIsModal] = useState<boolean>(false);
+  const [showAddChildForm, setShowAddChildForm] = useState<boolean>(false);
   const [tasks, setTasks] = useState<ICard[]>(data);
   const { width } = useWindowDimensions();
   const mobile = width < 768;
   const tablet = 767 < width && width < 1280;
   const laptop = width > 1279;
-
+  const children = useAppSelector(store => store.info.children);
   const handleModalClose = () => {
     setIsModal(false);
     console.log('закрытие модалки');
   };
+  const handleAddChildForm = () => {
+    setShowAddChildForm(true);
+  };
   return (
-    <section className="sLaptop:relative sLaptop:flex sLaptop:justify-center sLaptop:pr-[16px]">
-      {isModal && (
-        <Modal onClose={handleModalClose}>
-          <AddTask />
-        </Modal>
-      )}
-
+    <section className="mb-[20px] sTablet:mb-[40px] sLaptop:relative sLaptop:flex sLaptop:justify-center sLaptop:pr-[16px]">
       {mobile && (
         <>
-          <div className="flex items-center justify-center py-[20px]">
+          <div className="flex flex-col items-center justify-center py-[20px]">
+            <KidsProfile />
             <WeekTabs />
           </div>
           <Container>
@@ -111,14 +115,13 @@ const MainPage: React.FC = () => {
 
       {tablet && (
         <>
-          <div className="flex items-center justify-center  bg-accent-color py-[22px]">
+          <div className="mb-[40px] flex items-center  justify-center bg-accent-color py-[22px]">
             <p className="mr-[28px] text-[14px] font-normal text-main-color">Неделя: 21-27 декабря</p>
             <WeekTabs />
           </div>
           <Container>
-            <div className="mt-[40px]">
-              <ProgressBar />
-            </div>
+            <KidsProfile />
+            <ProgressBar />
             <div className="mt-[20px] flex justify-center">
               <p className="mr-[20px] text-[12px] font-medium text-second-color ">Мои задачи:</p>
               <p className="text-[12px] font-bold tracking-widest text-main-color ">ВТОРНИК, 22-12-2020</p>
@@ -153,6 +156,23 @@ const MainPage: React.FC = () => {
             {/* <NoTasks /> */}
           </div>
         </div>
+      )}
+      {isModal && (
+        <Modal onClose={handleModalClose}>
+          <AddTaskForm />
+        </Modal>
+      )}
+      {children.length < 1 && (
+        <Modal onClose={handleModalClose}>
+          <p>Нет данных о детях на вашем профиле</p>
+          <p>Необходимо добавить информацию</p>
+          <AddChildForm />
+        </Modal>
+      )}
+      {showAddChildForm && (
+        <Modal onClose={handleAddChildForm}>
+          <AddChildForm />
+        </Modal>
       )}
     </section>
   );
