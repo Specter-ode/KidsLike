@@ -4,7 +4,7 @@ import { createPortal } from 'react-dom';
 import closeIcon from '../../assets/icons/sprite.svg';
 import Loader from '../Loader/Loader';
 
-const modalRoot = document.getElementById('#modal-root') as HTMLElement;
+const modalRoot = document.getElementById('modal-root') as HTMLElement;
 
 interface IProps {
   onClose: () => void;
@@ -40,14 +40,10 @@ const Modal: React.FC<IProps> = ({ onClose, children }) => {
         <>
           <button
             type="button"
-            className="absolute right-[20px] top-[20px] z-50 flex scale-125 items-center justify-center border-none bg-transparent text-main-color transition duration-500 hover:text-accent-color focus:text-accent-color"
+            className="absolute right-[20px] top-[20px] z-50 flex items-center justify-center border-none bg-transparent text-main-color transition duration-300 hover:scale-125 hover:text-accent-color focus:text-accent-color"
             onClick={onClose}
           >
-            <svg
-              className="duration-5000 scale-125 stroke-current transition hover:stroke-current focus:stroke-current"
-              width={14}
-              height={14}
-            >
+            <svg className="h-[14px] w-[14px] fill-current ">
               <use href={closeIcon + '#modal-close'}></use>
             </svg>
           </button>

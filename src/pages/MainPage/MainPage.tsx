@@ -1,7 +1,6 @@
-import { useState } from 'react';
-import AddBtn from '../../components/AddBtn/AddBtn';
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import AddChildForm from '../../components/AddChildForm/AddChildForm';
-import AddTaskForm from '../../components/AddTaskForm/AddTaskForm';
 import CardList from '../../components/CardsList/CardsList';
 import Container from '../../components/Container/Container';
 import KidsProfile from '../../components/KidsProfile/KidsProfile';
@@ -9,9 +8,9 @@ import Modal from '../../components/Modal/Modal';
 import NoTasks from '../../components/NoTasks/NoTasks';
 import ProgressBar from '../../components/ProgressBar/ProgressBar';
 import WeekTabs from '../../components/WeekTabs/WeekTabs';
-import { useAppSelector } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { setCurrentChild } from '../../redux/info/info-slice';
 import useWindowDimensions from '../../services/hooks/useDimensions';
-import { ICard } from '../../types/Cards';
 
 export const data = [
   {
@@ -73,28 +72,37 @@ export const data = [
 ];
 
 const MainPage: React.FC = () => {
-  const [currentChild, setCurrentChild] = useState<string>('');
-  const [isModal, setIsModal] = useState<boolean>(false);
-  const [showAddChildForm, setShowAddChildForm] = useState<boolean>(false);
-  const [tasks, setTasks] = useState<ICard[]>(data);
+  const [showAddChildForm, setShowAddChildForm] = useState(false);
   const { width } = useWindowDimensions();
   const mobile = width < 768;
   const tablet = 767 < width && width < 1280;
   const laptop = width > 1279;
-  const children = useAppSelector(store => store.info.children);
-  const handleModalClose = () => {
-    setIsModal(false);
-    console.log('закрытие модалки');
+  const storeCurrentChild = useAppSelector(store => store.info.currentChild);
+  const allChildren = useAppSelector(store => store.info.children);
+
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (!storeCurrentChild.id && allChildren.length > 0) {
+      dispatch(setCurrentChild(allChildren[0]));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const toggleAddChildForm = () => {
+    console.log('toggleAddChildForm: ');
+    if (allChildren.length < 1) {
+      toast.error('Закрытие окна невозможно. Информация о детях отсутсвует');
+      return;
+    }
+    setShowAddChildForm(!showAddChildForm);
   };
-  const handleAddChildForm = () => {
-    setShowAddChildForm(true);
-  };
+
   return (
-    <section className="mb-[20px] sTablet:mb-[40px] sLaptop:relative sLaptop:flex sLaptop:justify-center sLaptop:pr-[16px]">
+    <section className="pb-[20px] sTablet:pb-[40px] sLaptop:relative sLaptop:flex sLaptop:justify-center sLaptop:pr-[16px]">
       {mobile && (
         <>
           <div className="flex flex-col items-center justify-center py-[20px]">
-            <KidsProfile />
+            <KidsProfile toggleAddChildForm={toggleAddChildForm} />
             <WeekTabs />
           </div>
           <Container>
@@ -104,7 +112,7 @@ const MainPage: React.FC = () => {
               <p className="text-[12px]  font-bold tracking-widest text-main-color">ВТОРНИК, 22-12-2020</p>
             </div>
             <div></div>
-            <CardList cards={tasks} />
+            <CardList cards={storeCurrentChild.tasks} />
           </Container>
           {/* <NoTasks /> */}
           <div className="fixed left-0 bottom-0 mx-auto w-full bg-second-bg-color">
@@ -120,13 +128,13 @@ const MainPage: React.FC = () => {
             <WeekTabs />
           </div>
           <Container>
-            <KidsProfile />
+            <KidsProfile toggleAddChildForm={toggleAddChildForm} />
             <ProgressBar />
             <div className="mt-[20px] flex justify-center">
               <p className="mr-[20px] text-[12px] font-medium text-second-color ">Мои задачи:</p>
               <p className="text-[12px] font-bold tracking-widest text-main-color ">ВТОРНИК, 22-12-2020</p>
             </div>
-            <CardList cards={tasks} />
+            <CardList cards={storeCurrentChild.tasks} />
           </Container>
           {/* <NoTasks /> */}
         </>
@@ -134,12 +142,13 @@ const MainPage: React.FC = () => {
 
       {laptop && (
         <div className="relative ml-[336px] max-w-[1280px]">
-          <div className="absolute left-[-336px] top-0 flex h-[calc(100%+58px)] w-[229px] items-start justify-center bg-accent-color pl-[49px] pt-[150px]">
+          <div className="absolute left-[-336px] top-0 flex h-[calc(100%+98px)] w-[229px] items-start justify-center bg-accent-color pl-[49px] pt-[195px]">
             <div className="fixed">
               <WeekTabs />
             </div>
           </div>
           <div className=" mx-left w-[928px] pt-[32px] pb-[40px]">
+            <KidsProfile toggleAddChildForm={toggleAddChildForm} />
             <div className="flex">
               <div className="w-1/2">
                 <p className="mb-[38px]">Неделя: 21-27 декабря</p>
@@ -152,26 +161,31 @@ const MainPage: React.FC = () => {
                 <ProgressBar />
               </div>
             </div>
-            <CardList cards={tasks} />
+            <CardList cards={storeCurrentChild.tasks} />
             {/* <NoTasks /> */}
           </div>
         </div>
       )}
-      {isModal && (
-        <Modal onClose={handleModalClose}>
-          <AddTaskForm />
-        </Modal>
-      )}
-      {children.length < 1 && (
-        <Modal onClose={handleModalClose}>
-          <p>Нет данных о детях на вашем профиле</p>
-          <p>Необходимо добавить информацию</p>
-          <AddChildForm />
+
+      {allChildren.length < 1 && (
+        <Modal onClose={toggleAddChildForm}>
+          <div className="p-[20px]">
+            <h3 className="mb-[20px] text-[14px] font-bold text-main-color">Приветствуем Вас</h3>
+            <p className="mb-[20px] text-[14px] font-medium text-main-color">
+              Для работы с приложением нужно внести данные ребенка
+            </p>
+            <AddChildForm />
+          </div>
         </Modal>
       )}
       {showAddChildForm && (
-        <Modal onClose={handleAddChildForm}>
-          <AddChildForm />
+        <Modal onClose={toggleAddChildForm}>
+          <div className="px-[20px] pt-[40px] pb-[20px] sMob:w-[376px] lessMob:w-[280px]">
+            <h3 className="mb-[20px] text-center text-[14px] font-bold text-main-color">
+              Добавить новый профиль ребенка
+            </h3>
+            <AddChildForm />
+          </div>
         </Modal>
       )}
     </section>

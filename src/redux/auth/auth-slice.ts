@@ -9,8 +9,12 @@ const initialState: IAuthState = {
   accessToken: '',
   refreshToken: '',
   sid: '',
+  startWeekDate: '',
+  endWeekDate: '',
   isAuth: false,
   isLoading: false,
+  isModal: false,
+  taskFormModal: false,
   error: null,
 };
 
@@ -18,9 +22,12 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    // updateModalStatus: (store, { payload }: PayloadAction<boolean>) => {
-    //   store.showModal = payload;
-    // },
+    setModalStatus: (store, { payload }: PayloadAction<boolean>) => {
+      store.isModal = payload;
+    },
+    setTaskFormModalStatus: (store, { payload }: PayloadAction<boolean>) => {
+      store.taskFormModal = payload;
+    },
     // setAccessToken: (store, { payload }: PayloadAction<string>) => {
     //   store.accessToken = payload;
     // },
@@ -41,9 +48,11 @@ const authSlice = createSlice({
         store.accessToken = payload.accessToken;
         store.refreshToken = payload.refreshToken;
         store.sid = payload.sid;
-        store.email = payload.data.email;
-        store.username = payload.data.username;
-        store.id = payload.data.id;
+        store.email = payload.email;
+        store.username = payload.username;
+        store.id = payload.id;
+        store.startWeekDate = payload.startWeekDate;
+        store.endWeekDate = payload.endWeekDate;
         store.isLoading = false;
         store.isAuth = true;
       })
@@ -51,7 +60,7 @@ const authSlice = createSlice({
       .addCase(handleRefresh.fulfilled, (store, { payload }) => {
         store.accessToken = payload.accessToken;
         store.refreshToken = payload.refreshToken;
-        store.sid = payload.newSid;
+        store.sid = payload.sid;
         store.isLoading = false;
       })
 
@@ -59,6 +68,8 @@ const authSlice = createSlice({
         store.email = payload.email;
         store.username = payload.username;
         store.id = payload.id;
+        store.startWeekDate = payload.startWeekDate;
+        store.endWeekDate = payload.endWeekDate;
         store.isLoading = false;
         store.isAuth = true;
       })
@@ -83,5 +94,5 @@ function Loading(action: AnyAction) {
   return action.type.endsWith('pending');
 }
 
-// export const { updateModalStatus, setAccessToken, setRefreshToken } = authSlice.actions;
+export const { setModalStatus, setTaskFormModalStatus } = authSlice.actions;
 export default authSlice.reducer;

@@ -1,19 +1,32 @@
 import addtask from '../../assets/img/addTask.jpg';
 import sprite from '../../assets/icons/sprite.svg';
-const AddTask: React.FC = () => {
+import { useAppDispatch } from '../../redux/hooks';
+import { setTaskFormModalStatus } from '../../redux/auth/auth-slice';
+const NewTaskForm: React.FC = () => {
+  const dispatch = useAppDispatch();
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(setTaskFormModalStatus(false));
+  };
   return (
     <div className="w-[280px] overflow-hidden">
       {/* <div className="h-[131px] w-full bg-main-bg"> */}
 
       {/* </div> */}
 
-      <form className="relative bg-accent-color">
-        <button type="button" className="absolute right-[16px] top-[95px]">
-          <svg width="20" height="18">
-            <use href={sprite + '#image'}></use>
-          </svg>
-        </button>
-        <img className="h-[131px] w-full bg-main-bg" src={addtask} alt="Hi, please add task" />
+      <form onSubmit={handleSubmit} className="relative bg-accent-color" encType="multipart/form-data">
+        <div>
+          <label>
+            <input type="file" name="avatar" />
+          </label>
+          <button type="button" className="absolute right-[16px] top-[95px]">
+            <svg width="20" height="18">
+              <use href={sprite + '#image'}></use>
+            </svg>
+          </button>
+          <img className="h-[131px] w-full bg-main-bg" src={addtask} alt="Hi, please add task" />
+        </div>
         <div className=" px-[28px] pt-[24px] pb-[32px]">
           <div className=" relative mb-[5px] ">
             <div className="absolute top-[5px]">
@@ -47,4 +60,4 @@ const AddTask: React.FC = () => {
     </div>
   );
 };
-export default AddTask;
+export default NewTaskForm;

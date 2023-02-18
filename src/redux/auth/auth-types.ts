@@ -15,22 +15,25 @@ export interface ILoginResponse {
   accessToken: string;
   refreshToken: string;
   sid: string;
-  data: {
-    email: string;
-    username: string;
-    id: string;
-    children: IChild[];
-  };
+  email: string;
+  username: string;
+  id: string;
+  startWeekDate: string;
+  endWeekDate: string;
+  children: IChild[];
 }
 
 export interface IRefreshData {
   sid: string;
 }
 
+export interface ILogoutData {
+  userId: string;
+}
 export interface IRefreshResponse {
   accessToken: string;
   refreshToken: string;
-  newSid: string;
+  sid: string;
 }
 
 export interface IResponseError {
@@ -48,9 +51,13 @@ export interface IAuthState {
   email: string;
   accessToken: string;
   refreshToken: string;
+  startWeekDate: string;
+  endWeekDate: string;
   sid: string;
   isAuth: boolean;
   isLoading: boolean;
+  isModal: boolean;
+  taskFormModal: boolean;
   error: string | null;
 }
 
@@ -58,5 +65,7 @@ export interface IUserResponse {
   email: string;
   username: string;
   id: string;
+  startWeekDate: string;
+  endWeekDate: string;
   children: IChild[];
 }

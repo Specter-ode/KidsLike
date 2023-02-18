@@ -6,12 +6,20 @@ export const getGifts = async () => {
 };
 
 export const addGift = async (data, childId) => {
-  const result = await instance.post(`/gift/${childId}`, data);
+  const result = await instance.post(`/gift/${childId}`, data, {
+    headers: {
+      ' content-type': 'multipart/form-data',
+    },
+  });
   return result.data;
 };
 
-export const changeGift = async (data, giftId) => {
-  const result = await instance.patch(`/gift/${giftId}`, data);
+export const editGift = async (data, giftId) => {
+  const result = await instance.patch(`/gift/${giftId}`, data, {
+    headers: {
+      ' content-type': 'multipart/form-data',
+    },
+  });
   return result.data;
 };
 
@@ -22,10 +30,5 @@ export const removeGift = async giftId => {
 
 export const buyGift = async giftId => {
   const result = await instance.patch(`/gift/buy/${giftId}`);
-  return result.data;
-};
-
-export const resetGiftPurchase = async giftId => {
-  const result = await instance.patch(`/gift/reset/${giftId}`);
   return result.data;
 };

@@ -1,21 +1,23 @@
 // import AddKi from '../../assets/img/AddTask.jpg';
 import sprite from '../../assets/icons/sprite.svg';
 import { useState } from 'react';
-import Button from '../Button/Button';
 import FormTextField from '../FormTextField/FormTextField';
+import { useAppDispatch } from '../../redux/hooks';
+import { addChild } from '../../redux/info/info-operations';
 
-interface IChild {
-  id: string;
+type IChild = {
   name: string;
-  gender: string;
-}
-
+  gender: 'male' | 'female';
+};
+const initialState: IChild = {
+  name: '',
+  gender: 'male',
+};
 const AddChildForm: React.FC = () => {
-  const [child, setChild] = useState<IChild>({} as IChild);
-  console.log('AddChildForm child: ', child);
-
+  const [child, setChild] = useState(initialState);
+  const dispatch = useAppDispatch();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, type, name } = e.target;
+    const { value, name } = e.target;
     setChild(prevState => ({
       ...prevState,
       [name]: value,
@@ -23,75 +25,81 @@ const AddChildForm: React.FC = () => {
   };
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setChild({} as IChild);
+    dispatch(addChild(child));
+    setChild(initialState);
 
     // dispatch(handleRegistration(state));
     // setModalClose()
   };
   const { gender, name } = child;
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex w-[280px] justify-between sMob:w-[376px] sLaptop:w-[181px] sLaptop:flex-col sLaptop:space-y-[8px]"
-    >
+    <form onSubmit={handleSubmit}>
       <FormTextField
         onChange={handleChange}
         value={name}
         name="name"
         type="text"
+        maxLength={20}
         helper="от 3 до 20 символов"
-        title="Имя Ребенка должно содержать от 3 до 20 символов."
-        label="Имя пользователя"
+        title="Имя ребенка должно содержать от 3 до 20 символов."
+        label="Имя ребенка"
       />
-      <p className="mb-[10px]">Выбрать пол:</p>
-      <div className="p-[20px]">
-        <label htmlFor="male" className="flex items-center">
-          <input
-            id="male"
-            className="text-[14px] text-main-color"
-            type="radio"
-            name="gender"
-            value="male"
-            checked={gender === 'male'}
-            onChange={handleChange}
-          />
-          {gender === 'male' ? (
-            <svg width="20" height="20">
-              <use href={sprite + '#checked'}></use>
-            </svg>
-          ) : (
-            <svg width="20" height="20">
-              <use href={sprite + '#unchecked'}></use>
-            </svg>
-          )}
-          Мальчик
-        </label>
-      </div>
-      <div className="p-[20px]">
-        <label htmlFor="female" className="flex items-center">
-          <input
-            id="female"
-            className="text-[14px] text-main-color"
-            type="radio"
-            name="gender"
-            value="female"
-            checked={gender === 'female'}
-            onChange={handleChange}
-          />
-          {gender === 'female' ? (
-            <svg width="20" height="20">
-              <use href={sprite + '#checked'}></use>
-            </svg>
-          ) : (
-            <svg width="20" height="20">
-              <use href={sprite + '#unchecked'}></use>
-            </svg>
-          )}
-          Девочка
-        </label>
-      </div>
+      <div className="flex items-center justify-center">
+        <p className="mr-[40px] text-[14px] font-medium text-second-color">Выбрать пол:</p>
 
-      {<Button title="Сохранить" />}
+        <div>
+          <div className="mb-[10px]">
+            <label htmlFor="male" className="flex items-center text-[14px] font-medium text-second-color">
+              <input
+                id="male"
+                className="absolute opacity-0"
+                type="radio"
+                name="gender"
+                value="male"
+                checked={gender === 'male'}
+                onChange={handleChange}
+                required
+              />
+              {gender === 'male' ? (
+                <svg className="mr-[10px]" width="20" height="20">
+                  <use href={sprite + '#checked'}></use>
+                </svg>
+              ) : (
+                <svg className="mr-[10px]" width="20" height="20">
+                  <use href={sprite + '#unchecked'}></use>
+                </svg>
+              )}
+              Мальчик
+            </label>
+          </div>
+          <div>
+            <label htmlFor="female" className="flex items-center text-[14px] font-medium text-second-color">
+              <input
+                id="female"
+                className="absolute opacity-0"
+                type="radio"
+                name="gender"
+                value="female"
+                checked={gender === 'female'}
+                onChange={handleChange}
+              />
+              {gender === 'female' ? (
+                <svg className="mr-[10px]" width="20" height="20">
+                  <use href={sprite + '#checked'}></use>
+                </svg>
+              ) : (
+                <svg className="mr-[10px]" width="20" height="20">
+                  <use href={sprite + '#unchecked'}></use>
+                </svg>
+              )}
+              Девочка
+            </label>
+          </div>
+        </div>
+      </div>
+      <button className="btn mx-auto mt-[20px] w-full text-[12px]" style={{ width: '100%' }} type="submit">
+        Сохранить
+      </button>
     </form>
   );
 };

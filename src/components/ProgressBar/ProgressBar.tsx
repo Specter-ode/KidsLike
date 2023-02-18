@@ -1,5 +1,5 @@
 import { Line } from 'rc-progress';
-import AddBtn from '../AddBtn/AddBtn';
+import OpenTaskFormBtn from '../OpenTaskFormBtn/OpenTaskFormBtn';
 
 const ProgressBar: React.FC = () => {
   return (
@@ -17,13 +17,13 @@ const ProgressBar: React.FC = () => {
         <div className="mr-[20px]">
           <p className="text- mr-[8px] inline text-[14px] font-bold">8</p>
           <p className="inline text-[14px] font-normal">
-            <span className="mr-[8px]">/</span>16
+            <span className="mr-[8px]">/</span>
           </p>
         </div>
         <div className="relative h-[6px] w-[calc(100%-8rem)] items-center sTablet:w-[266px] sLaptop:w-[280px]">
           <Line percent={30} strokeWidth={3} strokeColor="#8EC63F" trailWidth={3} />
           <div className="absolute right-[-68px] bottom-[-16px] sTablet:hidden">
-            <AddBtn />
+            <OpenTaskFormBtn />
           </div>
         </div>
       </div>

@@ -1,12 +1,13 @@
 import React from 'react';
 import { IAward } from '../../types/Award';
 import imageURL from '../../assets/img/hero/img-1.png';
+import { IGift } from '../../redux/info/info-types';
 
 interface IProps {
-  awards: IAward[];
+  gifts: IGift[];
 }
 
-const WinningPrizes: React.FC<IProps> = ({ awards }) => {
+const WinningPrizes: React.FC<IProps> = ({ gifts }) => {
   return (
     <>
       <div className="py-[60px] px-[20px] sTablet:w-[600px] sTablet:py-[52px] sTablet:px-[60px] sTablet:pt-[130px] sTablet:pb-[40px] ">
@@ -22,10 +23,10 @@ const WinningPrizes: React.FC<IProps> = ({ awards }) => {
         </h2>
 
         <ul className="mx-auto grid w-full grid-cols-award gap-[20px]">
-          {awards.map(award => (
-            <li key={award.name} className="flex flex-col items-center">
-              <img className="mb-[16px] block w-[90px] " src={award.image} alt={award.name} />
-              <p className="max-w-[100px] text-center text-[12px] font-bold text-main-color ">{award.name}</p>
+          {gifts.map(gift => (
+            <li key={gift.name} className="flex flex-col items-center">
+              <img className="mb-[16px] block w-[90px] " src={gift.imageUrl} alt={gift.name} />
+              <p className="max-w-[100px] text-center text-[12px] font-bold text-main-color ">{gift.name}</p>
             </li>
           ))}
         </ul>

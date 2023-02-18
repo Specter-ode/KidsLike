@@ -8,6 +8,7 @@ import {
   IRefreshResponse,
   IRefreshData,
   IUserResponse,
+  ILogoutData,
 } from './auth-types';
 import { AxiosError } from 'axios';
 import { RootState } from '../store';
@@ -20,7 +21,6 @@ export const handleRegistration = createAsyncThunk<void, IRegisterData, { reject
     console.log('handleRegistration data: ', data);
     try {
       const result = await api.register(data);
-      console.log('handleRegistration result: ', result);
       toast.success(`Registration is success.`);
       const navigate = useNavigate();
       navigate('/login');
@@ -55,7 +55,7 @@ export const handleLogin = createAsyncThunk<ILoginResponse, ILoginData, { reject
   }
 );
 
-export const handleLogout = createAsyncThunk<undefined, undefined, { rejectValue: IResponseError }>(
+export const handleLogout = createAsyncThunk<ILogoutData, undefined, { rejectValue: IResponseError }>(
   'auth/logout',
   async (_, { rejectWithValue }) => {
     try {

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import sprite from '../../assets/icons/sprite.svg';
 import { handleLogin } from '../../redux/auth/auth-operations';
 import { useAppDispatch } from '../../redux/hooks';
-import Button from '../Button/Button';
 import FormTextField from '../FormTextField/FormTextField';
 const { REACT_APP_BACKEND_URL } = process.env;
 
@@ -83,7 +82,9 @@ const RegisterForm: React.FC = () => {
           label="Пароль"
         />
         <div className="flex justify-center">
-          <Button title="Войти" width="100%" />
+          <button type="submit" className="btn w-full">
+            Войти
+          </button>
         </div>
       </form>
     </div>

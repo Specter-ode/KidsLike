@@ -5,18 +5,21 @@ export const getTasks = async () => {
   return result.data;
 };
 
-export const getFinishedTasks = async childId => {
-  const result = await instance.get(`/task/finished/${childId}`);
-  return result.data;
-};
-
 export const addTask = async (data, childId) => {
-  const result = await instance.post(`/task/${childId}`, data);
+  const result = await instance.post(`/task/${childId}`, data, {
+    headers: {
+      ' content-type': 'multipart/form-data',
+    },
+  });
   return result.data;
 };
 
-export const changeTask = async (data, taskId) => {
-  const result = await instance.patch(`/task/${taskId}`, data);
+export const editTask = async (data, taskId) => {
+  const result = await instance.patch(`/task/${taskId}`, data, {
+    headers: {
+      ' content-type': 'multipart/form-data',
+    },
+  });
   return result.data;
 };
 
@@ -25,17 +28,12 @@ export const removeTask = async taskId => {
   return result.data;
 };
 
-export const confirmTask = async (date, taskId) => {
-  const result = await instance.patch(`/task/confirm/${taskId}`, date);
+export const changeTaskActiveStatus = async (data, taskId) => {
+  const result = await instance.patch(`/task/${taskId}/active`, data);
   return result.data;
 };
 
-export const cancelTask = async (date, taskId) => {
-  const result = await instance.patch(`/task/cancel/${taskId}`, date);
-  return result.data;
-};
-
-export const resetTask = async (date, taskId) => {
-  const result = await instance.patch(`/task/reset/${taskId}`, date);
+export const changeTaskCompletedStatus = async (date, taskId) => {
+  const result = await instance.patch(`/task/${taskId}/completed`, date);
   return result.data;
 };

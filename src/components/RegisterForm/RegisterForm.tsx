@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import sprite from '../../assets/icons/sprite.svg';
 import { handleRegistration } from '../../redux/auth/auth-operations';
 import { useAppDispatch } from '../../redux/hooks';
-import Button from '../Button/Button';
 import FormTextField from '../FormTextField/FormTextField';
 const { REACT_APP_BACKEND_URL } = process.env;
 
@@ -94,7 +93,9 @@ const RegisterForm: React.FC = () => {
           title="Пароль должен содержать от 8 до 40 символов."
           label="Пароль"
         />
-        <Button title="Регистрация" width="100%" />
+        <button type="submit" className="btn w-full">
+          Регистрация
+        </button>
       </form>
     </div>
   );

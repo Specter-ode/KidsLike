@@ -1,45 +1,36 @@
 export interface IDay {
   date: string;
+  isActive: boolean;
   isCompleted: string;
-}
-
-export interface IHabit {
-  days: IDay[];
-  _id: string;
-  name: string;
-  rewardPerDay: number;
-  childId: string;
 }
 
 export interface ITask {
-  _id: string;
-  name: string;
+  id: string;
+  title: string;
   reward: number;
-  isCompleted: string;
+  imageUrl: string;
   childId: string;
-  daysToComplete: number;
-  __v: number;
+  days: IDay[];
 }
 
 export interface IGift {
-  _id: string;
-  name: string;
+  id: string;
+  title: string;
   price: number;
   isPurchased: boolean;
   imageUrl: string;
   childId: string;
-  __v: number;
 }
 
 export interface IChild {
-  rewards: number;
-  habits: IHabit[];
+  balance: number;
+  rewardsGained: number;
+  rewardsPlanned: number;
   tasks: ITask[];
   gifts: IGift[];
-  _id: string;
+  id: string;
   name: string;
-  gender: string;
-  __v: number;
+  gender: 'male' | 'female';
 }
 
 export interface IResponseError {
@@ -53,6 +44,7 @@ export interface IResponseError {
 
 export interface IInfoState {
   children: IChild[];
+  currentChild: IChild;
   isLoading: boolean;
   error: string | null;
 }
@@ -64,9 +56,72 @@ export interface INewChildData {
 
 export interface ITaskData {
   data: {
-    name: string;
+    title: string;
     reward: number;
-    daysToComplete: number;
+    avatar: string;
   };
   childId: string;
+}
+
+export interface ITaskActiveStatusData {
+  days: IDay[];
+  taskId: string;
+}
+
+export interface ITaskActiveStatusResponse {
+  rewardsPlanned: number;
+  updatedTask: ITask;
+}
+
+export interface ITaskCompletedStatusData {
+  date: string;
+  taskId: string;
+}
+
+export interface ITaskCompletedStatusResponse {
+  rewardsGained: number;
+  balance: number;
+  updatedTask: ITask;
+}
+
+export interface IEditTaskData {
+  data: {
+    title: string;
+    reward: number;
+    avatar: string;
+  };
+  taskId: string;
+}
+
+export interface IRemoveTaskResponse {
+  taskId: string;
+  childId: string;
+}
+
+export interface IGiftData {
+  data: {
+    title: string;
+    price: number;
+    avatar: string;
+  };
+  childId: string;
+}
+
+export interface IEditGiftData {
+  data: {
+    title: string;
+    price: number;
+    avatar: string;
+  };
+  giftId: string;
+}
+
+export interface IRemoveGiftResponse {
+  giftId: string;
+  childId: string;
+}
+
+export interface IBuyGiftResponse {
+  purchasedGift: IGift;
+  updatedBalance: number;
 }

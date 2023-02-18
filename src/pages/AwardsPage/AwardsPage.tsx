@@ -5,10 +5,8 @@ import Container from '../../components/Container/Container';
 import Modal from '../../components/Modal/Modal';
 import ProgressBar from '../../components/ProgressBar/ProgressBar';
 import WinningPrizes from '../../components/WinningPrizes/WinningPrizes';
+import { useAppSelector } from '../../redux/hooks';
 import useWindowDimensions from '../../services/hooks/useDimensions';
-import { IAward } from '../../types/Award';
-import { ICard } from '../../types/Cards';
-import { data } from '../MainPage/MainPage';
 
 const dataGift = [
   { id: '91', name: 'macDonalds fgfdsgs fsd', image: 'test1' },
@@ -25,13 +23,11 @@ const dataGift = [
 
 const AwardsPage: React.FC = () => {
   const [isModal, setIsModal] = useState<boolean>(false);
-  const [awards, setAwards] = useState<IAward[]>(dataGift);
-  const [userAwards, setUserAwards] = useState<ICard[]>(data);
   const { width } = useWindowDimensions();
   const mobile = width < 768;
   const tablet = 767 < width && width < 1280;
   const laptop = width > 1279;
-
+  const storeCurrentChild = useAppSelector(store => store.info.currentChild);
   const handleModalClose = () => {
     setIsModal(false);
     console.log('закрытие модалки');
@@ -43,7 +39,7 @@ const AwardsPage: React.FC = () => {
         <>
           <Container>
             <AwardTitle />
-            <CardList cards={userAwards} />
+            <CardList cards={storeCurrentChild.gifts} />
           </Container>
           <div className="fixed left-0 bottom-0 mx-auto w-full bg-second-bg-color">
             <ProgressBar />
@@ -56,7 +52,7 @@ const AwardsPage: React.FC = () => {
           <div className="mt-[20px] flex justify-center">
             <AwardTitle />
           </div>
-          <CardList cards={userAwards} />
+          <CardList cards={storeCurrentChild.gifts} />
         </Container>
       )}
       {laptop && (
@@ -66,13 +62,13 @@ const AwardsPage: React.FC = () => {
               <AwardTitle />
               <ProgressBar />
             </div>
-            <CardList cards={userAwards} />
+            <CardList cards={storeCurrentChild.gifts} />
           </Container>
         </>
       )}
       {isModal && (
         <Modal onClose={handleModalClose}>
-          <WinningPrizes awards={awards} />
+          <WinningPrizes gifts={storeCurrentChild.gifts} />
         </Modal>
       )}
     </section>
