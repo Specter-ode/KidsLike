@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import sprite from '../../assets/icons/sprite.svg';
+
 import { handleLogin } from '../../redux/auth/auth-operations';
 import { useAppDispatch } from '../../redux/hooks';
 import FormTextField from '../FormTextField/FormTextField';
-const { REACT_APP_BACKEND_URL } = process.env;
 
 interface IState {
   email: string;
@@ -41,53 +40,38 @@ const RegisterForm: React.FC = () => {
   const { email, password } = state;
 
   return (
-    <div className="sTablet:mx-auto sTablet:w-[394px] sTablet:px-[32px] sTablet:py-[40px] sTablet:shadow-base ">
-      <div className="mb-[20px]">
-        <h3 className="mb-[20px] text-xs font-normal text-second-color">
-          Вы можете авторизоваться с помощью Google Account:
-        </h3>
-        <a
-          href={`${REACT_APP_BACKEND_URL}/auth/google`}
-          className=" flex h-[42px] w-[48%] items-center justify-center rounded-[6px] border-gray-300 shadow-base hover:bg-accent-color sTablet:w-[160px] "
-        >
-          <svg width="85" height="20">
-            <use href={sprite + '#google'}></use>
-          </svg>
-        </a>
-      </div>
+    <form onSubmit={handleAuth}>
       <h3 className="mb-[20px] text-[12px] font-normal text-second-color">
         Или зайти с помощью e-mail и пароля, предварительно зарегистрировавшись:
       </h3>
-      <form onSubmit={handleAuth}>
-        <FormTextField
-          onChange={handleChange}
-          value={email}
-          name="email"
-          type="email"
-          pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
-          error={validationErrors.email}
-          helper="example@gmail.com"
-          title="example@gmail.com"
-          label="Электронная почта"
-        />
-        <FormTextField
-          onChange={handleChange}
-          value={password}
-          name="password"
-          type="password"
-          minLength={8}
-          error={validationErrors.password}
-          helper="от 8 до 40 символов"
-          title="Пароль должен содержать от 8 до 40 символов."
-          label="Пароль"
-        />
-        <div className="flex justify-center">
-          <button type="submit" className="btn w-full">
-            Войти
-          </button>
-        </div>
-      </form>
-    </div>
+      <FormTextField
+        onChange={handleChange}
+        value={email}
+        name="email"
+        type="email"
+        pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+        error={validationErrors.email}
+        helper="example@gmail.com"
+        title="example@gmail.com"
+        label="Электронная почта"
+      />
+      <FormTextField
+        onChange={handleChange}
+        value={password}
+        name="password"
+        type="password"
+        minLength={8}
+        error={validationErrors.password}
+        helper="от 8 до 40 символов"
+        title="Пароль должен содержать от 8 до 40 символов."
+        label="Пароль"
+      />
+      <div className="flex justify-center">
+        <button type="submit" className="btn w-full">
+          Войти
+        </button>
+      </div>
+    </form>
   );
 };
 

@@ -23,7 +23,7 @@ const App: React.FC = () => {
     if (isAuth) {
       dispatch(getUser());
     }
-  }, [isAuth]);
+  }, [dispatch, isAuth]);
 
   const router = createBrowserRouter(createRoutesFromElements(Root), { basename: '/' });
   return (

@@ -2,9 +2,9 @@ import DaysSelection from '../DaysSelection/DaysSelection';
 import sprite from '../../assets/icons/sprite.svg';
 
 interface IDayDetails {
-  day: string;
-  isChecked: boolean;
-  isDisabled: boolean;
+  date: string;
+  isCompleted: boolean;
+  isActive: boolean;
 }
 interface IProps {
   cardId: string;
@@ -22,7 +22,7 @@ const BtnAddPlanToCurrentTask: React.FC<IProps> = ({ cardId, dayDetailsData }) =
           <use href={sprite + '#plus'}></use>
         </svg>
       </button>
-      {/* <DaysSelection onChange={handleChange} cardId={cardId} dayDetailsData={dayDetailsData} /> */}
+      <DaysSelection onChange={handleChange} cardId={cardId} dayDetailsData={dayDetailsData} />
     </div>
   );
 };

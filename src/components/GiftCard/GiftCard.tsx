@@ -3,19 +3,19 @@ import { getScoreString } from '../../services/helpers/getScoreString';
 import BtnAddPlanToCurrentTask from '../BtnAddPlanToCurrentTask/BtnAddPlanToCurrentTask';
 import TaskToggle from '../TaskToggle/TaskToggle';
 import sprite from '../../assets/icons/sprite.svg';
-import { IGift } from '../../redux/info/info-types';
+import { IGift } from '../../types/info-types';
 
 const dayDetailsData = [
-  { day: 'Пн', isChecked: true, isDisabled: true },
-  { day: 'Вт', isChecked: false, isDisabled: true },
-  { day: 'Ср', isChecked: false, isDisabled: true },
-  { day: 'Чт', isChecked: true, isDisabled: false },
-  { day: 'Пт', isChecked: false, isDisabled: false },
-  { day: 'Сб', isChecked: false, isDisabled: false },
-  { day: 'Вс', isChecked: false, isDisabled: false },
+  { date: 'Пн', isCompleted: true, isActive: true },
+  { date: 'Вт', isCompleted: false, isActive: true },
+  { date: 'Ср', isCompleted: false, isActive: true },
+  { date: 'Чт', isCompleted: true, isActive: false },
+  { date: 'Пт', isCompleted: false, isActive: false },
+  { date: 'Сб', isCompleted: false, isActive: false },
+  { date: 'Вс', isCompleted: false, isActive: false },
 ];
 
-const GiftCard: React.FC<IGift> = ({ id, name, price, isPurchased, childId, imageUrl }) => {
+const GiftCard: React.FC<IGift> = ({ id, title, price, isPurchased, childId, imageUrl }) => {
   const stringReward = getScoreString(price).toUpperCase();
 
   // const [selectedDays, setSelectedDays] = useState<string[]>(daysList);
@@ -28,7 +28,7 @@ const GiftCard: React.FC<IGift> = ({ id, name, price, isPurchased, childId, imag
 
       <div className="relative flex items-center justify-between bg-accent-color px-[20px] py-[16px]">
         <div>
-          <p className="mb-[4px] text-[12px] font-bold text-main-color">{name}</p>
+          <p className="mb-[4px] text-[12px] font-bold text-main-color">{title}</p>
           <p className="inline rounded-[3px] bg-third-color py-[3px] px-[10px] text-center text-[10px] font-medium text-main-bg">
             <>
               {price} {stringReward}
@@ -50,7 +50,7 @@ const GiftCard: React.FC<IGift> = ({ id, name, price, isPurchased, childId, imag
             </svg>
           </button>
           <BtnAddPlanToCurrentTask cardId={id} dayDetailsData={dayDetailsData} />
-          <TaskToggle isCompleted={isPurchased} taskId={id} />
+          {/* <TaskToggle isCompleted={isPurchased} taskId={id} /> */}
         </div>
       </div>
     </li>

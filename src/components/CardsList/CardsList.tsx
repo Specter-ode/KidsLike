@@ -1,4 +1,4 @@
-import { IGift, ITask } from '../../redux/info/info-types';
+import { IGift, ITask } from '../../types/info-types';
 import TaskCard from '../TaskCard/TaskCard';
 import GiftCard from '../GiftCard/GiftCard';
 

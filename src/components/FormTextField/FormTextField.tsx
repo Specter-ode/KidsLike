@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
-import { IFormTextField } from '../../types/FormTextField';
+import { IFormTextField } from '../../types/formTextField-types';
 
 const FormTextField: React.FC<IFormTextField> = ({
   label,

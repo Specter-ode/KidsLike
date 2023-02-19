@@ -9,22 +9,20 @@ import {
   INewChildData,
   IRemoveGiftResponse,
   IRemoveTaskResponse,
-  IResponseError,
   ITask,
   ITaskActiveStatusData,
   ITaskActiveStatusResponse,
   ITaskCompletedStatusData,
   ITaskCompletedStatusResponse,
   ITaskData,
-} from './info-types';
+} from '../../types/info-types';
 import { AxiosError } from 'axios';
 import * as childApi from '../../services/api/child';
 import * as taskApi from '../../services/api/task';
 import * as giftApi from '../../services/api/gift';
-import { RootState } from '../store';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export const addChild = createAsyncThunk<IChild, INewChildData, { rejectValue: IResponseError }>(
+export const addChild = createAsyncThunk<IChild, INewChildData, { rejectValue: string }>(
   'info/addChild',
   async (data, { rejectWithValue }) => {
     try {
@@ -33,22 +31,24 @@ export const addChild = createAsyncThunk<IChild, INewChildData, { rejectValue: I
       toast.success('Ребенок добавлен. Вы можете создавать и планировать задания');
       return result;
     } catch (error) {
-      const err = error as AxiosError<IResponseError>;
+      const err = error as AxiosError<string>;
       console.log('addChild error: ', error);
       if (!err.response) {
         throw error;
-      }
-      if (err.response.data.message === 'User with this email already exists') {
-        toast.error(`Такой пользователь уже существует`);
       } else {
-        toast.error(`Извините, регистрация не удалась. Попробуйте еще раз`);
+        if (err.response.status === 409) {
+          toast.error(`Ребенок с таким именем и полом уже существует`);
+          return rejectWithValue('Child with this name and gender already exists');
+        } else {
+          toast.error(`Извините, регистрация не удалась. Попробуйте еще раз`);
+          return rejectWithValue(err.message);
+        }
       }
-      return rejectWithValue(error as IResponseError);
     }
   }
 );
 
-export const getTasks = createAsyncThunk<ITask[], undefined, { rejectValue: IResponseError }>(
+export const getTasks = createAsyncThunk<ITask[], undefined, { rejectValue: string }>(
   'info/getTasks',
   async (_, { rejectWithValue }) => {
     try {
@@ -56,22 +56,32 @@ export const getTasks = createAsyncThunk<ITask[], undefined, { rejectValue: IRes
       console.log('getTasks result: ', result);
       return result;
     } catch (error) {
-      toast.error(`Sorry, login failed. Check email and password. Try again.`);
-      return rejectWithValue(error as IResponseError);
+      const err = error as AxiosError<string>;
+      console.log('getTasks error: ', error);
+      if (!err.response) {
+        throw error;
+      } else {
+        return rejectWithValue(err.message);
+      }
     }
   }
 );
 
-export const addTask = createAsyncThunk<ITask, ITaskData, { rejectValue: IResponseError; state: RootState }>(
+export const addTask = createAsyncThunk<ITask, ITaskData, { rejectValue: string }>(
   'info/addTask',
-  async ({ data, childId }, { rejectWithValue }) => {
+  async (data, { rejectWithValue }) => {
     try {
-      const result = await taskApi.addTask(data, childId);
+      const result = await taskApi.addTask(data);
       console.log('addTask result: ', result);
       return result;
     } catch (error) {
-      toast.error(`Sorry, login failed. Check email and password. Try again.`);
-      return rejectWithValue(error as IResponseError);
+      const err = error as AxiosError<string>;
+      console.log('addTask error: ', error);
+      if (!err.response) {
+        throw error;
+      } else {
+        return rejectWithValue(err.message);
+      }
     }
   }
 );
@@ -79,109 +89,147 @@ export const addTask = createAsyncThunk<ITask, ITaskData, { rejectValue: IRespon
 export const changeTaskActiveStatus = createAsyncThunk<
   ITaskActiveStatusResponse,
   ITaskActiveStatusData,
-  { rejectValue: IResponseError; state: RootState }
->('info/changeTaskActiveStatus', async ({ days, taskId }, { rejectWithValue }) => {
+  { rejectValue: string }
+>('info/changeTaskActiveStatus', async (data, { rejectWithValue }) => {
   try {
-    const result = await taskApi.changeTaskActiveStatus(days, taskId);
+    const result = await taskApi.changeTaskActiveStatus(data);
     console.log('changeTaskActiveStatus result: ', result);
     return result;
   } catch (error) {
-    toast.error(`Sorry, login failed. Check email and password. Try again.`);
-    return rejectWithValue(error as IResponseError);
+    const err = error as AxiosError<string>;
+    console.log('changeTaskActiveStatus error: ', error);
+    if (!err.response) {
+      throw error;
+    } else {
+      return rejectWithValue(err.message);
+    }
   }
 });
 
 export const changeTaskCompletedStatus = createAsyncThunk<
   ITaskCompletedStatusResponse,
   ITaskCompletedStatusData,
-  { rejectValue: IResponseError; state: RootState }
->('info/changeTaskCompletedStatus', async ({ date, taskId }, { rejectWithValue }) => {
+  { rejectValue: string }
+>('info/changeTaskCompletedStatus', async (data, { rejectWithValue }) => {
   try {
-    const result = await taskApi.changeTaskCompletedStatus(date, taskId);
+    const result = await taskApi.changeTaskCompletedStatus(data);
     console.log('changeTaskCompletedStatus result: ', result);
     return result;
   } catch (error) {
-    toast.error(`Sorry, login failed. Check email and password. Try again.`);
-    return rejectWithValue(error as IResponseError);
+    const err = error as AxiosError<string>;
+    console.log('changeTaskCompletedStatus error: ', error);
+    if (!err.response) {
+      throw error;
+    } else {
+      return rejectWithValue(err.message);
+    }
   }
 });
 
-export const editTask = createAsyncThunk<ITask, IEditTaskData, { rejectValue: IResponseError; state: RootState }>(
+export const editTask = createAsyncThunk<ITask, IEditTaskData, { rejectValue: string }>(
   'info/editTask',
-  async ({ data, taskId }, { rejectWithValue }) => {
+  async (data, { rejectWithValue }) => {
     try {
-      const result = await taskApi.editTask(data, taskId);
-      console.log('confirmTask result: ', result);
+      const result = await taskApi.editTask(data);
+      console.log('editTask result: ', result);
       return result;
     } catch (error) {
-      toast.error(`Sorry, confirmTask failed.`);
-      return rejectWithValue(error as IResponseError);
+      const err = error as AxiosError<string>;
+      console.log('editTask error: ', error);
+      if (!err.response) {
+        throw error;
+      } else {
+        return rejectWithValue(err.message);
+      }
     }
   }
 );
-export const removeTask = createAsyncThunk<
-  IRemoveTaskResponse,
-  string,
-  { rejectValue: IResponseError; state: RootState }
->('info/removeTask', async (taskId, { rejectWithValue }) => {
-  try {
-    return await taskApi.removeTask(taskId);
-  } catch (error) {
-    toast.error(`Sorry, removeTask failed.`);
-    return rejectWithValue(error as IResponseError);
-  }
-});
-
-export const addGift = createAsyncThunk<IGift, IGiftData, { rejectValue: IResponseError; state: RootState }>(
-  'info/addGift',
-  async ({ data, childId }, { rejectWithValue }) => {
+export const removeTask = createAsyncThunk<IRemoveTaskResponse, string, { rejectValue: string }>(
+  'info/removeTask',
+  async (taskId, { rejectWithValue }) => {
     try {
-      const result = await giftApi.addGift(data, childId);
+      return await taskApi.removeTask(taskId);
+    } catch (error) {
+      const err = error as AxiosError<string>;
+      console.log('removeTask error: ', error);
+      if (!err.response) {
+        throw error;
+      } else {
+        return rejectWithValue(err.message);
+      }
+    }
+  }
+);
+
+export const addGift = createAsyncThunk<IGift, IGiftData, { rejectValue: string }>(
+  'info/addGift',
+  async (data, { rejectWithValue }) => {
+    try {
+      const result = await giftApi.addGift(data);
       console.log('addGift result: ', result);
       return result;
     } catch (error) {
-      toast.error(`Sorry, addGift failed. Try again.`);
-      return rejectWithValue(error as IResponseError);
+      const err = error as AxiosError<string>;
+      console.log('addGift error: ', error);
+      if (!err.response) {
+        throw error;
+      } else {
+        return rejectWithValue(err.message);
+      }
     }
   }
 );
 
-export const editGift = createAsyncThunk<IGift, IEditGiftData, { rejectValue: IResponseError; state: RootState }>(
+export const editGift = createAsyncThunk<IGift, IEditGiftData, { rejectValue: string }>(
   'info/editGift',
-  async ({ data, giftId }, { rejectWithValue }) => {
+  async (data, { rejectWithValue }) => {
     try {
-      const result = await giftApi.editGift(data, giftId);
+      const result = await giftApi.editGift(data);
       console.log('editGift result: ', result);
       return result;
     } catch (error) {
-      toast.error(`Sorry, editGift failed.`);
-      return rejectWithValue(error as IResponseError);
+      const err = error as AxiosError<string>;
+      console.log('editGift error: ', error);
+      if (!err.response) {
+        throw error;
+      } else {
+        return rejectWithValue(err.message);
+      }
     }
   }
 );
-export const removeGift = createAsyncThunk<
-  IRemoveGiftResponse,
-  string,
-  { rejectValue: IResponseError; state: RootState }
->('info/removeGift', async (giftId, { rejectWithValue }) => {
-  try {
-    return await giftApi.removeGift(giftId);
-  } catch (error) {
-    toast.error(`Sorry, gift didn't delete .`);
-    return rejectWithValue(error as IResponseError);
+export const removeGift = createAsyncThunk<IRemoveGiftResponse, string, { rejectValue: string }>(
+  'info/removeGift',
+  async (giftId, { rejectWithValue }) => {
+    try {
+      return await giftApi.removeGift(giftId);
+    } catch (error) {
+      const err = error as AxiosError<string>;
+      console.log('removeGift error: ', error);
+      if (!err.response) {
+        throw error;
+      } else {
+        return rejectWithValue(err.message);
+      }
+    }
   }
-});
+);
 
-export const buyGift = createAsyncThunk<IBuyGiftResponse, string, { rejectValue: IResponseError; state: RootState }>(
+export const buyGift = createAsyncThunk<IBuyGiftResponse, string, { rejectValue: string }>(
   'info/buyGift',
   async (giftId, { rejectWithValue }) => {
     try {
-      const result = await taskApi.changeTaskCompletedStatus(giftId);
+      const result = await giftApi.buyGift(giftId);
       console.log('buyGift result: ', result);
       return result;
     } catch (error) {
-      toast.error(`Sorry, gift purchase failed.  Try again.`);
-      return rejectWithValue(error as IResponseError);
+      const err = error as AxiosError<string>;
+      console.log('buyGift error: ', error);
+      if (!err.response) {
+        throw error;
+      } else {
+        return rejectWithValue(err.message);
+      }
     }
   }
 );

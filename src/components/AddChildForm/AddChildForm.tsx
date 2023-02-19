@@ -27,9 +27,6 @@ const AddChildForm: React.FC = () => {
     e.preventDefault();
     dispatch(addChild(child));
     setChild(initialState);
-
-    // dispatch(handleRegistration(state));
-    // setModalClose()
   };
   const { gender, name } = child;
   return (
@@ -97,7 +94,7 @@ const AddChildForm: React.FC = () => {
           </div>
         </div>
       </div>
-      <button className="btn mx-auto mt-[20px] w-full text-[12px]" style={{ width: '100%' }} type="submit">
+      <button className="btn mx-auto mt-[20px] w-full text-[12px]" type="submit">
         Сохранить
       </button>
     </form>

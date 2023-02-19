@@ -1,7 +1,7 @@
 import React from 'react';
-import { IAward } from '../../types/Award';
+import { IAward } from '../../types/award-types';
 import imageURL from '../../assets/img/hero/img-1.png';
-import { IGift } from '../../redux/info/info-types';
+import { IGift } from '../../types/info-types';
 
 interface IProps {
   gifts: IGift[];
@@ -24,9 +24,9 @@ const WinningPrizes: React.FC<IProps> = ({ gifts }) => {
 
         <ul className="mx-auto grid w-full grid-cols-award gap-[20px]">
           {gifts.map(gift => (
-            <li key={gift.name} className="flex flex-col items-center">
-              <img className="mb-[16px] block w-[90px] " src={gift.imageUrl} alt={gift.name} />
-              <p className="max-w-[100px] text-center text-[12px] font-bold text-main-color ">{gift.name}</p>
+            <li key={gift.title} className="flex flex-col items-center">
+              <img className="mb-[16px] block w-[90px] " src={gift.imageUrl} alt={gift.title} />
+              <p className="max-w-[100px] text-center text-[12px] font-bold text-main-color ">{gift.title}</p>
             </li>
           ))}
         </ul>

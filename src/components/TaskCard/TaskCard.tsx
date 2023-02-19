@@ -2,19 +2,19 @@ import { getScoreString } from '../../services/helpers/getScoreString';
 import BtnAddPlanToCurrentTask from '../BtnAddPlanToCurrentTask/BtnAddPlanToCurrentTask';
 import TaskToggle from '../TaskToggle/TaskToggle';
 import sprite from '../../assets/icons/sprite.svg';
-import { ITask } from '../../redux/info/info-types';
+import { ITask } from '../../types/info-types';
 
 const dayDetailsData = [
-  { day: 'Пн', isChecked: true, isDisabled: true },
-  { day: 'Вт', isChecked: false, isDisabled: true },
-  { day: 'Ср', isChecked: false, isDisabled: true },
-  { day: 'Чт', isChecked: true, isDisabled: false },
-  { day: 'Пт', isChecked: false, isDisabled: false },
-  { day: 'Сб', isChecked: false, isDisabled: false },
-  { day: 'Вс', isChecked: false, isDisabled: false },
+  { date: 'Пн', isActive: true, isCompleted: true },
+  { date: 'Вт', isActive: false, isCompleted: true },
+  { date: 'Ср', isActive: false, isCompleted: true },
+  { date: 'Чт', isActive: true, isCompleted: false },
+  { date: 'Пт', isActive: false, isCompleted: false },
+  { date: 'Сб', isActive: false, isCompleted: false },
+  { date: 'Вс', isActive: false, isCompleted: false },
 ];
 
-const TaskCard: React.FC<ITask> = ({ id, name, reward, isCompleted, childId, daysToComplete }) => {
+const TaskCard: React.FC<ITask> = ({ id, title, reward, imageUrl, childId, days }) => {
   const stringReward = getScoreString(reward).toUpperCase();
 
   // const [selectedDays, setSelectedDays] = useState<string[]>(daysList);
@@ -27,7 +27,7 @@ const TaskCard: React.FC<ITask> = ({ id, name, reward, isCompleted, childId, day
 
       <div className="relative flex items-center justify-between bg-accent-color px-[20px] py-[16px]">
         <div>
-          <p className="mb-[4px] text-[12px] font-bold text-main-color">{name}</p>
+          <p className="mb-[4px] text-[12px] font-bold text-main-color">{title}</p>
           <p className="inline rounded-[3px] bg-third-color py-[3px] px-[10px] text-center text-[10px] font-medium text-main-bg">
             <>
               {reward} {stringReward}
@@ -49,7 +49,7 @@ const TaskCard: React.FC<ITask> = ({ id, name, reward, isCompleted, childId, day
             </svg>
           </button>
           <BtnAddPlanToCurrentTask cardId={id} dayDetailsData={dayDetailsData} />
-          <TaskToggle isCompleted={isCompleted} taskId={id} />
+          <TaskToggle days={dayDetailsData} taskId={id} />
         </div>
       </div>
     </li>

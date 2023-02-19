@@ -22,7 +22,7 @@ const UserInfo: React.FC = () => {
         <button
           className="pl-[16px] text-main-bg  transition duration-500 hover:scale-125 hover:text-main-color focus:scale-125 focus:text-main-color sTablet:text-second-color"
           type="button"
-          onClick={() => onLogout()}
+          onClick={onLogout}
         >
           <svg width="18" height="18" className="fill-current hover:fill-current focus:fill-current">
             <use href={sprite + '#logout'}></use>

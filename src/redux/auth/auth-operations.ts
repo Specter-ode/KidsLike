@@ -2,46 +2,45 @@ import * as api from '../../services/api/auth';
 import { toast } from 'react-toastify';
 import {
   IRegisterData,
-  IResponseError,
   ILoginData,
   ILoginResponse,
   IRefreshResponse,
   IRefreshData,
   IUserResponse,
-  ILogoutData,
-} from './auth-types';
+} from '../../types/auth-types';
 import { AxiosError } from 'axios';
 import { RootState } from '../store';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { useNavigate } from 'react-router-dom';
 
-export const handleRegistration = createAsyncThunk<void, IRegisterData, { rejectValue: IResponseError }>(
+export const handleRegistration = createAsyncThunk<void, IRegisterData, { rejectValue: string }>(
   'auth/register',
   async (data, { rejectWithValue }) => {
     console.log('handleRegistration data: ', data);
     try {
-      const result = await api.register(data);
+      await api.register(data);
       toast.success(`Registration is success.`);
       const navigate = useNavigate();
       navigate('/login');
-      return result;
+      return;
     } catch (error) {
-      const err = error as AxiosError<IResponseError>;
-      console.log('handleRegistration error: ', error);
+      const err = error as AxiosError<string>;
       if (!err.response) {
         throw error;
-      }
-      if (err.response.data.message === 'User with this email already exists') {
-        toast.error(`Такой пользователь уже существует`);
       } else {
-        toast.error(`Извините, регистрация не удалась. Попробуйте еще раз`);
+        if (err.response.status === 409) {
+          toast.error(`Такой пользователь уже существует`);
+          return rejectWithValue('User with this email already exists');
+        } else {
+          toast.error(`Извините, регистрация не удалась. Попробуйте еще раз`);
+          return rejectWithValue(err.message);
+        }
       }
-      return rejectWithValue(error as IResponseError);
     }
   }
 );
 
-export const handleLogin = createAsyncThunk<ILoginResponse, ILoginData, { rejectValue: IResponseError }>(
+export const handleLogin = createAsyncThunk<ILoginResponse, ILoginData, { rejectValue: string }>(
   'auth/login',
   async (data, { rejectWithValue }) => {
     try {
@@ -49,39 +48,58 @@ export const handleLogin = createAsyncThunk<ILoginResponse, ILoginData, { reject
       console.log('handleLogin result: ', result);
       return result;
     } catch (error) {
-      toast.error(`Sorry, login failed. Check email and password. Try again.`);
-      return rejectWithValue(error as IResponseError);
+      const err = error as AxiosError<string>;
+      if (!err.response) {
+        throw error;
+      } else {
+        if (err.response.status === 403) {
+          toast.error(`Неправильная электронная почта или пароль`);
+          return rejectWithValue('Login failed. Check email and password. Try again.');
+        } else {
+          toast.error(`Извините, регистрация не удалась. Попробуйте еще раз`);
+          return rejectWithValue(err.message);
+        }
+      }
     }
   }
 );
 
-export const handleLogout = createAsyncThunk<ILogoutData, undefined, { rejectValue: IResponseError }>(
+export const handleLogout = createAsyncThunk<void, undefined, { rejectValue: string }>(
   'auth/logout',
   async (_, { rejectWithValue }) => {
     try {
-      const result = await api.logout();
-      return result;
+      await api.logout();
+      return;
     } catch (error) {
-      toast.error(`Sorry, Logout failed. Try again.`);
-      return rejectWithValue(error as IResponseError);
+      const err = error as AxiosError<string>;
+      if (!err.response) {
+        throw error;
+      } else {
+        toast.error(`Извините, выход с аккаунта не удался. Попробуйте еще раз`);
+        return rejectWithValue(err.message);
+      }
     }
   }
 );
 
-export const handleRefresh = createAsyncThunk<IRefreshResponse, IRefreshData, { rejectValue: IResponseError }>(
+export const handleRefresh = createAsyncThunk<IRefreshResponse, IRefreshData, { rejectValue: string }>(
   'auth/refresh',
-  async (_, { rejectWithValue }) => {
+  async (data, { rejectWithValue }) => {
     try {
-      const result = await api.refresh();
+      const result = await api.refresh(data);
       return result;
     } catch (error) {
-      toast.error(`Sorry, Logout failed. Try again.`);
-      return rejectWithValue(error as IResponseError);
+      const err = error as AxiosError<string>;
+      if (!err.response) {
+        throw error;
+      } else {
+        return rejectWithValue(err.message);
+      }
     }
   }
 );
 
-export const getUser = createAsyncThunk<IUserResponse, undefined, { rejectValue: IResponseError; state: RootState }>(
+export const getUser = createAsyncThunk<IUserResponse, undefined, { rejectValue: string; state: RootState }>(
   'auth/getUser',
   async (_, { rejectWithValue }) => {
     try {
@@ -89,17 +107,23 @@ export const getUser = createAsyncThunk<IUserResponse, undefined, { rejectValue:
       console.log('getCurrentUser result: ', result);
       return result;
     } catch (error) {
-      toast.error(`Sorry, getUser failed. Try again.`);
-      return rejectWithValue(error as IResponseError);
+      const err = error as AxiosError<string>;
+      if (!err.response) {
+        throw error;
+      } else {
+        toast.error(`Не удалось получить данные о пользователе`);
+        return rejectWithValue(err.message);
+      }
     }
+  },
+  {
+    condition: (_, { getState }) => {
+      const state = getState();
+      if (!state.auth.accessToken) {
+        return false;
+      }
+      api.setToken(state.auth.accessToken);
+      return true;
+    },
   }
-  // {
-  //   condition: (_, thunkAPI) => {
-  //     const state = thunkAPI.getState();
-  //     if (!state.auth.accessToken) {
-  //       return false;
-  //     }
-  //     api.setToken(state.auth.accessToken);
-  //   },
-  // }
 );

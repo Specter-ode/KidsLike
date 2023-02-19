@@ -2,31 +2,30 @@ import { useState } from 'react';
 import DotedLoader from '../Loader/DotedLoader';
 import sprite from '../../assets/icons/sprite.svg';
 import { useAppDispatch } from '../../redux/hooks';
-import { confirmTask, cancelTask } from '../../redux/info/info-operations';
+import { changeTaskActiveStatus, changeTaskCompletedStatus } from '../../redux/info/info-operations';
+import { IDay } from '../../types/info-types';
 
 interface IProps {
-  isCompleted: string | boolean;
+  days: IDay[];
   taskId: string;
 }
 
-const TaskToggle: React.FC<IProps> = ({ isCompleted, taskId }) => {
+const TaskToggle: React.FC<IProps> = ({ days, taskId }) => {
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { checked } = e.target;
     if (checked) {
-      dispatch(confirmTask(taskId));
+      dispatch(changeTaskActiveStatus({ days, taskId }));
     } else {
-      dispatch(cancelTask(taskId));
+      dispatch(changeTaskActiveStatus({ days, taskId }));
     }
   };
-
-  const isChecked = isCompleted === 'confirmed' || isCompleted ? true : false;
 
   return (
     <>
       <label className="relative inline-flex cursor-pointer items-center">
-        <input type="checkbox" checked={isChecked} className="peer sr-only" onChange={handleChange} />
+        <input type="checkbox" checked={false} className="peer sr-only" onChange={handleChange} />
 
         <div className="peer h-[24px] w-[48px] rounded-full bg-error-color after:absolute after:top-[2px] after:left-[2px] after:h-[20px] after:w-[20px] after:rounded-full after:border after:border-red-700 after:bg-main-bg after:transition-all after:content-[''] peer-checked:bg-fourth-color peer-checked:after:translate-x-[24px] peer-checked:after:border-green-700">
           <p className="absolute right-[10px] top-0 text-[16px] font-bold text-main-bg">!</p>

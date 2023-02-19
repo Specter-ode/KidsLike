@@ -1,6 +1,6 @@
 import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { handleRegistration, handleLogin, handleLogout, handleRefresh, getUser } from './auth-operations';
-import { IAuthState, IResponseError } from './auth-types';
+import { IAuthState, IResponseError } from '../../types/auth-types';
 
 const initialState: IAuthState = {
   id: '',
@@ -28,15 +28,6 @@ const authSlice = createSlice({
     setTaskFormModalStatus: (store, { payload }: PayloadAction<boolean>) => {
       store.taskFormModal = payload;
     },
-    // setAccessToken: (store, { payload }: PayloadAction<string>) => {
-    //   store.accessToken = payload;
-    // },
-    // setRefreshToken: (store, { payload }) => {
-    //   store.refreshToken = payload;
-    // },
-    // setPasswordStatus: (store, { payload }) => {
-    //   store.passwordStatus = payload;
-    // },
   },
   extraReducers: builder => {
     builder

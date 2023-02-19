@@ -1,9 +1,14 @@
-import { IChild } from '../info/info-types';
+import { IChild } from './info-types';
 
 export interface IRegisterData {
   username: string;
   email: string;
   password: string;
+}
+export interface IRegisterResponse {
+  username: string;
+  email: string;
+  id: string;
 }
 
 export interface ILoginData {

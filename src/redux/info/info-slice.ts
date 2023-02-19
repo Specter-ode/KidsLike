@@ -12,7 +12,7 @@ import {
   removeGift,
   removeTask,
 } from './info-operations';
-import { IChild, IInfoState, IResponseError } from './info-types';
+import { IChild, IInfoState, IResponseError } from '../../types/info-types';
 
 const initialState: IInfoState = {
   children: [] as IChild[],

@@ -38,10 +38,9 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
       {upgradeProfile ? (
         <>
           <button
-            className="btn absolute z-10 sTablet:left-0 sTablet:top-0 lessTablet:bottom-[-10px] lessTablet:right-0 "
+            className="btn absolute z-10 w-[100px] sTablet:left-0 sTablet:top-0 lessTablet:bottom-[-10px] lessTablet:right-0 "
             style={{
               height: 'auto',
-              width: '100px',
             }}
             type="button"
             onClick={handleBack}
@@ -90,10 +89,9 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
                     </label>
                     {childId === el.id && (
                       <button
-                        className="btn sTablet:absolute sTablet:right-0  sTablet:top-0 lessTablet:ml-auto"
+                        className="btn w-[100px] sTablet:absolute sTablet:right-0  sTablet:top-0 lessTablet:ml-auto"
                         style={{
                           height: 'auto',
-                          width: '100px',
                         }}
                       >
                         Сохранить
@@ -142,10 +140,9 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
           ) : (
             <div className="mb-[10px] flex justify-between">
               <button
-                className="btn"
+                className="btn w-[100px]"
                 style={{
                   height: 'auto',
-                  width: '100px',
                 }}
                 type="button"
                 onClick={toggleAddChildForm}
@@ -159,10 +156,9 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
                 </p>
               </div>
               <button
-                className="btn"
+                className="btn w-[100px]"
                 style={{
                   height: 'auto',
-                  width: '100px',
                 }}
                 type="button"
                 onClick={() => {

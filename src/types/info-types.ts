@@ -1,7 +1,7 @@
 export interface IDay {
   date: string;
   isActive: boolean;
-  isCompleted: string;
+  isCompleted: boolean;
 }
 
 export interface ITask {
@@ -23,14 +23,14 @@ export interface IGift {
 }
 
 export interface IChild {
+  name: string;
+  gender: 'male' | 'female';
   balance: number;
   rewardsGained: number;
   rewardsPlanned: number;
   tasks: ITask[];
   gifts: IGift[];
   id: string;
-  name: string;
-  gender: 'male' | 'female';
 }
 
 export interface IResponseError {
