@@ -33,7 +33,7 @@ const BurgerMenu: React.FC<IProps> = ({ onClose }) => {
         </div>
 
         <div className="mt-[40px] sTablet:mt-[80px]">
-          <UserNav />
+          <UserNav onClose={onClose} />
         </div>
       </aside>
     </div>,

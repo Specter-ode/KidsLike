@@ -25,7 +25,7 @@ const Header: React.FC = () => {
             <>
               {isAuth && <Balance />}
               <button
-                className=" py-[5px] text-second-color outline-none hover:text-accent-color focus:border focus:text-accent-color"
+                className=" py-[5px] text-second-color outline-none hover:text-accent-color focus:text-accent-color"
                 type="button"
                 onClick={() => {
                   setIsBurgerMenu(true);
@@ -46,7 +46,7 @@ const Header: React.FC = () => {
               {isAuth && <Balance />}
               <div className="flex items-center">
                 <button
-                  className="py-[5px] text-second-color outline-none hover:text-accent-color focus:border focus:text-accent-color sLaptop:hidden"
+                  className="py-[5px] text-second-color outline-none hover:text-accent-color focus:text-accent-color sLaptop:hidden"
                   type="button"
                   onClick={() => {
                     setIsBurgerMenu(true);
@@ -57,7 +57,7 @@ const Header: React.FC = () => {
                   </svg>
                 </button>
                 <div className="hidden sLaptop:block">
-                  <UserNav />
+                  <UserNav onClose={onClose} />
                 </div>
                 {isAuth && (
                   <div className="ml-[32px] sLaptop:ml-[40px]">

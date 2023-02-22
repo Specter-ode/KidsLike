@@ -26,7 +26,7 @@ const Layout: React.FC = () => {
   return (
     <>
       <Header />
-      <main className="min-h-[calc(100vh-130px)] sTablet:min-h-[calc(100vh-144px)]">
+      <main>
         <Outlet />
       </main>
       <Footer />

@@ -21,7 +21,6 @@ const WinningPrizes: React.FC<IProps> = ({ gifts }) => {
         <h2 className="mb-[24px] text-center text-[18px] font-semibold text-main-color sTablet:mb-[32px] sTablet:text-[28px] sLaptop:text-[32px] lessTablet:max-w-[240px]">
           Поздравляем! Ты получаешь:
         </h2>
-
         <ul className="mx-auto grid w-full grid-cols-award gap-[20px]">
           {gifts.map(gift => (
             <li key={gift.title} className="flex flex-col items-center">

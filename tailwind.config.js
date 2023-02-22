@@ -14,6 +14,7 @@ module.exports = {
         'line-color': '#E3E2E7',
         'error-color': '#FF4965',
         'accent-color': '#FFBC33',
+        'accent-color-50opacity': 'rgba(255,187,51, 0.5)',
         'second-accent-color': '#FFE9A5',
         'bg-color': '#E5E5E5',
         'second-bg-color': '#F1F1F1',

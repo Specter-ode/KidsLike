@@ -10,7 +10,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
@@ -25,6 +24,15 @@ input:-webkit-autofill:focus {
   color: #fff;
 }
 
+.weektabs-container {
+  width: calc(229px + 0.5 * (100vw - 1280px));
+  padding-left: calc(49px + 0.5 * (100vw - 1280px));
+  left: calc(-336px - 0.5 * (100vw - 1280px));
+}
+
+/* .list {
+  overflow: scroll;
+} */
 .btn {
   @apply flex h-[48px] items-center justify-center rounded-[6px] border-2 border-transparent bg-accent-color text-[14px] font-normal text-white transition duration-500 hover:border-accent-color hover:bg-white hover:text-accent-color focus:outline-none focus:ring focus:ring-accent-color focus:ring-opacity-50;
 }

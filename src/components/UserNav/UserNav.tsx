@@ -10,8 +10,11 @@ import { links } from './links';
 //   to: 'string';
 //   text: 'string';
 // }
+interface IProps {
+  onClose: () => void;
+}
 
-const UserNav: React.FC = () => {
+const UserNav: React.FC<IProps> = ({ onClose }) => {
   const isAuth = useAppSelector(store => store.auth.isAuth);
   const elements = links
     .filter(el => el.auth === isAuth)
@@ -24,6 +27,7 @@ const UserNav: React.FC = () => {
           <NavLink
             className="text-[12px] font-medium text-main-bg transition duration-300 hover:text-main-color sLaptop:text-second-color sLaptop:hover:text-accent-color"
             to={to}
+            onClick={onClose}
           >
             <p className="py-[3px]"> {text}</p>
           </NavLink>

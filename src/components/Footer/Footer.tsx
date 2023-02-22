@@ -6,7 +6,7 @@ const Footer: React.FC = () => {
   const { pathname } = useLocation();
   const imageVision = pathname === '/register' || pathname === '/login';
   return (
-    <footer className="hidden sTablet:flex sTablet:flex-col sTablet:items-center sLaptop:mx-auto sLaptop:max-w-[1280px] sLaptop:items-end sLaptop:px-[20px]">
+    <footer className="hidden sTablet:mt-[40px] sTablet:flex sTablet:flex-col sTablet:items-center sLaptop:mx-auto sLaptop:max-w-[1280px] sLaptop:items-end sLaptop:px-[20px]">
       <div className="flex ">
         <Logo
           logoTextStyles="mr-2 text-xs font-normal text-second-color hover:text-third-color hover:font-medium transition duration-500"

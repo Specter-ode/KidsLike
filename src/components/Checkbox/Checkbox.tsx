@@ -9,23 +9,21 @@ interface IProps {
 }
 const CheckBox: React.FC<IProps> = ({ value, label, checked, id, onChange, disabled }) => {
   return (
-    <div>
+    <li className="mb-[8px] h-[18px] last:mb-0">
+      <input
+        id={id}
+        name={id}
+        type="checkbox"
+        checked={checked}
+        value={value}
+        onChange={onChange}
+        className="mr-[10px] h-[14px] w-[14px] cursor-pointer rounded-[3px] border  border-main-bg  bg-third-color checked:border-2 checked:border-main-bg checked:hover:border-2 checked:hover:border-main-bg  focus:ring-blue-200 disabled:cursor-not-allowed disabled:bg-second-color disabled:hover:bg-second-color"
+        disabled={disabled}
+      />
       <label htmlFor={id} className="text-[14px] font-bold text-main-bg">
-        <input
-          id={id}
-          name={id}
-          type="checkbox"
-          checked={checked}
-          value={value}
-          onChange={onChange}
-          
-          className="bg-third-color w-[20px] cursor-pointer h-[20px] border border-main-bg  focus:ring-blue-200  rounded-[3px] mr-[10px] disabled:bg-second-color disabled:hover:bg-second-color disabled:cursor-not-allowed  checked:border-2 checked:border-main-bg checked:hover:border-2 checked:hover:border-main-bg"
-          disabled={disabled}
-        />
-        <span></span>
         {label}
       </label>
-    </div>
+    </li>
   );
 };
 

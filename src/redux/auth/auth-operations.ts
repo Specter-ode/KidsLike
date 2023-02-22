@@ -20,8 +20,7 @@ export const handleRegistration = createAsyncThunk<void, IRegisterData, { reject
     try {
       await api.register(data);
       toast.success(`Registration is success.`);
-      const navigate = useNavigate();
-      navigate('/login');
+
       return;
     } catch (error) {
       const err = error as AxiosError<string>;

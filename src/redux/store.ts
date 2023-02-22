@@ -11,11 +11,17 @@ const authPersistConfig = {
   storage,
   whitelist: ['accessToken', 'sid'],
 };
-const persistedAuth = persistReducer(authPersistConfig, authReducer);
 
+const infoPersistConfig = {
+  key: 'info',
+  storage,
+  whitelist: ['currentChild'],
+};
+const persistedAuth = persistReducer(authPersistConfig, authReducer);
+const persistedInfo = persistReducer(infoPersistConfig, infoReducer);
 const rootReducer = combineReducers({
   auth: persistedAuth,
-  info: infoReducer,
+  info: persistedInfo,
 });
 
 export const store = configureStore({

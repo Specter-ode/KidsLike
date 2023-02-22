@@ -1,4 +1,5 @@
-import { useMemo } from 'react';
+//  FormTextField.tsx
+import { useMemo, useState } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
 import { IFormTextField } from '../../types/formTextField-types';
 
@@ -18,6 +19,16 @@ const FormTextField: React.FC<IFormTextField> = ({
   helper,
 }) => {
   const id = useMemo(() => nanoid(), []);
+  const [isFocused, setIsFocused] = useState(false);
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+  };
+
   return (
     <div className="relative  mb-[12px]">
       <input
@@ -33,11 +44,13 @@ const FormTextField: React.FC<IFormTextField> = ({
         pattern={pattern}
         minLength={minLength}
         maxLength={maxLength}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
       />
       <label className="label" htmlFor={id}>
         {label}
       </label>
-      <span className="error">{error}</span>
+      <span className="error">{!isFocused && error}</span>
       <span className="helper">{helper}</span>
     </div>
   );

@@ -1,6 +1,7 @@
 import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { handleRegistration, handleLogin, handleLogout, handleRefresh, getUser } from './auth-operations';
 import { IAuthState, IResponseError } from '../../types/auth-types';
+import { useNavigate } from 'react-router-dom';
 
 const initialState: IAuthState = {
   id: '',
@@ -11,11 +12,13 @@ const initialState: IAuthState = {
   sid: '',
   startWeekDate: '',
   endWeekDate: '',
+  lang: 'ru',
   isAuth: false,
   isLoading: false,
   isModal: false,
   taskFormModal: false,
   error: null,
+  redirectToLogin: false,
 };
 
 const authSlice = createSlice({
@@ -28,11 +31,15 @@ const authSlice = createSlice({
     setTaskFormModalStatus: (store, { payload }: PayloadAction<boolean>) => {
       store.taskFormModal = payload;
     },
+    clearRedirectToLogin: store => {
+      store.redirectToLogin = false;
+    },
   },
   extraReducers: builder => {
     builder
       .addCase(handleRegistration.fulfilled, store => {
         store.isLoading = false;
+        store.redirectToLogin = true;
       })
 
       .addCase(handleLogin.fulfilled, (store, { payload }) => {
@@ -68,7 +75,7 @@ const authSlice = createSlice({
       .addCase(handleLogout.fulfilled, () => ({ ...initialState }))
 
       .addMatcher(isError, (store, action: PayloadAction<IResponseError>) => {
-        store.error = action.payload.response.data.message;
+        store.error = action.payload.message;
         store.isLoading = false;
       })
       .addMatcher(Loading, store => {
@@ -85,5 +92,5 @@ function Loading(action: AnyAction) {
   return action.type.endsWith('pending');
 }
 
-export const { setModalStatus, setTaskFormModalStatus } = authSlice.actions;
+export const { setModalStatus, setTaskFormModalStatus, clearRedirectToLogin } = authSlice.actions;
 export default authSlice.reducer;

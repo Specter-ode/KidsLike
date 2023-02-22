@@ -1,6 +1,6 @@
 // import AddKi from '../../assets/img/AddTask.jpg';
 import sprite from '../../assets/icons/sprite.svg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useWindowDimensions from '../../services/hooks/useDimensions';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setCurrentChild } from '../../redux/info/info-slice';
@@ -10,11 +10,14 @@ interface IProps {
 }
 const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
   const { width } = useWindowDimensions();
-  const [childId, setChildId] = useState('');
+
   const [upgradeProfile, setUpdateProfile] = useState(false);
-  const storeCurrentChild = useAppSelector(store => store.info.currentChild);
-  const allChildren = useAppSelector(store => store.info.children);
+  const { currentChild, children } = useAppSelector(store => store.info);
+  console.log('children: ', children);
+  const [childId, setChildId] = useState(currentChild._id);
+  console.log('currentChild: ', currentChild);
   const dispatch = useAppDispatch();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setChildId(value);
@@ -22,7 +25,7 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const childData = allChildren.find(el => el.id === childId);
+    const childData = children.find(el => el._id === childId);
     if (childData) {
       dispatch(setCurrentChild(childData));
       setUpdateProfile(false);
@@ -47,22 +50,28 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
           >
             Вернуться
           </button>
-          <div className="relative mb-[10px] flex h-[25px] items-center justify-between  sMob:w-[376px] sTablet:w-auto sTablet:justify-center lessMob:w-[280px]">
+          <div className="relative flex items-center justify-between sMob:w-[376px] sTablet:h-[25px] sTablet:w-auto sTablet:justify-center lessMob:w-[280px]">
             <p className="text-[14px] font-medium text-fifth-color">Выбран профиль ребенка:</p>
-            <p className="ml-[10px] flex items-center text-[14px] font-bold text-main-color">
-              {storeCurrentChild.name}
-            </p>
+            <p className="ml-[10px] flex items-center text-[14px] font-bold text-main-color">{currentChild.name}</p>
           </div>
           <form
             onSubmit={handleSubmit}
-            className=" sTablet:flex sTablet:flex-wrap sTablet:justify-center lessTablet:pb-[25px]"
+            className=" mt-[10px] sTablet:flex sTablet:flex-wrap sTablet:justify-center lessTablet:pb-[25px]"
           >
-            {allChildren
-              .filter(el => el.id !== storeCurrentChild.id)
+            {children
+              .filter(el => {
+                console.log('filter el._id: ', el._id);
+                console.log('filter currentChild._id}: ', currentChild._id);
+
+                return el._id !== currentChild._id;
+              })
               .map(el => {
+                console.log('el: ', el);
+                console.log('childId: ', childId);
+
                 return (
                   <div
-                    key={el.id}
+                    key={el._id}
                     className="flex sTablet:mr-[20px] sTablet:min-w-[110px] sTablet:flex-col sTablet:items-center sTablet:justify-center sTablet:last:mr-0 lessTablet:mb-[5px] lessTablet:min-h-[25px] lessTablet:items-center lessTablet:justify-between lessTablet:last:mb-0"
                   >
                     <label htmlFor={el.name} className="flex items-center text-[14px] font-medium text-fifth-color ">
@@ -71,30 +80,30 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
                         className="absolute opacity-0"
                         type="radio"
                         name="Ребенок"
-                        value={el.id}
-                        checked={childId === el.id}
+                        value={el._id}
+                        checked={childId === el._id}
                         onChange={handleChange}
                       />
-                      {childId === el.id ? (
-                        <svg className="mr-[5px]" width="20" height="20">
+                      {childId === el._id ? (
+                        <svg className="mr-[5px]" width="21" height="21">
                           <use href={sprite + '#checked'}></use>
                         </svg>
                       ) : (
-                        <svg className="mr-[5px]" width="20" height="20">
+                        <svg className="mr-[5px]" width="21" height="21">
                           <use href={sprite + '#unchecked'}></use>
                         </svg>
                       )}
 
                       {el.name}
                     </label>
-                    {childId === el.id && (
+                    {childId === el._id && (
                       <button
                         className="btn w-[100px] sTablet:absolute sTablet:right-0  sTablet:top-0 lessTablet:ml-auto"
                         style={{
                           height: 'auto',
                         }}
                       >
-                        Сохранить
+                        Выбрать
                       </button>
                     )}
                   </div>
@@ -109,12 +118,12 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
               <div className="flex justify-between">
                 <p className="text-[14px] font-medium text-fifth-color">Выбран профиль ребенка:</p>
                 <p className="ml-[10px] flex items-center text-[14px] font-bold text-main-color">
-                  {storeCurrentChild.name}
+                  {currentChild.name || 'Информация отсутствует'}
                 </p>
               </div>
               <div className="mt-[10px] flex justify-between">
                 <button
-                  className="btn mr-[10px] w-full"
+                  className="btn w-full"
                   style={{
                     height: 'auto',
                   }}
@@ -123,18 +132,20 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
                 >
                   Добавить
                 </button>
-                <button
-                  className="btn  w-full"
-                  style={{
-                    height: 'auto',
-                  }}
-                  type="button"
-                  onClick={() => {
-                    setUpdateProfile(true);
-                  }}
-                >
-                  Изменить
-                </button>
+                {children.length > 1 && (
+                  <button
+                    className="btn  ml-[10px] w-full"
+                    style={{
+                      height: 'auto',
+                    }}
+                    type="button"
+                    onClick={() => {
+                      setUpdateProfile(true);
+                    }}
+                  >
+                    Изменить
+                  </button>
+                )}
               </div>
             </div>
           ) : (
@@ -152,21 +163,25 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
               <div className=" flex items-center">
                 <p className="text-[14px] font-medium text-fifth-color">Выбран профиль ребенка:</p>
                 <p className="ml-[10px] flex items-center text-[14px] font-bold text-main-color">
-                  {storeCurrentChild.name}
+                  {currentChild.name || 'Информация отсутствует'}
                 </p>
               </div>
-              <button
-                className="btn w-[100px]"
-                style={{
-                  height: 'auto',
-                }}
-                type="button"
-                onClick={() => {
-                  setUpdateProfile(true);
-                }}
-              >
-                Изменить
-              </button>
+              {
+                <button
+                  className="btn w-[100px]"
+                  style={{
+                    height: 'auto',
+                    opacity: children.length > 1 ? 1 : 0,
+                    pointerEvents: children.length > 1 ? 'auto' : 'none',
+                  }}
+                  type="button"
+                  onClick={() => {
+                    setUpdateProfile(true);
+                  }}
+                >
+                  Изменить
+                </button>
+              }
             </div>
           )}
         </>

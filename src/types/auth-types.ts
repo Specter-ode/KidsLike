@@ -59,11 +59,13 @@ export interface IAuthState {
   startWeekDate: string;
   endWeekDate: string;
   sid: string;
+  lang: 'ru' | 'ua';
   isAuth: boolean;
   isLoading: boolean;
   isModal: boolean;
   taskFormModal: boolean;
   error: string | null;
+  redirectToLogin: boolean;
 }
 
 export interface IUserResponse {

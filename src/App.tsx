@@ -11,9 +11,11 @@ import Root from './routes/Root';
 const App: React.FC = () => {
   const dispatch = useAppDispatch();
   const { isAuth, accessToken } = useAppSelector(store => store.auth);
-
   useEffect(() => {
-    if (!isAuth && accessToken) {
+    console.log('isAuth : ', isAuth);
+    console.log('accessToken: ', accessToken);
+    if (!isAuth) {
+      console.log('юзеффект выполняется');
       setToken(accessToken);
       dispatch(getUser());
     }

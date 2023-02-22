@@ -5,7 +5,7 @@ export interface IDay {
 }
 
 export interface ITask {
-  id: string;
+  _id: string;
   title: string;
   reward: number;
   imageUrl: string;
@@ -14,7 +14,7 @@ export interface ITask {
 }
 
 export interface IGift {
-  id: string;
+  _id: string;
   title: string;
   price: number;
   isPurchased: boolean;
@@ -30,21 +30,13 @@ export interface IChild {
   rewardsPlanned: number;
   tasks: ITask[];
   gifts: IGift[];
-  id: string;
-}
-
-export interface IResponseError {
-  message: string;
-  response: {
-    data: {
-      message: string;
-    };
-  };
+  _id: string;
 }
 
 export interface IInfoState {
   children: IChild[];
   currentChild: IChild;
+  selectedDay: string;
   isLoading: boolean;
   error: string | null;
 }
