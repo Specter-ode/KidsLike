@@ -4,16 +4,18 @@ import { useState } from 'react';
 import FormTextField from '../FormTextField/FormTextField';
 import { useAppDispatch } from '../../redux/hooks';
 import { addChild } from '../../redux/info/info-operations';
+import { INewChildData } from '../../types/info-types';
 
-type IChild = {
-  name: string;
-  gender: 'male' | 'female';
-};
-const initialState: IChild = {
+interface IProp {
+  toggleAddChildForm: () => void;
+}
+
+const initialState: INewChildData = {
   name: '',
   gender: 'male',
 };
-const AddChildForm: React.FC = () => {
+
+const AddChildForm: React.FC<IProp> = ({ toggleAddChildForm }) => {
   const [child, setChild] = useState(initialState);
   const dispatch = useAppDispatch();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,6 +29,7 @@ const AddChildForm: React.FC = () => {
     e.preventDefault();
     dispatch(addChild(child));
     setChild(initialState);
+    toggleAddChildForm();
   };
   const { gender, name } = child;
   return (

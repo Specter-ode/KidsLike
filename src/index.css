@@ -30,9 +30,6 @@ input:-webkit-autofill:focus {
   left: calc(-336px - 0.5 * (100vw - 1280px));
 }
 
-/* .list {
-  overflow: scroll;
-} */
 .btn {
   @apply flex h-[48px] items-center justify-center rounded-[6px] border-2 border-transparent bg-accent-color text-[14px] font-normal text-white transition duration-500 hover:border-accent-color hover:bg-white hover:text-accent-color focus:outline-none focus:ring focus:ring-accent-color focus:ring-opacity-50;
 }
@@ -57,6 +54,10 @@ input:-webkit-autofill:focus {
 .input:not(:focus):valid ~ .label {
   @apply top-0 left-[12px] translate-y-[-50%] bg-main-bg  px-[4px] text-[12px] font-normal;
 }
+.input:focus,
+.input:not(:focus):not(:placeholder-shown):invalid {
+  @apply pl-[15px];
+}
 
 .input:not(:focus):not(:placeholder-shown):invalid {
   @apply border-[2px] border-error-color;
@@ -65,8 +66,17 @@ input:-webkit-autofill:focus {
 .input:not(:focus):not(:placeholder-shown):invalid ~ .label {
   @apply top-0 left-[12px] translate-y-[-50%] bg-main-bg px-[4px] text-[12px] font-normal  text-error-color;
 }
-
 .input:not(:focus):not(:placeholder-shown):invalid ~ .error,
 .input:not(:focus):not(:placeholder-shown):invalid ~ .helper {
   @apply block;
+}
+
+.checkbox:disabled ~ .checkboxlabel {
+  @apply text-gray-400;
+}
+.absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

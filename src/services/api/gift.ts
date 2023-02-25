@@ -1,4 +1,11 @@
-import { IEditGiftData, IRemoveGiftResponse, IBuyGiftResponse, IGift, IGiftData } from '../../types/info-types';
+import {
+  IEditGiftData,
+  IRemoveGiftResponse,
+  IBuyGiftsResponse,
+  IGift,
+  IGiftData,
+  IBuyGiftsData,
+} from '../../types/info-types';
 import instance from './auth';
 
 export const getGifts = async (): Promise<IGift[]> => {
@@ -29,7 +36,9 @@ export const removeGift = async (giftId: string): Promise<IRemoveGiftResponse> =
   return result.data;
 };
 
-export const buyGift = async (giftId: string): Promise<IBuyGiftResponse> => {
-  const result = await instance.patch<IBuyGiftResponse>(`/gift/buy/${giftId}`);
+export const buyGifts = async ({ childId, giftIds }: IBuyGiftsData): Promise<IBuyGiftsResponse> => {
+  const result = await instance.patch<IBuyGiftsResponse>(`/gift/buy/${childId}`, { giftIds });
+  console.log('buyGifts result.data: ', result.data);
+
   return result.data;
 };

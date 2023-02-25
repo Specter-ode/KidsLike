@@ -4,7 +4,7 @@ import {
   addChild,
   addGift,
   addTask,
-  buyGift,
+  buyGifts,
   changeTaskActiveStatus,
   changeTaskCompletedStatus,
   editGift,
@@ -19,6 +19,7 @@ const initialState: IInfoState = {
   children: [] as IChild[],
   currentChild: {} as IChild,
   selectedDay: getDay(),
+  purchasedGifts: [],
   isLoading: false,
   error: null,
 };
@@ -29,9 +30,18 @@ const infoSlice = createSlice({
   reducers: {
     setCurrentChild: (store, { payload }: PayloadAction<IChild>) => {
       store.currentChild = payload;
+      store.purchasedGifts = payload.gifts.filter(gift => gift.isPurchased).map(gift => gift._id);
     },
     setSelectedDay: (store, { payload }: PayloadAction<string>) => {
       store.selectedDay = payload;
+    },
+    togglePurchase: (store, { payload }: PayloadAction<string>) => {
+      store.currentChild.gifts = store.currentChild.gifts.map(gift =>
+        gift._id === payload ? { ...gift, isPurchased: !gift.isPurchased } : gift
+      );
+    },
+    refreshPurchasedGifts: store => {
+      store.purchasedGifts = store.currentChild?.gifts.filter(gift => gift.isPurchased).map(gift => gift._id);
     },
   },
   extraReducers: builder => {
@@ -39,12 +49,15 @@ const infoSlice = createSlice({
       .addCase(handleLogin.fulfilled, (store, { payload }) => {
         store.children = [...payload.children];
         store.currentChild = payload.children[0];
+        store.purchasedGifts = store.currentChild?.gifts.filter(gift => gift.isPurchased).map(gift => gift._id);
         store.isLoading = false;
       })
 
       .addCase(handleLogout.fulfilled, () => ({ ...initialState }))
       .addCase(getUser.fulfilled, (store, { payload }) => {
         store.children = [...payload.children];
+        store.currentChild = payload.children.find(child => child._id === store.currentChild._id)!;
+        store.purchasedGifts = store.currentChild?.gifts.filter(gift => gift.isPurchased).map(gift => gift._id);
         store.isLoading = false;
       })
       .addCase(addChild.fulfilled, (store, { payload }) => {
@@ -64,11 +77,14 @@ const infoSlice = createSlice({
       .addCase(changeTaskActiveStatus.fulfilled, (store, { payload: { updatedTask, rewardsPlanned } }) => {
         store.children = store.children.map(child =>
           child._id === updatedTask.childId
-            ? { ...child, tasks: child.tasks.map(task => (task._id === updatedTask._id ? updatedTask : task)) }
+            ? {
+                ...child,
+                tasks: child.tasks.map(task => (task._id === updatedTask._id ? updatedTask : task)),
+                rewardsPlanned,
+              }
             : child
         );
-        store.currentChild.tasks = [...store.currentChild.tasks, updatedTask];
-        store.currentChild.rewardsPlanned = rewardsPlanned;
+        store.currentChild = store.children.find(child => child._id === updatedTask.childId)!;
         store.isLoading = false;
       })
 
@@ -139,19 +155,18 @@ const infoSlice = createSlice({
         store.isLoading = false;
       })
 
-      .addCase(buyGift.fulfilled, (store, { payload }) => {
+      .addCase(buyGifts.fulfilled, (store, { payload }) => {
         store.children = store.children.map(child =>
-          child._id === payload.purchasedGift.childId
+          child._id === payload.childId
             ? {
                 ...child,
-                gifts: child.gifts.map(gift => (gift._id === payload.purchasedGift._id ? payload.purchasedGift : gift)),
-                balance: payload.updatedBalance,
+                balance: payload.balance,
+                gifts: payload.gifts,
               }
             : child
         );
-        store.currentChild.gifts = store.currentChild.gifts.map(gift =>
-          gift._id === payload.purchasedGift._id ? payload.purchasedGift : gift
-        );
+        store.currentChild.balance = payload.balance;
+        store.currentChild.gifts = payload.gifts;
         store.isLoading = false;
       })
       .addMatcher(isError, (store, action: PayloadAction<{ message: string }>) => {
@@ -172,5 +187,5 @@ function Loading(action: AnyAction) {
   return action.type.endsWith('pending');
 }
 
-export const { setCurrentChild, setSelectedDay } = infoSlice.actions;
+export const { setCurrentChild, setSelectedDay, togglePurchase, refreshPurchasedGifts } = infoSlice.actions;
 export default infoSlice.reducer;

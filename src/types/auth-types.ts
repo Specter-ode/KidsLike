@@ -76,3 +76,8 @@ export interface IUserResponse {
   endWeekDate: string;
   children: IChild[];
 }
+export interface ISocialAuthAction {
+  accessToken: string;
+  refreshToken: string;
+  sid: string;
+}

@@ -1,7 +1,7 @@
 import { useAppSelector } from '../../redux/hooks';
 
 const Balance: React.FC = () => {
-  const balance = useAppSelector(store => store.info.currentChild.balance);
+  const { balance } = useAppSelector(store => store.info.currentChild);
 
   return (
     <div className="flex items-center">

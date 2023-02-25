@@ -42,7 +42,7 @@ export const changeTaskActiveStatus = async ({
   days,
   taskId,
 }: ITaskActiveStatusData): Promise<ITaskActiveStatusResponse> => {
-  const result = await instance.patch<ITaskActiveStatusResponse>(`/task/${taskId}/active`, days);
+  const result = await instance.patch<ITaskActiveStatusResponse>(`/task/${taskId}/active`, { days });
   return result.data;
 };
 
@@ -50,6 +50,6 @@ export const changeTaskCompletedStatus = async ({
   date,
   taskId,
 }: ITaskCompletedStatusData): Promise<ITaskCompletedStatusResponse> => {
-  const result = await instance.patch<ITaskCompletedStatusResponse>(`/task/${taskId}/completed`, date);
+  const result = await instance.patch<ITaskCompletedStatusResponse>(`/task/${taskId}/completed`, { date });
   return result.data;
 };

@@ -12,14 +12,14 @@ const TaskCard: React.FC<ITask> = ({ _id, title, reward, imageUrl, days }) => {
   const stringReward = getScoreString(reward).toUpperCase();
   const { pathname } = useLocation();
   const dayStatus = getDayStatus(selectedDay);
-  console.log('pathname CardList: ', pathname);
   const planningPagePath = pathname === '/planning' || pathname === '/planning/*';
   const mainPagePath = pathname === '/main' || pathname === '/main/*';
   const isCompleted = days.find(day => day.date === selectedDay)?.isCompleted || false;
+
   return (
     <li className="overflow-hidden rounded-[6px] shadow-base">
-      <div className="h-[194px] w-full bg-second-color">
-        <img alt={title} src={imageUrl} width={280} className="block" />
+      <div className="flex h-[194px] w-full items-center justify-center">
+        <img alt={title} src={imageUrl} width={280} />
       </div>
       <div className="relative flex items-center justify-between bg-accent-color px-[20px] py-[16px]">
         <div>
@@ -30,33 +30,32 @@ const TaskCard: React.FC<ITask> = ({ _id, title, reward, imageUrl, days }) => {
             </>
           </p>
         </div>
-        <div>
-          {mainPagePath && dayStatus === 'before' && (
-            <>
-              {isCompleted ? (
-                <button
-                  type="button"
-                  className="flex h-[30px] w-[30px] items-center justify-center rounded-full bg-fourth-color"
-                >
-                  <svg className="fill-current" width={30} height={30}>
-                    <use href={sprite + '#yes'}></use>
-                  </svg>
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  className="flex h-[30px] w-[30px] items-center justify-center rounded-full border-none"
-                >
-                  <svg className="fill-current" width={30} height={30}>
-                    <use href={sprite + '#attention'}></use>
-                  </svg>
-                </button>
-              )}
-            </>
-          )}
-          {planningPagePath && <BtnAddPlanToCurrentTask cardId={_id} dayDetailsData={days} />}
-          {mainPagePath && dayStatus === 'today' && <TaskToggle _id={_id} isChecked={isCompleted} />}
-        </div>
+
+        {mainPagePath && dayStatus === 'before' && (
+          <>
+            {isCompleted ? (
+              <button
+                type="button"
+                className="flex h-[30px] w-[30px] items-center justify-center rounded-full bg-fourth-color"
+              >
+                <svg className="fill-current" width={30} height={30}>
+                  <use href={sprite + '#yes'}></use>
+                </svg>
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="flex h-[30px] w-[30px] items-center justify-center rounded-full border-none"
+              >
+                <svg className="fill-current" width={30} height={30}>
+                  <use href={sprite + '#attention'}></use>
+                </svg>
+              </button>
+            )}
+          </>
+        )}
+        {planningPagePath && <BtnAddPlanToCurrentTask cardId={_id} days={days} />}
+        {mainPagePath && dayStatus === 'today' && <TaskToggle _id={_id} isChecked={isCompleted} />}
       </div>
     </li>
   );

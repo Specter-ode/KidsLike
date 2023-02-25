@@ -11,7 +11,7 @@ import WeekTabs from '../../components/WeekTabs/WeekTabs';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setCurrentChild } from '../../redux/info/info-slice';
 import useWindowDimensions from '../../services/hooks/useDimensions';
-import { convertDate, getCurrentWeek, getDay, getDayOfWeek } from '../../services/helpers/date';
+import { convertDate, getCurrentWeek, getDayOfWeek } from '../../services/helpers/date';
 
 const MainPage: React.FC = () => {
   const [showAddChildForm, setShowAddChildForm] = useState(false);
@@ -19,24 +19,23 @@ const MainPage: React.FC = () => {
   const mobile = width < 768;
   const tablet = 767 < width && width < 1280;
   const laptop = width > 1279;
-  const { currentChild, selectedDay } = useAppSelector(store => store.info);
+  const { children, currentChild, selectedDay } = useAppSelector(store => store.info);
   const { startWeekDate, endWeekDate, lang } = useAppSelector(store => store.auth);
-  const allChildren = useAppSelector(store => store.info.children);
 
   const dispatch = useAppDispatch();
   useEffect(() => {
-    console.log('currentChild: ', currentChild);
-    console.log('!currentChild._id: ', !currentChild._id);
-    console.log('allChildren.length: ', allChildren);
+    console.log('!currentChild: ', !currentChild);
+    console.log(' !currentChild._id: ', !currentChild._id);
+    console.log('children.length: ', children.length);
 
-    if (!currentChild._id && allChildren.length > 0) {
-      dispatch(setCurrentChild(allChildren[0]));
+    if ((!currentChild || !currentChild._id) && children.length === 1) {
+      console.log('сработал юз ЕФФЕКТ');
+      dispatch(setCurrentChild(children[0]));
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [children, currentChild, dispatch]);
 
   const toggleAddChildForm = () => {
-    if (allChildren.length < 1) {
+    if (children.length < 1) {
       toast.error('Закрытие окна невозможно. Информация о детях отсутсвует');
       return;
     }
@@ -124,14 +123,14 @@ const MainPage: React.FC = () => {
         </div>
       )}
 
-      {allChildren.length < 1 && (
+      {children.length < 1 && (
         <Modal onClose={toggleAddChildForm}>
           <div className="p-[20px]">
             <h3 className="mb-[20px] text-[14px] font-bold text-main-color">Приветствуем Вас</h3>
             <p className="mb-[20px] text-[14px] font-medium text-main-color">
               Для работы с приложением нужно внести данные ребенка
             </p>
-            <AddChildForm />
+            <AddChildForm toggleAddChildForm={toggleAddChildForm} />
           </div>
         </Modal>
       )}
@@ -141,7 +140,7 @@ const MainPage: React.FC = () => {
             <h3 className="mb-[20px] text-center text-[14px] font-bold text-main-color">
               Добавить новый профиль ребенка
             </h3>
-            <AddChildForm />
+            <AddChildForm toggleAddChildForm={toggleAddChildForm} />
           </div>
         </Modal>
       )}

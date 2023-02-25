@@ -1,7 +1,6 @@
 import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { handleRegistration, handleLogin, handleLogout, handleRefresh, getUser } from './auth-operations';
-import { IAuthState, IResponseError } from '../../types/auth-types';
-import { useNavigate } from 'react-router-dom';
+import { IAuthState, IResponseError, ISocialAuthAction } from '../../types/auth-types';
 
 const initialState: IAuthState = {
   id: '',
@@ -25,6 +24,11 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    setSidAndTokens: (store, { payload }: PayloadAction<ISocialAuthAction>) => {
+      store.accessToken = payload.accessToken;
+      store.refreshToken = payload.refreshToken;
+      store.sid = payload.sid;
+    },
     setModalStatus: (store, { payload }: PayloadAction<boolean>) => {
       store.isModal = payload;
     },
@@ -92,5 +96,5 @@ function Loading(action: AnyAction) {
   return action.type.endsWith('pending');
 }
 
-export const { setModalStatus, setTaskFormModalStatus, clearRedirectToLogin } = authSlice.actions;
+export const { setSidAndTokens, setModalStatus, setTaskFormModalStatus, clearRedirectToLogin } = authSlice.actions;
 export default authSlice.reducer;

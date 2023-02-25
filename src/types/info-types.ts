@@ -37,6 +37,7 @@ export interface IInfoState {
   children: IChild[];
   currentChild: IChild;
   selectedDay: string;
+  purchasedGifts: string[];
   isLoading: boolean;
   error: string | null;
 }
@@ -113,7 +114,13 @@ export interface IRemoveGiftResponse {
   childId: string;
 }
 
-export interface IBuyGiftResponse {
-  purchasedGift: IGift;
-  updatedBalance: number;
+export interface IBuyGiftsResponse {
+  childId: string;
+  balance: number;
+  gifts: IGift[];
+}
+
+export interface IBuyGiftsData {
+  childId: string;
+  giftIds: string[];
 }

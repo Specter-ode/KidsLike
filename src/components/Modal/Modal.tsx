@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 import closeIcon from '../../assets/icons/sprite.svg';
+import { useAppSelector } from '../../redux/hooks';
 import Loader from '../Loader/Loader';
 
 const modalRoot = document.getElementById('modal-root') as HTMLElement;
@@ -12,7 +13,7 @@ interface IProps {
 }
 
 const Modal: React.FC<IProps> = ({ onClose, children }) => {
-  const isLoading = false;
+  const { isLoading } = useAppSelector(store => store.info);
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.code === 'Escape') {
@@ -27,16 +28,15 @@ const Modal: React.FC<IProps> = ({ onClose, children }) => {
     };
   }, [onClose]);
 
-  //   const onBackdropClose = event => {
-  //     if (event.target === event.currentTarget) {
-  //       onClose();
-  //     }
-  //   };
+  const onBackdropClose = (e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
 
   return createPortal(
-    // <div onClick={onBackdropClose} className={s.overlay}>
-    <div className="fixed top-0 left-0 z-[100] flex h-[100vh] w-[100vw] items-center justify-center  bg-black/30">
-      <div className="absolute max-h-[80vh]  overflow-auto rounded-[6px] bg-main-bg">
+    <div className="fixed top-0 left-0 z-[100] h-[100vh] w-[100vw] bg-black/30" onClick={onBackdropClose}>
+      <div className="absolute-center max-h-[70vh] rounded-[6px]  bg-main-bg lessTablet:max-h-[80vh]">
         <>
           <button
             type="button"

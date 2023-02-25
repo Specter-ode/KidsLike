@@ -1,6 +1,5 @@
 import React from 'react';
-import { IAward } from '../../types/award-types';
-import imageURL from '../../assets/img/hero/img-1.png';
+import congratulations from '../../assets/img/congratulations.png';
 import { IGift } from '../../types/info-types';
 
 interface IProps {
@@ -10,25 +9,29 @@ interface IProps {
 const WinningPrizes: React.FC<IProps> = ({ gifts }) => {
   return (
     <>
-      <div className="py-[60px] px-[20px] sTablet:w-[600px] sTablet:py-[52px] sTablet:px-[60px] sTablet:pt-[130px] sTablet:pb-[40px] ">
-        {
-          <img
-            className="lesTablet:w-[132px] absolute left-[50%] top-0 block -translate-x-[50%] sTablet:w-[200px]"
-            src={imageURL}
-            alt="Congratulations"
-          />
-        }
-        <h2 className="mb-[24px] text-center text-[18px] font-semibold text-main-color sTablet:mb-[32px] sTablet:text-[28px] sLaptop:text-[32px] lessTablet:max-w-[240px]">
-          Поздравляем! Ты получаешь:
-        </h2>
-        <ul className="mx-auto grid w-full grid-cols-award gap-[20px]">
-          {gifts.map(gift => (
-            <li key={gift.title} className="flex flex-col items-center">
-              <img className="mb-[16px] block w-[90px] " src={gift.imageUrl} alt={gift.title} />
-              <p className="max-w-[100px] text-center text-[12px] font-bold text-main-color ">{gift.title}</p>
-            </li>
-          ))}
-        </ul>
+      <div className="relative px-[20px] pt-[80px] pb-[40px] sTablet:w-[600px] sTablet:py-[52px] sTablet:px-[60px] sTablet:pt-[130px] sTablet:pb-[40px] sLaptop:w-[800px] ">
+        <img
+          className="absolute left-[50%] top-0 block -translate-x-[50%] -translate-y-[50%] sTablet:w-[200px] lessTablet:w-[132px] lessTablet:-translate-y-[60%]"
+          src={congratulations}
+          alt="Congratulations"
+        />
+        <div>
+          <h2 className="mb-[24px] text-center text-[18px] font-semibold text-main-color sTablet:mb-[32px] sTablet:text-[28px] sLaptop:text-[32px]">
+            Поздравляем! Ты получаешь:
+          </h2>
+          <ul className="mx-auto flex max-h-[450px] w-full flex-wrap justify-center gap-[20px] overflow-y-auto sTablet:max-h-[286px] sLaptop:max-h-[306px]">
+            {gifts.map(gift => (
+              <li key={gift.title} className="flex w-[100px] flex-col items-center sLaptop:w-[100px]">
+                <img
+                  className="mb-[16px] block h-[90px] w-[90px] rounded-full border-[5px] border-accent-color  object-cover sLaptop:h-[100px] sLaptop:w-[100px] "
+                  src={gift.imageUrl}
+                  alt={gift.title}
+                />
+                <p className="max-w-[100px] text-center text-[12px] font-bold text-main-color ">{gift.title}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </>
   );

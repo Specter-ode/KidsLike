@@ -9,8 +9,6 @@ const SocialAuth: React.FC = () => {
       </h3>
       <div className="flex justify-between">
         <a
-          target="_blank"
-          rel="noreferrer"
           href={`${REACT_APP_BACKEND_URL}/auth/google`}
           className=" flex h-[42px] w-[45%] items-center justify-center rounded-[6px] border-gray-300 shadow-base hover:bg-accent-color"
         >
@@ -19,8 +17,6 @@ const SocialAuth: React.FC = () => {
           </svg>
         </a>
         <a
-          target="_blank"
-          rel="noreferrer"
           href={`${REACT_APP_BACKEND_URL}/auth/google`}
           className=" flex h-[42px] w-[45%] items-center justify-center rounded-[6px] border-gray-300 shadow-base hover:bg-accent-color"
         >

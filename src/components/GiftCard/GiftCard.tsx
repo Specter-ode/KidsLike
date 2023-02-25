@@ -7,8 +7,8 @@ const GiftCard: React.FC<IGift> = ({ _id, title, price, isPurchased, imageUrl })
 
   return (
     <li className="overflow-hidden rounded-[6px] shadow-base">
-      <div className="h-[194px] w-full bg-second-color">
-        <img alt={title} src={imageUrl} width={280} className="block" />
+      <div className="flex h-[194px] w-full items-center justify-center">
+        <img alt={title} src={imageUrl} width={280} />
       </div>
 
       <div className="relative flex items-center justify-between bg-accent-color px-[20px] py-[16px]">

@@ -1,6 +1,5 @@
-// import AddKi from '../../assets/img/AddTask.jpg';
 import sprite from '../../assets/icons/sprite.svg';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import useWindowDimensions from '../../services/hooks/useDimensions';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setCurrentChild } from '../../redux/info/info-slice';
@@ -13,9 +12,7 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
 
   const [upgradeProfile, setUpdateProfile] = useState(false);
   const { currentChild, children } = useAppSelector(store => store.info);
-  console.log('children: ', children);
   const [childId, setChildId] = useState(currentChild._id);
-  console.log('currentChild: ', currentChild);
   const dispatch = useAppDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,7 +48,9 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
             Вернуться
           </button>
           <div className="relative flex items-center justify-between sMob:w-[376px] sTablet:h-[25px] sTablet:w-auto sTablet:justify-center lessMob:w-[280px]">
-            <p className="text-[14px] font-medium text-fifth-color">Выбран профиль ребенка:</p>
+            <p className="text-[14px] font-medium text-fifth-color">
+              {!currentChild || !currentChild._id ? 'Профиль ребенка не выбран' : 'Выбран профиль ребенка:'}
+            </p>
             <p className="ml-[10px] flex items-center text-[14px] font-bold text-main-color">{currentChild.name}</p>
           </div>
           <form
@@ -59,16 +58,8 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
             className=" mt-[10px] sTablet:flex sTablet:flex-wrap sTablet:justify-center lessTablet:pb-[25px]"
           >
             {children
-              .filter(el => {
-                console.log('filter el._id: ', el._id);
-                console.log('filter currentChild._id}: ', currentChild._id);
-
-                return el._id !== currentChild._id;
-              })
+              .filter(el => el._id !== currentChild._id)
               .map(el => {
-                console.log('el: ', el);
-                console.log('childId: ', childId);
-
                 return (
                   <div
                     key={el._id}
@@ -116,10 +107,10 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
           {width < 768 ? (
             <div className="mb-[10px] w-[280px] sMob:w-[376px]">
               <div className="flex justify-between">
-                <p className="text-[14px] font-medium text-fifth-color">Выбран профиль ребенка:</p>
-                <p className="ml-[10px] flex items-center text-[14px] font-bold text-main-color">
-                  {currentChild.name || 'Информация отсутствует'}
+                <p className="text-[14px] font-medium text-fifth-color">
+                  {!currentChild || !currentChild._id ? 'Профиль ребенка не выбран' : 'Выбран профиль ребенка:'}
                 </p>
+                <p className="ml-[10px] flex items-center text-[14px] font-bold text-main-color">{currentChild.name}</p>
               </div>
               <div className="mt-[10px] flex justify-between">
                 <button
@@ -161,10 +152,10 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
                 Добавить
               </button>
               <div className=" flex items-center">
-                <p className="text-[14px] font-medium text-fifth-color">Выбран профиль ребенка:</p>
-                <p className="ml-[10px] flex items-center text-[14px] font-bold text-main-color">
-                  {currentChild.name || 'Информация отсутствует'}
+                <p className="text-[14px] font-medium text-fifth-color">
+                  {!currentChild || !currentChild._id ? 'Профиль ребенка не выбран' : 'Выбран профиль ребенка:'}
                 </p>
+                <p className="ml-[10px] flex items-center text-[14px] font-bold text-main-color">{currentChild.name}</p>
               </div>
               {
                 <button

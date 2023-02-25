@@ -1,6 +1,7 @@
 import { toast } from 'react-toastify';
 import {
-  IBuyGiftResponse,
+  IBuyGiftsResponse,
+  IBuyGiftsData,
   IChild,
   IEditGiftData,
   IEditTaskData,
@@ -93,7 +94,6 @@ export const changeTaskActiveStatus = createAsyncThunk<
 >('info/changeTaskActiveStatus', async (data, { rejectWithValue }) => {
   try {
     const result = await taskApi.changeTaskActiveStatus(data);
-    console.log('changeTaskActiveStatus result: ', result);
     return result;
   } catch (error) {
     const err = error as AxiosError<string>;
@@ -111,6 +111,7 @@ export const changeTaskCompletedStatus = createAsyncThunk<
   ITaskCompletedStatusData,
   { rejectValue: string }
 >('info/changeTaskCompletedStatus', async (data, { rejectWithValue }) => {
+  console.log('data: ', data);
   try {
     const result = await taskApi.changeTaskCompletedStatus(data);
     console.log('changeTaskCompletedStatus result: ', result);
@@ -198,6 +199,7 @@ export const editGift = createAsyncThunk<IGift, IEditGiftData, { rejectValue: st
     }
   }
 );
+
 export const removeGift = createAsyncThunk<IRemoveGiftResponse, string, { rejectValue: string }>(
   'info/removeGift',
   async (giftId, { rejectWithValue }) => {
@@ -215,16 +217,16 @@ export const removeGift = createAsyncThunk<IRemoveGiftResponse, string, { reject
   }
 );
 
-export const buyGift = createAsyncThunk<IBuyGiftResponse, string, { rejectValue: string }>(
-  'info/buyGift',
-  async (giftId, { rejectWithValue }) => {
+export const buyGifts = createAsyncThunk<IBuyGiftsResponse, IBuyGiftsData, { rejectValue: string }>(
+  'info/buyGifts',
+  async (data, { rejectWithValue }) => {
     try {
-      const result = await giftApi.buyGift(giftId);
-      console.log('buyGift result: ', result);
+      const result = await giftApi.buyGifts(data);
+      console.log('buyGifts result: ', result);
       return result;
     } catch (error) {
       const err = error as AxiosError<string>;
-      console.log('buyGift error: ', error);
+      console.log('buyGifts error: ', error);
       if (!err.response) {
         throw error;
       } else {

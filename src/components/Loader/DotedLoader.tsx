@@ -3,8 +3,8 @@ import { ThreeDots } from 'react-loader-spinner';
 const DotedLoader = () => {
   return (
     <ThreeDots
-      width="48"
-      radius="9"
+      width="40"
+      radius="10"
       color="#5679D7"
       ariaLabel="three-dots-loading"
       wrapperStyle={{
@@ -12,7 +12,7 @@ const DotedLoader = () => {
         justifyContent: 'center',
       }}
       visible={true}
-      height="24"
+      height="20"
     />
   );
 };

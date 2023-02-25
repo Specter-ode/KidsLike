@@ -10,13 +10,11 @@ interface IProps {
 
 const CardList: React.FC<IProps> = ({ cards }) => {
   const { selectedDay } = useAppSelector(store => store.info);
-
-  console.log('cards: ', cards);
   const { pathname } = useLocation();
-  console.log('pathname CardList: ', pathname);
   const planPage = pathname === '/planning' || pathname === '/planning/*';
+
   const elements = cards
-    .filter(card => {
+    ?.filter(card => {
       if ('reward' in card) {
         if (planPage) {
           return true;
@@ -37,9 +35,11 @@ const CardList: React.FC<IProps> = ({ cards }) => {
     });
 
   return (
-    <ul className="list mx-auto mt-[32px] grid max-w-[480px] grid-cols-1 gap-y-[20px] sTablet:mt-[40px] sTablet:max-w-[768px] sTablet:grid-cols-tablet sTablet:gap-x-[32px] sLaptop:max-w-full sLaptop:grid-cols-laptop">
-      {elements}
-    </ul>
+    <>
+      <ul className="list mx-auto mt-[32px] grid max-w-[480px] grid-cols-1 gap-y-[20px] sTablet:mt-[40px] sTablet:max-w-[768px] sTablet:grid-cols-tablet sTablet:gap-x-[32px] sLaptop:max-w-full sLaptop:grid-cols-laptop">
+        {elements}
+      </ul>
+    </>
   );
 };
 
