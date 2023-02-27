@@ -10,6 +10,7 @@ interface IProps {
 }
 
 const DaysSelection: React.FC<IProps> = ({ cardId, selectedDays, handleChange }) => {
+  console.log('selectedDays: ', selectedDays);
   const { lang } = useAppSelector(store => store.auth);
   return (
     <ul className="absolute top-0 right-0 flex translate-y-[-100%] flex-col rounded-t-[6px] bg-third-color py-[10px] px-[34px]">

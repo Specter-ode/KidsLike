@@ -13,8 +13,6 @@ interface IProps {
 
 const TaskToggle: React.FC<IProps> = ({ _id, isChecked }) => {
   const { selectedDay, purchasedGifts } = useAppSelector(store => store.info);
-  console.log('purchasedGifts: ', purchasedGifts);
-
   const { pathname } = useLocation();
   const [isLoading, setIsLoading] = useState(false);
   const awardsPagePath = pathname === '/awards' || pathname === '/awards/*';
@@ -48,7 +46,7 @@ const TaskToggle: React.FC<IProps> = ({ _id, isChecked }) => {
         </svg>
       </div>
       {isLoading && (
-        <div className="absolute top-[24px] left-0 z-10">
+        <div className="absolute top-[27px] left-[4px] z-10">
           <DotedLoader />
         </div>
       )}

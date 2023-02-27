@@ -3,14 +3,14 @@ import { Outlet, useLocation, useNavigate, useSearchParams } from 'react-router-
 import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
 import Modal from '../components/Modal/Modal';
-import NewTaskForm from '../components/NewTaskForm/NewTaskForm';
+import NewCardForm from '../components/NewCardForm/NewCardForm';
 import { getUser } from '../redux/auth/auth-operations';
-import { setSidAndTokens, setTaskFormModalStatus } from '../redux/auth/auth-slice';
+import { setSidAndTokens, setFormModalStatus } from '../redux/auth/auth-slice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { setToken } from '../services/api/auth';
 
 const Layout: React.FC = () => {
-  const { isAuth, accessToken, taskFormModal } = useAppSelector(store => store.auth);
+  const { isAuth, accessToken, isFormModal } = useAppSelector(store => store.auth);
   const [searchParams] = useSearchParams();
   const accessTokenFromURL = searchParams.get('accessToken');
   const refreshTokenFromURL = searchParams.get('refreshToken');
@@ -40,8 +40,8 @@ const Layout: React.FC = () => {
     }
   }, [isAuth, navigate, pathname]);
 
-  const onCloseTaskFormModal = () => {
-    dispatch(setTaskFormModalStatus(false));
+  const onCloseFormModal = () => {
+    dispatch(setFormModalStatus(false));
   };
 
   return (
@@ -51,9 +51,9 @@ const Layout: React.FC = () => {
         <Outlet />
       </main>
       <Footer />
-      {taskFormModal && (
-        <Modal onClose={onCloseTaskFormModal}>
-          <NewTaskForm />
+      {isFormModal && (
+        <Modal onClose={onCloseFormModal}>
+          <NewCardForm />
         </Modal>
       )}
     </>

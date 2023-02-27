@@ -63,7 +63,7 @@ export interface IAuthState {
   isAuth: boolean;
   isLoading: boolean;
   isModal: boolean;
-  taskFormModal: boolean;
+  isFormModal: boolean;
   error: string | null;
   redirectToLogin: boolean;
 }

@@ -102,7 +102,7 @@ export function compareDates(dateString: string): boolean {
   const dateFromString: Date = new Date(dateString);
   const currentDate: Date = new Date();
   dateFromString.setHours(0, 0, 0, 0);
-  dateFromString.setHours(0, 0, 0, 0);
+  currentDate.setHours(0, 0, 0, 0);
   if (dateFromString.getTime() < currentDate.getTime()) {
     return true;
   }

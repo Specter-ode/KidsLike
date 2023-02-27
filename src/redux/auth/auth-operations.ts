@@ -11,7 +11,6 @@ import {
 import { AxiosError } from 'axios';
 import { RootState } from '../store';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { useNavigate } from 'react-router-dom';
 
 export const handleRegistration = createAsyncThunk<void, IRegisterData, { rejectValue: string }>(
   'auth/register',

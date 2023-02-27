@@ -80,3 +80,14 @@ input:-webkit-autofill:focus {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.absolute-x-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.absolute-y-center {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}

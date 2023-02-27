@@ -10,7 +10,7 @@ import UserInfo from '../UserInfo/UserInfo';
 import UserNav from '../UserNav/UserNav';
 
 const Header: React.FC = () => {
-  const isAuth = useAppSelector(store => store.auth.isAuth);
+  const { isAuth } = useAppSelector(store => store.auth);
   const [isBurgerMenu, setIsBurgerMenu] = useState(false);
   const { width } = useWindowDimensions();
   const onClose = () => {

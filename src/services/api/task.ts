@@ -25,7 +25,7 @@ export const addTask = async ({ data, childId }: ITaskData): Promise<ITask> => {
 };
 
 export const editTask = async ({ data, taskId }: IEditTaskData): Promise<ITask> => {
-  const result = await instance.patch<ITask>(`/task/${taskId}`, data, {
+  const result = await instance.put<ITask>(`/task/${taskId}/edit`, data, {
     headers: {
       ' content-type': 'multipart/form-data',
     },

@@ -41,15 +41,15 @@ const BtnAddPlanToCurrentTask: React.FC<IProps> = ({ cardId, days }) => {
       });
     }
   };
-  <svg width="32" height="32">
+  <svg width="34" height="34">
     <use href={sprite + '#ok'}></use>
   </svg>;
   return (
     <>
       {isSelection ? (
         <form onSubmit={handleSubmit}>
-          <button type="submit" className="flex h-[32px] w-[32px] items-center justify-center rounded-full">
-            <svg width="32" height="32">
+          <button type="submit" className="flex h-[34px] w-[34px] items-center justify-center rounded-full">
+            <svg width="34" height="34">
               <use href={sprite + '#ok'}></use>
             </svg>
           </button>
@@ -57,12 +57,12 @@ const BtnAddPlanToCurrentTask: React.FC<IProps> = ({ cardId, days }) => {
         </form>
       ) : (
         <button
-          className="flex h-[32px] w-[32px] items-center justify-center rounded-full"
+          className="flex h-[34px] w-[34px] items-center justify-center rounded-full"
           onClick={() => {
             setSelection(true);
           }}
         >
-          <svg width="32" height="32">
+          <svg width="34" height="34">
             <use href={sprite + '#plus'}></use>
           </svg>
         </button>

@@ -15,7 +15,7 @@ const initialState: IAuthState = {
   isAuth: false,
   isLoading: false,
   isModal: false,
-  taskFormModal: false,
+  isFormModal: false,
   error: null,
   redirectToLogin: false,
 };
@@ -32,8 +32,8 @@ const authSlice = createSlice({
     setModalStatus: (store, { payload }: PayloadAction<boolean>) => {
       store.isModal = payload;
     },
-    setTaskFormModalStatus: (store, { payload }: PayloadAction<boolean>) => {
-      store.taskFormModal = payload;
+    setFormModalStatus: (store, { payload }: PayloadAction<boolean>) => {
+      store.isFormModal = payload;
     },
     clearRedirectToLogin: store => {
       store.redirectToLogin = false;
@@ -96,5 +96,5 @@ function Loading(action: AnyAction) {
   return action.type.endsWith('pending');
 }
 
-export const { setSidAndTokens, setModalStatus, setTaskFormModalStatus, clearRedirectToLogin } = authSlice.actions;
+export const { setSidAndTokens, setModalStatus, setFormModalStatus, clearRedirectToLogin } = authSlice.actions;
 export default authSlice.reducer;

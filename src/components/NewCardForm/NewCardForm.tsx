@@ -1,33 +1,59 @@
 import addtask from '../../assets/img/addTask.jpg';
 import sprite from '../../assets/icons/sprite.svg';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { setTaskFormModalStatus } from '../../redux/auth/auth-slice';
-import { useState } from 'react';
+import { setFormModalStatus } from '../../redux/auth/auth-slice';
+import { useEffect, useState } from 'react';
 import * as validateImage from '../../services/helpers/validateImage';
 import { toast } from 'react-toastify';
 import useWindowDimensions from '../../services/hooks/useDimensions';
 import { useLocation } from 'react-router-dom';
-import { addGift, addTask } from '../../redux/info/info-operations';
+import { addGift, addTask, editGift, editTask } from '../../redux/info/info-operations';
 interface IState {
   title: string;
-  reward: number;
+  reward: number | '';
   avatar: string;
+}
+
+interface IGift {
+  _id: string;
+  title: string;
+  price: number;
+}
+
+interface ITask {
+  _id: string;
+  title: string;
+  reward: number;
+}
+interface IProps {
+  task?: ITask;
+  gift?: IGift;
+  onCloseModal?: () => void;
 }
 const initialState = {
   title: '',
-  reward: 0,
+  reward: '',
   avatar: '',
 };
 
-const NewTaskForm: React.FC = () => {
+const NewCardForm: React.FC<IProps> = ({ task, gift, onCloseModal }) => {
   const { pathname } = useLocation();
   const awardsPagePath = pathname === '/awards' || pathname === '/awards/*';
   const { width } = useWindowDimensions();
-  const [state, setState] = useState<IState>(initialState); // state формы, который мы отправляем при onSubmit
+  const [state, setState] = useState(initialState as IState); // state формы, который мы отправляем при onSubmit
   const [avatarName, setAvatarName] = useState(''); // название файла, необходимо для рендера в custom file input
   const { currentChild } = useAppSelector(store => store.info);
   const dispatch = useAppDispatch();
   const { title, reward, avatar } = state;
+
+  useEffect(() => {
+    if (task) {
+      setState({ title: task.title, reward: task.reward, avatar: '' });
+    }
+    if (gift) {
+      setState({ title: gift.title, reward: gift.price, avatar: '' });
+    }
+  }, [task, gift]);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { type, name, value, files } = e.target;
     const newValue = () => {
@@ -53,8 +79,10 @@ const NewTaskForm: React.FC = () => {
         //   return;
         // }
         setAvatarName(file.name); // после прохождения проверок сохраняем
-
         return file;
+      }
+      if (type === 'number') {
+        return Math.round(Number(value));
       }
       return value.trim();
     };
@@ -67,14 +95,38 @@ const NewTaskForm: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(setTaskFormModalStatus(false));
+    if (typeof reward !== 'number') return;
     if (awardsPagePath) {
-      dispatch(addGift({ data: { title, price: reward, avatar }, childId: currentChild._id }));
+      if (gift) {
+        dispatch(editGift({ data: { title, price: reward, avatar }, giftId: gift._id }));
+        if (onCloseModal) {
+          onCloseModal();
+        }
+      } else {
+        dispatch(setFormModalStatus(false));
+        dispatch(addGift({ data: { title, price: reward, avatar }, childId: currentChild._id }));
+      }
     } else {
-      dispatch(addTask({ data: { ...state }, childId: currentChild._id }));
+      if (task) {
+        const currentTask = currentChild.tasks.find(el => el._id === task._id);
+        const isCurrentTaskWasCompleted = currentTask?.days.find(day => day.isCompleted);
+        if (isCurrentTaskWasCompleted) {
+          toast.error('Это задание уже было выполнено на этой недели. Редактирование невозможно');
+          return;
+        }
+        dispatch(editTask({ data: { title, reward, avatar }, taskId: task._id }));
+        if (onCloseModal) {
+          onCloseModal();
+        }
+      } else {
+        dispatch(setFormModalStatus(false));
+        dispatch(addTask({ data: { title, reward, avatar }, childId: currentChild._id }));
+      }
     }
   };
+
   const disabled = title.length < 3 || !avatar || reward < 1;
+
   return (
     <div className="w-[376px] overflow-hidden lessMob:w-[280px]">
       <form onSubmit={handleSubmit} className="relative bg-accent-color" encType="multipart/form-data">
@@ -93,12 +145,12 @@ const NewTaskForm: React.FC = () => {
                 name="title"
                 value={title}
                 id="card-title"
-                placeholder=" Добавить задание..."
+                placeholder={awardsPagePath ? 'Добавить подарок...' : 'Добавить задание...'}
                 type="text"
                 maxLength={50}
                 minLength={3}
                 onChange={handleChange}
-                className="w-full border-b border-main-bg bg-transparent py-[7px] pl-[28px] pr-[6px] text-[14px] font-normal italic text-main-bg outline-none placeholder:italic placeholder:text-main-bg"
+                className="w-full border-b border-main-bg bg-transparent py-[7px] pl-[28px] pr-[6px] text-[14px] font-normal italic text-main-bg outline-none placeholder:not-italic  placeholder:text-main-bg"
               />
             </label>
           </div>
@@ -113,10 +165,10 @@ const NewTaskForm: React.FC = () => {
                 name="reward"
                 value={reward}
                 id="card-value"
-                placeholder=" Добавить баллы..."
+                placeholder={awardsPagePath ? 'Добавить цену...' : 'Добавить баллы...'}
                 type="number"
                 onChange={handleChange}
-                className="w-full border-b border-main-bg  bg-transparent py-[7px] pl-[28px] pr-[6px] text-[14px] font-normal italic text-main-bg outline-none placeholder:italic placeholder:text-main-bg"
+                className="w-full border-b border-main-bg  bg-transparent py-[7px] pl-[28px] pr-[6px] text-[14px] font-normal italic text-main-bg outline-none placeholder:not-italic placeholder:text-main-bg"
               />
             </label>
           </div>
@@ -135,9 +187,15 @@ const NewTaskForm: React.FC = () => {
                   <use href={sprite + '#image'}></use>
                 </svg>
               </span>
-              <span className="py-[7px] pr-[6px] text-[14px] font-normal italic text-main-bg">
-                {!avatarName ? 'Добавить картинку' : validateImage.checkImgName(width, avatarName)}
-              </span>
+              {avatarName ? (
+                <span className="py-[7px] pr-[6px] text-[14px] font-normal italic text-main-bg">
+                  {validateImage.checkImgName(width, avatarName)}
+                </span>
+              ) : (
+                <span className="py-[7px] pr-[6px] text-[14px] font-normal italic text-main-bg">
+                  Добавить картинку...
+                </span>
+              )}
             </label>
           </div>
           <button
@@ -151,4 +209,4 @@ const NewTaskForm: React.FC = () => {
     </div>
   );
 };
-export default NewTaskForm;
+export default NewCardForm;

@@ -2,8 +2,6 @@ import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 
 import closeIcon from '../../assets/icons/sprite.svg';
-import { useAppSelector } from '../../redux/hooks';
-import Loader from '../Loader/Loader';
 
 const modalRoot = document.getElementById('modal-root') as HTMLElement;
 
@@ -13,7 +11,6 @@ interface IProps {
 }
 
 const Modal: React.FC<IProps> = ({ onClose, children }) => {
-  const { isLoading } = useAppSelector(store => store.info);
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.code === 'Escape') {
@@ -47,7 +44,7 @@ const Modal: React.FC<IProps> = ({ onClose, children }) => {
               <use href={closeIcon + '#modal-close'}></use>
             </svg>
           </button>
-          {isLoading ? <Loader /> : children}
+          {children}
         </>
       </div>
     </div>,

@@ -1,11 +1,11 @@
 import sprite from '../../assets/icons/sprite.svg';
-import { setTaskFormModalStatus } from '../../redux/auth/auth-slice';
+import { setFormModalStatus } from '../../redux/auth/auth-slice';
 import { useAppDispatch } from '../../redux/hooks';
 
-const OpenTaskFormBtn: React.FC = () => {
+const OpenCardFormBtn: React.FC = () => {
   const dispatch = useAppDispatch();
   const onOpenModal = () => {
-    dispatch(setTaskFormModalStatus(true));
+    dispatch(setFormModalStatus(true));
   };
 
   return (
@@ -20,4 +20,4 @@ const OpenTaskFormBtn: React.FC = () => {
   );
 };
 
-export default OpenTaskFormBtn;
+export default OpenCardFormBtn;

@@ -12,7 +12,7 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
 
   const [upgradeProfile, setUpdateProfile] = useState(false);
   const { currentChild, children } = useAppSelector(store => store.info);
-  const [childId, setChildId] = useState(currentChild._id);
+  const [childId, setChildId] = useState(currentChild?._id);
   const dispatch = useAppDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,16 +49,16 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
           </button>
           <div className="relative flex items-center justify-between sMob:w-[376px] sTablet:h-[25px] sTablet:w-auto sTablet:justify-center lessMob:w-[280px]">
             <p className="text-[14px] font-medium text-fifth-color">
-              {!currentChild || !currentChild._id ? 'Профиль ребенка не выбран' : 'Выбран профиль ребенка:'}
+              {!currentChild || !currentChild?._id ? 'Профиль ребенка не выбран' : 'Выбран профиль ребенка:'}
             </p>
-            <p className="ml-[10px] flex items-center text-[14px] font-bold text-main-color">{currentChild.name}</p>
+            <p className="ml-[10px] flex items-center text-[14px] font-bold text-main-color">{currentChild?.name}</p>
           </div>
           <form
             onSubmit={handleSubmit}
             className=" mt-[10px] sTablet:flex sTablet:flex-wrap sTablet:justify-center lessTablet:pb-[25px]"
           >
             {children
-              .filter(el => el._id !== currentChild._id)
+              .filter(el => el._id !== currentChild?._id)
               .map(el => {
                 return (
                   <div
@@ -108,9 +108,11 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
             <div className="mb-[10px] w-[280px] sMob:w-[376px]">
               <div className="flex justify-between">
                 <p className="text-[14px] font-medium text-fifth-color">
-                  {!currentChild || !currentChild._id ? 'Профиль ребенка не выбран' : 'Выбран профиль ребенка:'}
+                  {!currentChild || !currentChild?._id ? 'Профиль ребенка не выбран' : 'Выбран профиль ребенка:'}
                 </p>
-                <p className="ml-[10px] flex items-center text-[14px] font-bold text-main-color">{currentChild.name}</p>
+                <p className="ml-[10px] flex items-center text-[14px] font-bold text-main-color">
+                  {currentChild?.name || ''}
+                </p>
               </div>
               <div className="mt-[10px] flex justify-between">
                 <button
@@ -155,7 +157,9 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
                 <p className="text-[14px] font-medium text-fifth-color">
                   {!currentChild || !currentChild._id ? 'Профиль ребенка не выбран' : 'Выбран профиль ребенка:'}
                 </p>
-                <p className="ml-[10px] flex items-center text-[14px] font-bold text-main-color">{currentChild.name}</p>
+                <p className="ml-[10px] flex items-center text-[14px] font-bold text-main-color">
+                  {currentChild?.name}
+                </p>
               </div>
               {
                 <button

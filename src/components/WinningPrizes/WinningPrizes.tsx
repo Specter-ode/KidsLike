@@ -21,7 +21,7 @@ const WinningPrizes: React.FC<IProps> = ({ gifts }) => {
           </h2>
           <ul className="mx-auto flex max-h-[450px] w-full flex-wrap justify-center gap-[20px] overflow-y-auto sTablet:max-h-[286px] sLaptop:max-h-[306px]">
             {gifts.map(gift => (
-              <li key={gift.title} className="flex w-[100px] flex-col items-center sLaptop:w-[100px]">
+              <li key={gift.title} className="flex w-[100px] flex-col items-center justify-center">
                 <img
                   className="mb-[16px] block h-[90px] w-[90px] rounded-full border-[5px] border-accent-color  object-cover sLaptop:h-[100px] sLaptop:w-[100px] "
                   src={gift.imageUrl}

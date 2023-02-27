@@ -1,5 +1,5 @@
 import { getScoreString } from '../../services/helpers/getScoreString';
-import OpenTaskFormBtn from '../OpenTaskFormBtn/OpenTaskFormBtn';
+import OpenCardFormBtn from '../OpenCardFormBtn/OpenCardFormBtn';
 import Container from '../Container/Container';
 import { useAppSelector } from '../../redux/hooks';
 import { getFormattedDateRange } from '../../services/helpers/date';
@@ -32,7 +32,7 @@ const PlanningPoints: React.FC = () => {
             <p className="mr-[20px] text-[14px] font-medium text-second-color">
               Хочешь получить больше призов - добавь задачи :)
             </p>
-            <OpenTaskFormBtn />
+            <OpenCardFormBtn />
           </div>
         </div>
       </Container>
@@ -45,7 +45,7 @@ const PlanningPoints: React.FC = () => {
               <p className="absolute right-[-53px]  text-[12px] font-medium text-second-color">{rewardsString || 0}</p>
             </div>
             <div className="absolute right-[0] top-[-6px] sTablet:hidden">
-              <OpenTaskFormBtn />
+              <OpenCardFormBtn />
             </div>
           </div>
         </Container>

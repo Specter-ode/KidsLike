@@ -8,8 +8,7 @@ import Modal from '../../components/Modal/Modal';
 import NoTasks from '../../components/NoTasks/NoTasks';
 import ProgressBar from '../../components/ProgressBar/ProgressBar';
 import WeekTabs from '../../components/WeekTabs/WeekTabs';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { setCurrentChild } from '../../redux/info/info-slice';
+import { useAppSelector } from '../../redux/hooks';
 import useWindowDimensions from '../../services/hooks/useDimensions';
 import { convertDate, getCurrentWeek, getDayOfWeek } from '../../services/helpers/date';
 
@@ -22,24 +21,11 @@ const MainPage: React.FC = () => {
   const { children, currentChild, selectedDay } = useAppSelector(store => store.info);
   const { startWeekDate, endWeekDate, lang } = useAppSelector(store => store.auth);
 
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    console.log('!currentChild: ', !currentChild);
-    console.log(' !currentChild._id: ', !currentChild._id);
-    console.log('children.length: ', children.length);
-
-    if ((!currentChild || !currentChild._id) && children.length === 1) {
-      console.log('сработал юз ЕФФЕКТ');
-      dispatch(setCurrentChild(children[0]));
-    }
-  }, [children, currentChild, dispatch]);
-
   const toggleAddChildForm = () => {
-    if (children.length < 1) {
-      toast.error('Закрытие окна невозможно. Информация о детях отсутсвует');
-      return;
-    }
     setShowAddChildForm(!showAddChildForm);
+  };
+  const closeModalWithoutChildren = () => {
+    toast.error('Закрытие окна невозможно. Нет информации о детях на Вашем аккаунте');
   };
   const currentWeek = useMemo(
     () => getCurrentWeek(startWeekDate, endWeekDate, lang),
@@ -57,17 +43,17 @@ const MainPage: React.FC = () => {
           <Container>
             <p className="mb-[20px] text-center ">Неделя: {currentWeek} </p>
             <div className="text-center ">
-              <p className="text-[12px] font-medium text-second-color ">Мои задачи:</p>
-              <p className="text-[12px]  font-bold tracking-widest text-main-color">
+              <p className="text-[14px] font-medium text-second-color ">Мои задачи:</p>
+              <p className="text-[14px]  font-bold tracking-widest text-main-color">
                 {getDayOfWeek(selectedDay)}, {convertDate(selectedDay)}
               </p>
             </div>
             <div></div>
-            {currentChild && currentChild.tasks && <CardList cards={currentChild.tasks} />}
+            {currentChild?.tasks && <CardList cards={currentChild.tasks} />}
           </Container>
-          {currentChild && currentChild.tasks && currentChild.tasks.length === 0 && <NoTasks />}
+          {currentChild?.tasks && currentChild?.tasks?.length === 0 && <NoTasks />}
           <div className="fixed left-0 bottom-0 mx-auto w-full bg-second-bg-color">
-            <ProgressBar />
+            {currentChild?._id && <ProgressBar />}
           </div>
         </>
       )}
@@ -80,16 +66,16 @@ const MainPage: React.FC = () => {
           </div>
           <Container>
             <KidsProfile toggleAddChildForm={toggleAddChildForm} />
-            <ProgressBar />
+            {currentChild?._id && <ProgressBar />}
             <div className="mt-[20px] flex justify-center">
-              <p className="mr-[20px] text-[12px] font-medium text-second-color ">Мои задачи:</p>
-              <p className="text-[12px] font-bold tracking-widest text-main-color ">
+              <p className="mr-[20px] text-[14px] font-medium text-second-color ">Мои задачи:</p>
+              <p className="text-[14px] font-bold tracking-widest text-main-color ">
                 {getDayOfWeek(selectedDay)}, {convertDate(selectedDay)}
               </p>
             </div>
-            {currentChild && currentChild.tasks && <CardList cards={currentChild.tasks} />}
+            {currentChild?.tasks && <CardList cards={currentChild.tasks} />}
           </Container>
-          {currentChild && currentChild.tasks && currentChild.tasks.length === 0 && <NoTasks />}
+          {currentChild?.tasks && currentChild?.tasks?.length === 0 && <NoTasks />}
         </>
       )}
 
@@ -106,25 +92,23 @@ const MainPage: React.FC = () => {
               <div className="w-1/2">
                 <p className="mb-[38px]">Неделя: {currentWeek}</p>
                 <div className="flex">
-                  <p className="mr-[20px] text-[12px] font-medium text-second-color ">Мои задачи:</p>
-                  <p className="text-[12px] font-bold tracking-widest text-main-color">
+                  <p className="mr-[20px] text-[14px] font-medium text-second-color ">Мои задачи:</p>
+                  <p className="text-[14px] font-bold tracking-widest text-main-color">
                     {getDayOfWeek(selectedDay)}, {convertDate(selectedDay)}
                   </p>
                 </div>
               </div>
-              <div className="w-1/2 sLaptop:relative">
-                <ProgressBar />
-              </div>
+              <div className="w-1/2 sLaptop:relative">{currentChild?._id && <ProgressBar />}</div>
             </div>
-            {currentChild && currentChild.tasks && <CardList cards={currentChild.tasks} />}
+            {currentChild?.tasks && <CardList cards={currentChild?.tasks} />}
 
-            {currentChild && currentChild.tasks && currentChild.tasks.length === 0 && <NoTasks />}
+            {currentChild?.tasks && currentChild?.tasks?.length === 0 && <NoTasks />}
           </div>
         </div>
       )}
 
       {children.length < 1 && (
-        <Modal onClose={toggleAddChildForm}>
+        <Modal onClose={closeModalWithoutChildren}>
           <div className="p-[20px]">
             <h3 className="mb-[20px] text-[14px] font-bold text-main-color">Приветствуем Вас</h3>
             <p className="mb-[20px] text-[14px] font-medium text-main-color">

@@ -5,21 +5,57 @@ import sprite from '../../assets/icons/sprite.svg';
 import { ITask } from '../../types/info-types';
 import { useLocation } from 'react-router-dom';
 import { getDayStatus } from '../../services/helpers/date';
-import { useAppSelector } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import Modal from '../Modal/Modal';
+import { useState } from 'react';
+import NewCardForm from '../NewCardForm/NewCardForm';
+import DeleteCardModalContent from '../DeleteCardModalContent/DeleteCardModalContent';
+import { removeTask } from '../../redux/info/info-operations';
+import EditAndDeleteCardBtn from '../EditAndDeleteCardBtn/EditAndDeleteCardBtn';
+import { toast } from 'react-toastify';
 
 const TaskCard: React.FC<ITask> = ({ _id, title, reward, imageUrl, days }) => {
-  const { selectedDay } = useAppSelector(store => store.info);
+  const [isEditModal, setIsEditModal] = useState(false);
+  const [isDeleteModal, setIsDeleteModal] = useState(false);
+  const { selectedDay, currentChild } = useAppSelector(store => store.info);
   const stringReward = getScoreString(reward).toUpperCase();
   const { pathname } = useLocation();
   const dayStatus = getDayStatus(selectedDay);
   const planningPagePath = pathname === '/planning' || pathname === '/planning/*';
   const mainPagePath = pathname === '/main' || pathname === '/main/*';
   const isCompleted = days.find(day => day.date === selectedDay)?.isCompleted || false;
+  const dispatch = useAppDispatch();
+  const onOpenEditModal = () => {
+    setIsEditModal(true);
+  };
+  const onCloseEditModal = () => {
+    setIsEditModal(false);
+  };
+  const onOpeneDeleteModal = () => {
+    setIsDeleteModal(true);
+  };
+  const onCloseDeleteModal = () => {
+    setIsDeleteModal(false);
+  };
 
+  const handleDelete = () => {
+    const currentTask = currentChild.tasks.find(task => task._id === _id);
+    console.log('currentTask: ', currentTask);
+    const isCurrentTaskWasPlanned = currentTask?.days.find(day => day.isActive);
+    console.log('isCurrentTaskWasPlanned: ', isCurrentTaskWasPlanned);
+    if (isCurrentTaskWasPlanned) {
+      toast.error('Уберите это задание из запланированных для удаления');
+      return;
+    }
+    dispatch(removeTask(_id));
+  };
   return (
-    <li className="overflow-hidden rounded-[6px] shadow-base">
-      <div className="flex h-[194px] w-full items-center justify-center">
-        <img alt={title} src={imageUrl} width={280} />
+    <li className="overflow-hidden rounded-[6px] shadow-base sTablet:w-[336px]  sLaptop:w-[288px] lessTablet:w-full">
+      <div className="relative flex h-[224px] items-center justify-center sTablet:h-[194px]">
+        <img alt={title} src={imageUrl} width={280} className="h-full w-full" />
+        {planningPagePath && (
+          <EditAndDeleteCardBtn onOpenEditModal={onOpenEditModal} onOpeneDeleteModal={onOpeneDeleteModal} />
+        )}
       </div>
       <div className="relative flex items-center justify-between bg-accent-color px-[20px] py-[16px]">
         <div>
@@ -30,7 +66,6 @@ const TaskCard: React.FC<ITask> = ({ _id, title, reward, imageUrl, days }) => {
             </>
           </p>
         </div>
-
         {mainPagePath && dayStatus === 'before' && (
           <>
             {isCompleted ? (
@@ -54,9 +89,23 @@ const TaskCard: React.FC<ITask> = ({ _id, title, reward, imageUrl, days }) => {
             )}
           </>
         )}
-        {planningPagePath && <BtnAddPlanToCurrentTask cardId={_id} days={days} />}
         {mainPagePath && dayStatus === 'today' && <TaskToggle _id={_id} isChecked={isCompleted} />}
+        {planningPagePath && (
+          <div className="flex items-center">
+            <BtnAddPlanToCurrentTask cardId={_id} days={days} />
+          </div>
+        )}
       </div>
+      {isEditModal && (
+        <Modal onClose={onCloseEditModal}>
+          <NewCardForm task={{ _id, title, reward }} onCloseModal={onCloseEditModal} />
+        </Modal>
+      )}
+      {isDeleteModal && (
+        <Modal onClose={onCloseDeleteModal}>
+          <DeleteCardModalContent handleDelete={handleDelete} onClose={onCloseDeleteModal} />
+        </Modal>
+      )}
     </li>
   );
 };
