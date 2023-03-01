@@ -11,7 +11,7 @@ import { addGift, addTask, editGift, editTask } from '../../redux/info/info-oper
 interface IState {
   title: string;
   reward: number | '';
-  avatar: string;
+  avatar: File | null;
 }
 
 interface IGift {
@@ -33,7 +33,7 @@ interface IProps {
 const initialState = {
   title: '',
   reward: '',
-  avatar: '',
+  avatar: null,
 };
 
 const NewCardForm: React.FC<IProps> = ({ task, gift, onCloseModal }) => {
@@ -41,6 +41,7 @@ const NewCardForm: React.FC<IProps> = ({ task, gift, onCloseModal }) => {
   const awardsPagePath = pathname === '/awards' || pathname === '/awards/*';
   const { width } = useWindowDimensions();
   const [state, setState] = useState(initialState as IState); // state формы, который мы отправляем при onSubmit
+  console.log('state: ', state);
   const [avatarName, setAvatarName] = useState(''); // название файла, необходимо для рендера в custom file input
   const { currentChild } = useAppSelector(store => store.info);
   const dispatch = useAppDispatch();
@@ -48,49 +49,69 @@ const NewCardForm: React.FC<IProps> = ({ task, gift, onCloseModal }) => {
 
   useEffect(() => {
     if (task) {
-      setState({ title: task.title, reward: task.reward, avatar: '' });
+      setState({ title: task.title, reward: task.reward, avatar: null });
     }
     if (gift) {
-      setState({ title: gift.title, reward: gift.price, avatar: '' });
+      setState({ title: gift.title, reward: gift.price, avatar: null });
     }
   }, [task, gift]);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { type, name, value, files } = e.target;
+    const { type, name, value } = e.target;
     const newValue = () => {
-      if (type === 'file' && files) {
-        if (files.length === 0) {
-          setAvatarName('');
-          return;
-        }
-        const file = files[0];
-        if (validateImage.typeError(file)) {
-          // валидация по типу файла
-          toast.error("Картинка должна соответствоват одному из форматов: '.jpg', '.jpeg', '.gif', '.png'");
-          return;
-        }
-        if (validateImage.maxAllowedSizeError(file)) {
-          // валидация по размеру МБ
-          toast.error('Размер файла должен быть меньше 1 Мб');
-          return;
-        }
-        // if (validateImage.isImageSizeValid(file)) {
-        //   // валидация по высоте и ширине
-        //   toast.error('Размер картинки должна быть от 100 до 1000px');
-        //   return;
-        // }
-        setAvatarName(file.name); // после прохождения проверок сохраняем
-        return file;
-      }
       if (type === 'number') {
+        console.log('value: ', value);
+        console.log('typeof value: ', typeof value);
+        console.log('Math.round(Number(value): ', Math.round(Number(value)));
+        console.log('typeof Math.round(Number(value): ', typeof Math.round(Number(value)));
+
         return Math.round(Number(value));
       }
-      return value.trim();
+      return value;
     };
-
     setState(prevState => ({
       ...prevState,
       [name]: newValue(),
     }));
+  };
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { files } = event.target;
+    if (files && files[0]) {
+      const avatarFile = files[0];
+      if (files.length === 0) {
+        setAvatarName('');
+        return;
+      }
+      if (validateImage.typeError(avatarFile)) {
+        // валидация по типу файла
+        toast.error("Картинка должна соответствоват одному из форматов: '.jpg', '.jpeg', '.gif', '.png'");
+        return;
+      }
+      if (validateImage.maxAllowedSizeError(avatarFile)) {
+        // валидация по размеру МБ
+        toast.error('Размер файла должен быть меньше 1 Мб');
+        return;
+      }
+      // валидация по ширине и высоте
+      const reader = new FileReader();
+      reader.onload = e => {
+        const image = new Image();
+        image.onload = () => {
+          if (image.width <= 500 && image.height <= 500) {
+            setState(prevState => ({
+              ...prevState,
+              avatar: avatarFile,
+            }));
+            setAvatarName(avatarFile.name);
+          } else {
+            toast.error('Image size should be less than 500px');
+          }
+        };
+        image.src = e.target?.result as string;
+      };
+      reader.readAsDataURL(avatarFile);
+    }
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -179,7 +200,7 @@ const NewCardForm: React.FC<IProps> = ({ task, gift, onCloseModal }) => {
                 type="file"
                 name="avatar"
                 accept="image/jpg, image/jpeg, image/gif, image/png"
-                onChange={handleChange}
+                onChange={handleImageChange}
                 className="absolute left-0 top-0 h-[36px] w-full opacity-0"
               />
               <span className="mr-[11px] flex items-center">

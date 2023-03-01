@@ -50,20 +50,22 @@ const infoSlice = createSlice({
         store.isLoading = false;
         store.children = [...payload.children];
         if (payload.children.length > 0) {
-          if (store.currentChild?._id) {
-            const childIndex = payload.children.findIndex(child => child._id === store.currentChild._id);
-            if (childIndex !== -1) {
-              console.log('ЮЗ ЄФФЕКТ setCurrentChild1');
-              store.currentChild = payload.children[childIndex];
-              store.purchasedGifts = payload.children[childIndex].gifts
-                .filter(gift => gift.isPurchased)
-                .map(gift => gift._id);
-            }
-          } else {
-            console.log('setCurrentChild2');
-            store.currentChild = payload.children[0];
-            store.purchasedGifts = payload.children[0].gifts.filter(gift => gift.isPurchased).map(gift => gift._id);
-          }
+          store.currentChild = payload.children[0];
+          store.purchasedGifts = payload.children[0].gifts.filter(gift => gift.isPurchased).map(gift => gift._id);
+          // if (store.currentChild?._id) {
+          //   const childIndex = payload.children.findIndex(child => child._id === store.currentChild._id);
+          //   if (childIndex > -1) {
+          //     console.log('ЮЗ ЄФФЕКТ setCurrentChild1');
+          //     store.currentChild = payload.children[childIndex];
+          //     store.purchasedGifts = payload.children[childIndex].gifts
+          //       .filter(gift => gift.isPurchased)
+          //       .map(gift => gift._id);
+          //   }
+          // } else {
+          //   console.log('setCurrentChild2');
+          //   store.currentChild = payload.children[0];
+          //   store.purchasedGifts = payload.children[0].gifts.filter(gift => gift.isPurchased).map(gift => gift._id);
+          // }
         }
       })
 

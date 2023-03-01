@@ -16,7 +16,7 @@ const RegisterPage: React.FC = () => {
   }, [navigate, redirectToLogin]);
 
   return (
-    <section className="min-h-[calc(100vh-130px)] w-full py-[40px] sTablet:min-h-[calc(100vh-148px)] sTablet:pb-[60px] sLaptop:pb-[100px]">
+    <section className="min-h-[calc(100vh-130px)] w-full py-[40px] sTablet:min-h-[calc(100vh-335px)] sLaptop:min-h-[calc(100vh-64px)] sLaptop:pb-0 sLaptop:pt-[20px]">
       <Container>
         <AuthContent>
           <div className="sTablet:mx-auto sTablet:w-[394px] sTablet:px-[32px] sTablet:py-[40px] sTablet:shadow-base ">

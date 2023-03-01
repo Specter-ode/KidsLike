@@ -10,9 +10,10 @@ import ProgressBar from '../../components/ProgressBar/ProgressBar';
 import WeekTabs from '../../components/WeekTabs/WeekTabs';
 import { useAppSelector } from '../../redux/hooks';
 import useWindowDimensions from '../../services/hooks/useDimensions';
-import { convertDate, getCurrentWeek, getDayOfWeek } from '../../services/helpers/date';
+import { convertDate, getCurrentWeek, getDayOfWeek, hasActiveTaskOnDate } from '../../services/helpers/date';
 
 const MainPage: React.FC = () => {
+  const [activeTasks, setActiveTasks] = useState('');
   const [showAddChildForm, setShowAddChildForm] = useState(false);
   const { width } = useWindowDimensions();
   const mobile = width < 768;
@@ -31,9 +32,14 @@ const MainPage: React.FC = () => {
     () => getCurrentWeek(startWeekDate, endWeekDate, lang),
     [startWeekDate, endWeekDate, lang]
   );
+  useEffect(() => {
+    if (currentChild?._id) {
+      setActiveTasks(hasActiveTaskOnDate(currentChild, selectedDay));
+    }
+  }, [currentChild, selectedDay]);
 
   return (
-    <section className="min-h-[calc(100vh-130px)] pb-[20px] sTablet:min-h-[calc(100vh-148px)] sLaptop:relative sLaptop:flex sLaptop:justify-center sLaptop:pr-[16px]">
+    <section className="min-h-[calc(100vh-130px)] sTablet:min-h-[calc(100vh-120px)] sLaptop:relative sLaptop:flex sLaptop:justify-center sLaptop:pr-[16px] lessTablet:pb-[20px]">
       {mobile && (
         <>
           <div className="flex flex-col items-center justify-center py-[20px]">
@@ -49,9 +55,10 @@ const MainPage: React.FC = () => {
               </p>
             </div>
             <div></div>
-            {currentChild?.tasks && <CardList cards={currentChild.tasks} />}
+            {activeTasks === 'active tasks' && <CardList cards={currentChild.tasks} />}
           </Container>
-          {currentChild?.tasks && currentChild?.tasks?.length === 0 && <NoTasks />}
+          {activeTasks === 'no active before' && <NoTasks isBefore={true} />}
+          {activeTasks === 'no active' && <NoTasks isBefore={false} />}
           <div className="fixed left-0 bottom-0 mx-auto w-full bg-second-bg-color">
             {currentChild?._id && <ProgressBar />}
           </div>
@@ -73,15 +80,16 @@ const MainPage: React.FC = () => {
                 {getDayOfWeek(selectedDay)}, {convertDate(selectedDay)}
               </p>
             </div>
-            {currentChild?.tasks && <CardList cards={currentChild.tasks} />}
+            {activeTasks === 'active tasks' && <CardList cards={currentChild.tasks} />}
           </Container>
-          {currentChild?.tasks && currentChild?.tasks?.length === 0 && <NoTasks />}
+          {activeTasks === 'no active before' && <NoTasks isBefore={true} />}
+          {activeTasks === 'no active' && <NoTasks isBefore={false} />}
         </>
       )}
 
       {laptop && (
         <div className="relative ml-[336px] max-w-[1280px]">
-          <div className="weektabs-container absolute  top-0 flex h-[calc(100vh-68px)] items-start justify-center bg-accent-color pt-[195px]">
+          <div className="weektabs-container absolute  top-0 flex h-[calc(100vh-64px)] items-start justify-center bg-accent-color pt-[195px]">
             <div className="fixed">
               <WeekTabs />
             </div>
@@ -100,9 +108,9 @@ const MainPage: React.FC = () => {
               </div>
               <div className="w-1/2 sLaptop:relative">{currentChild?._id && <ProgressBar />}</div>
             </div>
-            {currentChild?.tasks && <CardList cards={currentChild?.tasks} />}
-
-            {currentChild?.tasks && currentChild?.tasks?.length === 0 && <NoTasks />}
+            {activeTasks === 'active tasks' && <CardList cards={currentChild.tasks} />}
+            {activeTasks === 'no active before' && <NoTasks isBefore={true} />}
+            {activeTasks === 'no active' && <NoTasks isBefore={false} />}
           </div>
         </div>
       )}
@@ -114,7 +122,7 @@ const MainPage: React.FC = () => {
             <p className="mb-[20px] text-[14px] font-medium text-main-color">
               Для работы с приложением нужно внести данные ребенка
             </p>
-            <AddChildForm toggleAddChildForm={toggleAddChildForm} />
+            <AddChildForm />
           </div>
         </Modal>
       )}

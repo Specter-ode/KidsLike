@@ -32,7 +32,7 @@ const Modal: React.FC<IProps> = ({ onClose, children }) => {
   };
 
   return createPortal(
-    <div className="fixed top-0 left-0 z-[100] h-[100vh] w-[100vw] bg-black/30" onClick={onBackdropClose}>
+    <div className="fixed top-0 left-0 z-[100] h-screen w-screen bg-black/30" onClick={onBackdropClose}>
       <div className="absolute-center max-h-[70vh] rounded-[6px]  bg-main-bg lessTablet:max-h-[80vh]">
         <>
           <button

@@ -51,7 +51,7 @@ export interface ITaskData {
   data: {
     title: string;
     reward: number;
-    avatar: string;
+    avatar: File | null;
   };
   childId: string;
 }
@@ -81,7 +81,7 @@ export interface IEditTaskData {
   data: {
     title: string;
     reward: number;
-    avatar: string;
+    avatar: File | null;
   };
   taskId: string;
 }
@@ -95,7 +95,7 @@ export interface IGiftData {
   data: {
     title: string;
     price: number;
-    avatar: string;
+    avatar: File | null;
   };
   childId: string;
 }
@@ -104,7 +104,7 @@ export interface IEditGiftData {
   data: {
     title: string;
     price: number;
-    avatar: string;
+    avatar: File | null;
   };
   giftId: string;
 }

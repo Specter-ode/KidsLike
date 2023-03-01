@@ -7,7 +7,7 @@ import { addChild } from '../../redux/info/info-operations';
 import { INewChildData } from '../../types/info-types';
 
 interface IProp {
-  toggleAddChildForm: () => void;
+  toggleAddChildForm?: () => void;
 }
 
 const initialState: INewChildData = {
@@ -29,7 +29,7 @@ const AddChildForm: React.FC<IProp> = ({ toggleAddChildForm }) => {
     e.preventDefault();
     dispatch(addChild(child));
     setChild(initialState);
-    toggleAddChildForm();
+    if (toggleAddChildForm) toggleAddChildForm();
   };
   const { gender, name } = child;
   return (

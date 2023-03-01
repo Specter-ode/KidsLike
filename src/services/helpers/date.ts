@@ -1,3 +1,5 @@
+import { IChild } from '../../types/info-types';
+
 export function getCurrentWeek(startWeekDate: string, endWeekDate: string, lang: string = 'ru'): string {
   const startOfWeek = new Date(startWeekDate);
   const endOfWeek = new Date(endWeekDate);
@@ -107,4 +109,19 @@ export function compareDates(dateString: string): boolean {
     return true;
   }
   return false;
+}
+
+export function hasActiveTaskOnDate(child: IChild, date: string): string {
+  const taskOnDate = child.tasks.find(task => {
+    const day = task.days.find(day => day.date === date);
+    return day && day.isActive;
+  });
+  if (taskOnDate) {
+    return 'active tasks';
+  }
+  const today = getDay();
+  if (date < today) {
+    return 'no active before';
+  }
+  return 'no active';
 }

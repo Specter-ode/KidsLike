@@ -1,16 +1,23 @@
+import authDesktop1x from '../../assets/img/auth/auth-desktop-1x.png';
+import authDesktop2x from '../../assets/img/auth/auth-desktop-2x.png';
+import useWindowDimensions from '../../services/hooks/useDimensions';
+
 interface IProps {
   children: React.ReactNode;
 }
 const AuthContent: React.FC<IProps> = ({ children }) => {
   return (
-    <div className="relative sLaptop:flex sLaptop:justify-end sLaptop:pr-[120px]">
-      <div className="absolute top-[20px] left-0 hidden w-[576px] sLaptop:block">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa facere earum beatae! Magni officia voluptas
-        dolorem veniam quo perferendis reprehenderit inventore soluta hic, quia provident molestias earum, sit
-        reiciendis? Suscipit molestias eaque, deleniti tempore ex nulla voluptatibus blanditiis quisquam, cumque
-        consectetur tenetur eius dolores cupiditate magni ipsam vel, vero repellendus?
+    <div className="sLaptop:flex sLaptop:justify-between sLaptop:pr-[120px] sLaptop:pl-[16px]">
+      <div className="hidden sLaptop:block sLaptop:h-full">
+        <img
+          className="h-full w-full"
+          src={authDesktop1x}
+          srcSet={`${authDesktop1x} 1x, ${authDesktop2x} 2x`}
+          alt="Welcome. Parent and kids make homework together"
+          width={580}
+        />
       </div>
-      <div>
+      <div className="sLaptop:mt-[20px]">
         <h2 className="mb-[32px] text-center text-[18px] font-semibold text-main-color sTablet:text-[28px] sLaptop:text-left sLaptop:text-[30px]">
           Выполняй задания,
           <br /> получи классные призы!
