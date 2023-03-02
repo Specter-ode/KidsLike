@@ -26,8 +26,7 @@ const Layout: React.FC = () => {
   }, [accessTokenFromURL, refreshTokenFromURL, dispatch, sidFromURL]);
 
   useEffect(() => {
-    if (accessToken && !isAuth) {
-      setToken(accessToken);
+    if (!isAuth) {
       dispatch(getUser());
     }
   }, [dispatch, isAuth, accessToken]);

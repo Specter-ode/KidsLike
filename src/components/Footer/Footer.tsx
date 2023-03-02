@@ -9,11 +9,15 @@ const Footer: React.FC = () => {
   const { width } = useWindowDimensions();
   const { pathname } = useLocation();
   const authPage = pathname === '/register' || pathname === '/login';
+  const mainPage = pathname === '/main' || pathname === '/main/*';
   const isLaptopAuthPage = authPage && width >= 1280;
   return (
     <footer
-      className="hidden sTablet:mt-[20px] sTablet:flex sTablet:flex-col sTablet:items-center sLaptop:mx-auto sLaptop:max-w-[1280px] sLaptop:items-end sLaptop:px-[20px]"
-      style={{ marginTop: isLaptopAuthPage ? -56 : authPage ? 0 : 20, marginBottom: authPage ? 0 : 20 }}
+      className="hidden sTablet:mt-[20px] sTablet:flex sTablet:flex-col sTablet:items-center sLaptop:mx-auto sLaptop:items-end sLaptop:px-[20px]"
+      style={{
+        marginTop: isLaptopAuthPage ? -56 : authPage ? 0 : 20,
+        marginBottom: authPage ? 0 : 20,
+      }}
     >
       <div className="flex ">
         <Logo

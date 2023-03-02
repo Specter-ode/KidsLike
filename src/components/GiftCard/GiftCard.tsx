@@ -9,7 +9,7 @@ import NewCardForm from '../NewCardForm/NewCardForm';
 import DeleteCardModalContent from '../DeleteCardModalContent/DeleteCardModalContent';
 import EditAndDeleteCardBtn from '../EditAndDeleteCardBtn/EditAndDeleteCardBtn';
 
-const GiftCard: React.FC<IGift> = ({ _id, title, price, isPurchased, imageUrl }) => {
+const GiftCard: React.FC<IGift> = ({ _id, title, price, isPurchased, imageUrl, childId }) => {
   const stringReward = getScoreString(price).toUpperCase();
   const [isEditModal, setIsEditModal] = useState(false);
   const [isDeleteModal, setIsDeleteModal] = useState(false);
@@ -32,7 +32,7 @@ const GiftCard: React.FC<IGift> = ({ _id, title, price, isPurchased, imageUrl })
     dispatch(removeGift(_id));
   };
   return (
-    <li className="overflow-hidden rounded-[6px] shadow-base sTablet:w-[336px]  sLaptop:w-[288px] lessTablet:w-full lessTablet:max-w-[440px]">
+    <li className="card overflow-hidden rounded-[6px] shadow-base sTablet:w-[336px]  sLaptop:w-[288px] lessTablet:w-full">
       <div className="relative flex h-[194px] items-center justify-center">
         <img alt={title} src={imageUrl} width={280} className=" h-full w-full" />
         <EditAndDeleteCardBtn onOpenEditModal={onOpenEditModal} onOpeneDeleteModal={onOpeneDeleteModal} />

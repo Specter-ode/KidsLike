@@ -39,7 +39,7 @@ const MainPage: React.FC = () => {
   }, [currentChild, selectedDay]);
 
   return (
-    <section className="min-h-[calc(100vh-130px)] sTablet:min-h-[calc(100vh-120px)] sLaptop:relative sLaptop:flex sLaptop:justify-center sLaptop:pr-[16px] lessTablet:pb-[20px]">
+    <section className="min-h-[calc(100vh-130px)] sTablet:min-h-[calc(100vh-120px)] sLaptop:relative lessTablet:pb-[20px]">
       {mobile && (
         <>
           <div className="flex flex-col items-center justify-center py-[20px]">
@@ -88,27 +88,27 @@ const MainPage: React.FC = () => {
       )}
 
       {laptop && (
-        <div className="relative ml-[336px] max-w-[1280px]">
-          <div className="weektabs-container absolute  top-0 flex h-[calc(100vh-64px)] items-start justify-center bg-accent-color pt-[195px]">
-            <div className="fixed">
-              <WeekTabs />
-            </div>
+        <div className="relative flex justify-end sTablet:min-h-[calc(100vh-120px)]">
+          <div className="absolute top-0 left-0 h-[calc(100vh-64px)] items-start justify-center bg-accent-color pt-[195px] pl-[48px]">
+            <WeekTabs />
           </div>
-          <div className=" mx-left w-[928px] pt-[32px] pb-[40px]">
-            <KidsProfile toggleAddChildForm={toggleAddChildForm} />
-            <div className="flex">
-              <div className="w-1/2">
-                <p className="mb-[38px]">Неделя: {currentWeek}</p>
-                <div className="flex">
-                  <p className="mr-[20px] text-[14px] font-medium text-second-color ">Мои задачи:</p>
-                  <p className="text-[14px] font-bold tracking-widest text-main-color">
-                    {getDayOfWeek(selectedDay)}, {convertDate(selectedDay)}
-                  </p>
+          <div className="ml-[341px] w-[calc(100%-325px)] pt-[32px] pb-[40px]">
+            <div className="pr-[16px]">
+              <KidsProfile toggleAddChildForm={toggleAddChildForm} />
+              <div className="flex">
+                <div className="w-1/2">
+                  <p className="mb-[38px]">Неделя: {currentWeek}</p>
+                  <div className="flex">
+                    <p className="mr-[20px] text-[14px] font-medium text-second-color ">Мои задачи:</p>
+                    <p className="text-[14px] font-bold tracking-widest text-main-color">
+                      {getDayOfWeek(selectedDay)}, {convertDate(selectedDay)}
+                    </p>
+                  </div>
                 </div>
+                <div className="w-1/2 sLaptop:relative">{currentChild?._id && <ProgressBar />}</div>
               </div>
-              <div className="w-1/2 sLaptop:relative">{currentChild?._id && <ProgressBar />}</div>
+              {activeTasks === 'active tasks' && <CardList cards={currentChild.tasks} />}
             </div>
-            {activeTasks === 'active tasks' && <CardList cards={currentChild.tasks} />}
             {activeTasks === 'no active before' && <NoTasks isBefore={true} />}
             {activeTasks === 'no active' && <NoTasks isBefore={false} />}
           </div>

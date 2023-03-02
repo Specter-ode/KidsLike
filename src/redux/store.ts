@@ -9,7 +9,7 @@ import persistStore from 'redux-persist/es/persistStore';
 const authPersistConfig = {
   key: 'auth',
   storage,
-  whitelist: ['accessToken', 'sid'],
+  whitelist: ['accessToken', 'refreshToken', 'sid'],
 };
 
 const infoPersistConfig = {

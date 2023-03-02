@@ -13,7 +13,7 @@ const BurgerMenu: React.FC<IProps> = ({ onClose }) => {
   const { isAuth } = useAppSelector(store => store.auth);
   const justify = isAuth ? 'justify-between' : 'justify-end';
   return createPortal(
-    <div className="fixed top-0 left-0 z-[100] flex h-screen w-screen justify-end  bg-black/30">
+    <div className="fixed top-0 left-0 z-[100] flex h-screen w-screen justify-end  bg-black/30 sLaptop:hidden">
       <aside className="w-[274px] bg-accent-color pt-[14px] lessLaptop:h-full">
         <div className={`flex px-[20px] sTablet:justify-end ${justify}`}>
           {isAuth && (

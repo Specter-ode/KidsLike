@@ -145,11 +145,12 @@ export const editTask = createAsyncThunk<ITask, IEditTaskData, { rejectValue: st
     }
   }
 );
-export const removeTask = createAsyncThunk<IRemoveTaskResponse, string, { rejectValue: string }>(
+export const removeTask = createAsyncThunk<string, string, { rejectValue: string }>(
   'info/removeTask',
   async (taskId, { rejectWithValue }) => {
     try {
-      return await taskApi.removeTask(taskId);
+      await taskApi.removeTask(taskId);
+      return taskId;
     } catch (error) {
       const err = error as AxiosError<string>;
       console.log('removeTask error: ', error);
@@ -167,7 +168,6 @@ export const addGift = createAsyncThunk<IGift, IGiftData, { rejectValue: string 
   async (data, { rejectWithValue }) => {
     try {
       const result = await giftApi.addGift(data);
-      console.log('addGift result: ', result);
       return result;
     } catch (error) {
       const err = error as AxiosError<string>;
@@ -200,11 +200,12 @@ export const editGift = createAsyncThunk<IGift, IEditGiftData, { rejectValue: st
   }
 );
 
-export const removeGift = createAsyncThunk<IRemoveGiftResponse, string, { rejectValue: string }>(
+export const removeGift = createAsyncThunk<string, string, { rejectValue: string }>(
   'info/removeGift',
   async (giftId, { rejectWithValue }) => {
     try {
-      return await giftApi.removeGift(giftId);
+      await giftApi.removeGift(giftId);
+      return giftId;
     } catch (error) {
       const err = error as AxiosError<string>;
       console.log('removeGift error: ', error);

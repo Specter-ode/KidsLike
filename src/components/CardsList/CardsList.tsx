@@ -36,7 +36,7 @@ const CardList: React.FC<IProps> = ({ cards }) => {
 
   return (
     <>
-      <ul className="list mx-auto mt-[32px] flex flex-wrap gap-y-[20px] sTablet:mt-[40px] sTablet:gap-x-[32px] lessTablet:max-w-[376px]">
+      <ul className="list mx-auto mt-[32px] flex flex-wrap justify-center gap-y-[20px] sTablet:mt-[40px] sTablet:gap-x-[32px] lessTablet:max-w-[376px]">
         {elements}
       </ul>
     </>

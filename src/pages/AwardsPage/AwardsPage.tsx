@@ -23,7 +23,7 @@ const AwardsPage: React.FC = () => {
 
   const closeModal = () => {
     setIsModal(false);
-    document.body.classList.remove('fixed', 'overflow-hidden');
+    document.body.classList.remove('overflow-hidden');
     dispatch(refreshPurchasedGifts());
   };
   const newPurchase = currentChild.gifts.filter(gift => gift.isPurchased && !purchasedGifts.includes(gift._id));
@@ -38,11 +38,11 @@ const AwardsPage: React.FC = () => {
     const newPurchaseIds = newPurchase.map(el => el._id);
     dispatch(buyGifts({ childId: currentChild._id, giftIds: newPurchaseIds })).then(() => {
       setIsModal(true);
-      document.body.classList.add('fixed', 'overflow-hidden');
+      document.body.classList.add('overflow-hidden');
     });
   };
   return (
-    <section className="min-h-[calc(100vh-130px)] py-[20px] sTablet:min-h-[calc(100vh-148px)] sTablet:py-[40px] sLaptop:pt-[32px]">
+    <section className="min-h-[calc(100vh-130px)] py-[20px] sTablet:min-h-[calc(100vh-120px)] sTablet:py-[40px] sLaptop:pt-[32px]">
       {mobile && (
         <>
           <Container>

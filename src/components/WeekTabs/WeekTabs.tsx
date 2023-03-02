@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setSelectedDay } from '../../redux/info/info-slice';
 import { getCurrentWeekDates } from '../../services/helpers/date';
@@ -13,7 +14,9 @@ const WeekTabs: React.FC = () => {
   };
   const laptop = width > 1279;
   const tablet = width > 767 && width < 1280;
-  const days = laptop ? getCurrentWeekDates(lang, 'long') : getCurrentWeekDates(lang, 'short');
+  const days = useMemo(() => {
+    return laptop ? getCurrentWeekDates(lang, 'long') : getCurrentWeekDates(lang, 'short');
+  }, [lang, laptop]);
   return (
     <ul className="flex w-[280px] justify-between sMob:w-[376px] sLaptop:w-[181px] sLaptop:flex-col sLaptop:space-y-[8px]">
       {days.map(el => {

@@ -10,7 +10,7 @@ const EditAndDeleteCardBtn: React.FC<IProps> = ({ onOpenEditModal, onOpeneDelete
     <>
       <button
         type="button"
-        className="absolute left-[20px] bottom-[10px] flex h-[30px] w-[30px] items-center justify-center rounded-full border-[1px] border-third-color bg-main-bg text-third-color"
+        className="visible-on-hover absolute left-[20px] bottom-[10px] flex h-[30px] w-[30px] items-center justify-center rounded-full border-[1px] border-third-color bg-main-bg text-third-color"
         onClick={onOpenEditModal}
       >
         <svg className="fill-current" width={20} height={20}>
@@ -19,7 +19,7 @@ const EditAndDeleteCardBtn: React.FC<IProps> = ({ onOpenEditModal, onOpeneDelete
       </button>
       <button
         type="button"
-        className="absolute right-[21px] bottom-[10px] flex h-[30px] w-[30px] items-center justify-center rounded-full border-[1px] border-error-color bg-main-bg text-error-color"
+        className="visible-on-hover absolute right-[21px] bottom-[10px] flex h-[30px] w-[30px] items-center justify-center rounded-full border-[1px] border-error-color bg-main-bg text-error-color"
         onClick={onOpeneDeleteModal}
       >
         <svg className="fill-current" width={20} height={20}>

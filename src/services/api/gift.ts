@@ -23,7 +23,7 @@ export const addGift = async ({ data, childId }: IGiftData): Promise<IGift> => {
 };
 
 export const editGift = async ({ data, giftId }: IEditGiftData): Promise<IGift> => {
-  const result = await instance.patch<IGift>(`/gift/${giftId}`, data, {
+  const result = await instance.put<IGift>(`/gift/${giftId}`, data, {
     headers: {
       ' content-type': 'multipart/form-data',
     },
@@ -31,9 +31,8 @@ export const editGift = async ({ data, giftId }: IEditGiftData): Promise<IGift> 
   return result.data;
 };
 
-export const removeGift = async (giftId: string): Promise<IRemoveGiftResponse> => {
-  const result = await instance.delete<IRemoveGiftResponse>(`/gift/${giftId}`);
-  return result.data;
+export const removeGift = async (giftId: string): Promise<void> => {
+  await instance.delete<void>(`/gift/${giftId}`);
 };
 
 export const buyGifts = async ({ childId, giftIds }: IBuyGiftsData): Promise<IBuyGiftsResponse> => {

@@ -9,7 +9,7 @@ import {
   IUserResponse,
 } from '../../types/auth-types';
 import { AxiosError } from 'axios';
-import { RootState } from '../store';
+import { AppDispatch, RootState } from '../store';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const handleRegistration = createAsyncThunk<void, IRegisterData, { rejectValue: string }>(
@@ -80,7 +80,11 @@ export const handleLogout = createAsyncThunk<void, undefined, { rejectValue: str
   }
 );
 
-export const handleRefresh = createAsyncThunk<IRefreshResponse, IRefreshData, { rejectValue: string }>(
+export const handleRefresh = createAsyncThunk<
+  IRefreshResponse,
+  IRefreshData,
+  { rejectValue: string; state: RootState; dispatch: AppDispatch }
+>(
   'auth/refresh',
   async (data, { rejectWithValue }) => {
     try {
@@ -94,6 +98,19 @@ export const handleRefresh = createAsyncThunk<IRefreshResponse, IRefreshData, { 
         return rejectWithValue(err.message);
       }
     }
+  },
+  {
+    condition: (_, { getState }) => {
+      const { refreshToken, sid } = getState().auth;
+      console.log('refreshToken && sid: ', refreshToken && sid);
+
+      if (refreshToken && sid) {
+        console.log('все есть, выполняй санку рефреш');
+        return true;
+      }
+      // dispatch(setRefreshToken(''));
+      return false;
+    },
   }
 );
 
@@ -116,11 +133,12 @@ export const getUser = createAsyncThunk<IUserResponse, undefined, { rejectValue:
   },
   {
     condition: (_, { getState }) => {
-      const state = getState();
-      if (!state.auth.accessToken) {
+      const { accessToken } = getState().auth;
+      console.log('getUser accessToken: ', accessToken);
+      if (!accessToken) {
         return false;
       }
-      api.setToken(state.auth.accessToken);
+      api.setToken(accessToken);
       return true;
     },
   }

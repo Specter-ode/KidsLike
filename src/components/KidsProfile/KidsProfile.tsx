@@ -34,7 +34,7 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
   };
 
   return (
-    <div className="relative mb-[20px] ">
+    <div className="relative mb-[20px]" style={{ minHeight: children.length > 1 ? 56 : 'auto' }}>
       {upgradeProfile ? (
         <>
           <button
@@ -105,7 +105,7 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
       ) : (
         <>
           {width < 768 ? (
-            <div className="mb-[10px] w-[280px] sMob:w-[376px]">
+            <div className="w-[280px] sMob:w-[376px]">
               <div className="flex justify-between">
                 <p className="text-[14px] font-medium text-fifth-color">
                   {!currentChild || !currentChild?._id ? 'Профиль ребенка не выбран' : 'Выбран профиль ребенка:'}
@@ -142,7 +142,7 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
               </div>
             </div>
           ) : (
-            <div className="mb-[10px] flex justify-between">
+            <div className="flex justify-between">
               <button
                 className="btn w-[100px]"
                 style={{

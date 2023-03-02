@@ -25,7 +25,7 @@ export const addTask = async ({ data, childId }: ITaskData): Promise<ITask> => {
 };
 
 export const editTask = async ({ data, taskId }: IEditTaskData): Promise<ITask> => {
-  const result = await instance.put<ITask>(`/task/${taskId}/edit`, data, {
+  const result = await instance.put<ITask>(`/task/${taskId}`, data, {
     headers: {
       ' content-type': 'multipart/form-data',
     },
@@ -33,9 +33,8 @@ export const editTask = async ({ data, taskId }: IEditTaskData): Promise<ITask> 
   return result.data;
 };
 
-export const removeTask = async (taskId: string): Promise<IRemoveTaskResponse> => {
-  const result = await instance.delete<IRemoveTaskResponse>(`/task/${taskId}`);
-  return result.data;
+export const removeTask = async (taskId: string): Promise<void> => {
+  await instance.delete<void>(`/task/${taskId}`);
 };
 
 export const changeTaskActiveStatus = async ({

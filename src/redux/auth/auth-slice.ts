@@ -38,6 +38,9 @@ const authSlice = createSlice({
     clearRedirectToLogin: store => {
       store.redirectToLogin = false;
     },
+    setIsAuth: (store, { payload }: PayloadAction<boolean>) => {
+      store.isAuth = payload;
+    },
   },
   extraReducers: builder => {
     builder
@@ -63,6 +66,7 @@ const authSlice = createSlice({
         store.accessToken = payload.accessToken;
         store.refreshToken = payload.refreshToken;
         store.sid = payload.sid;
+        store.isAuth = true;
         store.isLoading = false;
       })
 
@@ -96,5 +100,6 @@ function Loading(action: AnyAction) {
   return action.type.endsWith('pending');
 }
 
-export const { setSidAndTokens, setModalStatus, setFormModalStatus, clearRedirectToLogin } = authSlice.actions;
+export const { setSidAndTokens, setModalStatus, setFormModalStatus, clearRedirectToLogin, setIsAuth } =
+  authSlice.actions;
 export default authSlice.reducer;

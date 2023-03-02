@@ -4,7 +4,7 @@ import mainTablet1x from '../../assets/img/main/no-tasks-tablet@1x.png';
 import mainTablet2x from '../../assets/img/main/no-tasks-tablet@2x.png';
 import mainMobile1x from '../../assets/img/main/no-tasks-mobile@1x.png';
 import mainMobile2x from '../../assets/img/main/no-tasks-mobile@2x.png';
-
+import mainXl2x from '../../assets/img/main/no-tasks-xl@2x.png';
 import { useNavigate } from 'react-router-dom';
 import useWindowDimensions from '../../services/hooks/useDimensions';
 
@@ -16,19 +16,21 @@ const NoTasks: React.FC<IProps> = ({ isBefore }) => {
   const { height, width } = useWindowDimensions();
   const navigate = useNavigate();
   return (
-    <div className=" mt-[60px]">
-      {isBefore ? (
-        <p className="mb-[20px] text-center text-[12px] font-bold text-main-color">
-          На этот день не было назначено задач
-        </p>
-      ) : (
-        <>
-          <p className="mb-[20px] text-center text-[12px] font-bold text-main-color">На этот день нет задач</p>{' '}
-          <button className="btn mx-auto w-[160px]" onClick={() => navigate('/planning')} type="button">
-            Запланировать задачи
-          </button>
-        </>
-      )}
+    <div className="mt-[60px]">
+      <div className="sLaptop:pr-[16px]">
+        {isBefore ? (
+          <p className="mb-[20px] text-center text-[12px] font-bold text-main-color">
+            На этот день не было назначено задач
+          </p>
+        ) : (
+          <>
+            <p className="mb-[20px] text-center text-[12px] font-bold text-main-color">На этот день нет задач</p>{' '}
+            <button className="btn mx-auto w-[160px]" onClick={() => navigate('/planning')} type="button">
+              Запланировать задачи
+            </button>
+          </>
+        )}
+      </div>
       <img
         className="absolute left-0 bottom-[64px] z-[-1] w-full sTablet:hidden"
         src={mainMobile1x}
@@ -38,7 +40,7 @@ const NoTasks: React.FC<IProps> = ({ isBefore }) => {
       />
       {width < 1280 && width > 767 && (
         <img
-          className="absolute-x-center bottom-[56px] z-[-1] hidden w-full sTablet:block sTablet:max-h-[420px] sLaptop:hidden"
+          className="absolute-x-center bottom-[56px] z-[-1] hidden w-full sTablet:block sTablet:max-h-[445px] sLaptop:hidden"
           style={{ display: height < 879 ? 'none' : 'block' }}
           src={mainTablet1x}
           srcSet={`${mainTablet1x} 1x, ${mainTablet2x} 2x`}
@@ -46,13 +48,24 @@ const NoTasks: React.FC<IProps> = ({ isBefore }) => {
           width={768}
         />
       )}
-      <img
-        className="absolute bottom-0 left-[-107px] z-[-1] hidden w-[1051px] max-w-[1051px] sLaptop:block"
-        src={mainDesktop1x}
-        srcSet={`${mainDesktop1x} 1x, ${mainDesktop2x} 2x`}
-        alt="Kids meeting"
-        width={1051}
-      />
+      {width < 1600 && (
+        <img
+          className="absolute bottom-0 right-0 z-[-1] hidden w-[calc(100%-229px)] sLaptop:block sLaptop:max-h-[calc(100vh-410px)]"
+          src={mainDesktop1x}
+          srcSet={`${mainDesktop1x} 1x, ${mainDesktop2x} 2x`}
+          alt="Kids meeting"
+          width={928}
+        />
+      )}
+      {width >= 1600 && (
+        <img
+          className="absolute bottom-0 right-0 z-[-1] hidden w-[calc(100%-229px)] sLaptop:block sLaptop:max-h-[calc(100vh-450px)]"
+          src={mainDesktop2x}
+          srcSet={`${mainDesktop2x} 1x, ${mainXl2x} 2x`}
+          alt="Kids meeting"
+          width={928}
+        />
+      )}
     </div>
   );
 };
