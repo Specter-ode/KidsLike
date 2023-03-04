@@ -1,9 +1,8 @@
-// LoginForm.tsx
 import React, { useState } from 'react';
-
 import { handleLogin } from '../../redux/auth/auth-operations';
-import { useAppDispatch } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import FormTextField from '../FormTextField/FormTextField';
+import text from './text.json';
 
 interface IState {
   email: string;
@@ -15,10 +14,10 @@ const initialState = {
   password: '',
 };
 
-const RegisterForm: React.FC = () => {
+const LoginForm: React.FC = () => {
   const [state, setState] = useState<IState>(initialState);
   const [validationErrors, setValidationErrors] = useState<IState>(initialState);
-
+  const { lang } = useAppSelector(store => store.auth);
   const dispatch = useAppDispatch();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, name, validationMessage } = e.target;
@@ -42,9 +41,7 @@ const RegisterForm: React.FC = () => {
 
   return (
     <form onSubmit={handleAuth}>
-      <h3 className="mb-[20px] text-[12px] font-normal text-second-color">
-        Или зайти с помощью e-mail и пароля, предварительно зарегистрировавшись:
-      </h3>
+      <h3 className="mb-[20px] text-[12px] font-normal text-second-color">{text[lang].notSocialAuth}</h3>
       <FormTextField
         onChange={handleChange}
         value={email}
@@ -54,7 +51,7 @@ const RegisterForm: React.FC = () => {
         error={validationErrors.email}
         helper="example@gmail.com"
         title="example@gmail.com"
-        label="Электронная почта"
+        label={text[lang].emailLabel}
       />
       <FormTextField
         onChange={handleChange}
@@ -63,17 +60,17 @@ const RegisterForm: React.FC = () => {
         type="password"
         minLength={8}
         error={validationErrors.password}
-        helper="от 8 до 40 символов"
-        title="Пароль должен содержать от 8 до 40 символов."
-        label="Пароль"
+        helper={text[lang].passwordHelper}
+        title={text[lang].passwordTitle}
+        label={text[lang].passwordLabel}
       />
       <div className="flex justify-center">
         <button type="submit" className="btn w-full">
-          Войти
+          {text[lang].comeIn}
         </button>
       </div>
     </form>
   );
 };
 
-export default RegisterForm;
+export default LoginForm;

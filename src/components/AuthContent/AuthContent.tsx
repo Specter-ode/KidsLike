@@ -1,11 +1,13 @@
 import authDesktop1x from '../../assets/img/auth/auth-desktop-1x.png';
 import authDesktop2x from '../../assets/img/auth/auth-desktop-2x.png';
-import useWindowDimensions from '../../services/hooks/useDimensions';
+import { useAppSelector } from '../../redux/hooks';
+import text from './text.json';
 
 interface IProps {
   children: React.ReactNode;
 }
 const AuthContent: React.FC<IProps> = ({ children }) => {
+  const { lang } = useAppSelector(store => store.auth);
   return (
     <div className="sLaptop:flex sLaptop:justify-between sLaptop:pr-[120px] sLaptop:pl-[16px]">
       <div className="hidden sLaptop:block sLaptop:h-full">
@@ -19,8 +21,8 @@ const AuthContent: React.FC<IProps> = ({ children }) => {
       </div>
       <div className="sLaptop:mt-[20px]">
         <h2 className="mb-[32px] text-center text-[18px] font-semibold text-main-color sTablet:text-[28px] sLaptop:text-left sLaptop:text-[30px]">
-          Выполняй задания,
-          <br /> получи классные призы!
+          {text[lang].makeTasks}
+          <br /> {text[lang].getAwards}
         </h2>
         {children}
       </div>

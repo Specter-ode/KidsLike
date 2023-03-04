@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AuthContent from '../../components/AuthContent/AuthConten';
+import AuthContent from '../../components/AuthContent/AuthContent';
 import Container from '../../components/Container/Container';
 import RegisterForm from '../../components/RegisterForm/RegisterForm';
 import SocialAuth from '../../components/SocialAuth/SocialAuth';

@@ -8,6 +8,8 @@ import { toast } from 'react-toastify';
 import useWindowDimensions from '../../services/hooks/useDimensions';
 import { useLocation } from 'react-router-dom';
 import { addGift, addTask, editGift, editTask } from '../../redux/info/info-operations';
+import text from './text.json';
+
 interface IState {
   title: string;
   reward: number | '';
@@ -37,11 +39,11 @@ const initialState = {
 };
 
 const NewCardForm: React.FC<IProps> = ({ task, gift, onCloseModal }) => {
+  const { lang } = useAppSelector(store => store.auth);
   const { pathname } = useLocation();
   const awardsPagePath = pathname === '/awards' || pathname === '/awards/*';
   const { width } = useWindowDimensions();
   const [state, setState] = useState(initialState as IState); // state формы, который мы отправляем при onSubmit
-  console.log('state: ', state);
   const [avatarName, setAvatarName] = useState(''); // название файла, необходимо для рендера в custom file input
   const { currentChild } = useAppSelector(store => store.info);
   const dispatch = useAppDispatch();
@@ -60,11 +62,6 @@ const NewCardForm: React.FC<IProps> = ({ task, gift, onCloseModal }) => {
     const { type, name, value } = e.target;
     const newValue = () => {
       if (type === 'number') {
-        console.log('value: ', value);
-        console.log('typeof value: ', typeof value);
-        console.log('Math.round(Number(value): ', Math.round(Number(value)));
-        console.log('typeof Math.round(Number(value): ', typeof Math.round(Number(value)));
-
         return Math.round(Number(value));
       }
       return value;
@@ -85,12 +82,12 @@ const NewCardForm: React.FC<IProps> = ({ task, gift, onCloseModal }) => {
       }
       if (validateImage.typeError(avatarFile)) {
         // валидация по типу файла
-        toast.error("Картинка должна соответствоват одному из форматов: '.jpg', '.jpeg', '.gif', '.png'");
+        toast.error(text[lang].typeError);
         return;
       }
       if (validateImage.maxAllowedSizeError(avatarFile)) {
         // валидация по размеру МБ
-        toast.error('Размер файла должен быть меньше 1 Мб');
+        toast.error(text[lang].maxAllowedSizeError);
         return;
       }
       // валидация по ширине и высоте
@@ -98,14 +95,14 @@ const NewCardForm: React.FC<IProps> = ({ task, gift, onCloseModal }) => {
       reader.onload = e => {
         const image = new Image();
         image.onload = () => {
-          if (image.width <= 500 && image.height <= 500) {
+          if (image.width > image.height) {
             setState(prevState => ({
               ...prevState,
               avatar: avatarFile,
             }));
             setAvatarName(avatarFile.name);
           } else {
-            toast.error('Image size should be less than 500px');
+            toast.error(text[lang].widthHeigthError);
           }
         };
         image.src = e.target?.result as string;
@@ -132,7 +129,7 @@ const NewCardForm: React.FC<IProps> = ({ task, gift, onCloseModal }) => {
         const currentTask = currentChild.tasks.find(el => el._id === task._id);
         const isCurrentTaskWasCompleted = currentTask?.days.find(day => day.isCompleted);
         if (isCurrentTaskWasCompleted) {
-          toast.error('Это задание уже было выполнено на этой недели. Редактирование невозможно');
+          toast.error(text[lang].completedCanNotEdit);
           return;
         }
         dispatch(editTask({ data: { title, reward, avatar }, taskId: task._id }));
@@ -166,7 +163,7 @@ const NewCardForm: React.FC<IProps> = ({ task, gift, onCloseModal }) => {
                 name="title"
                 value={title}
                 id="card-title"
-                placeholder={awardsPagePath ? 'Добавить подарок...' : 'Добавить задание...'}
+                placeholder={awardsPagePath ? text[lang].addAward : text[lang].addTask}
                 type="text"
                 maxLength={50}
                 minLength={3}
@@ -186,7 +183,7 @@ const NewCardForm: React.FC<IProps> = ({ task, gift, onCloseModal }) => {
                 name="reward"
                 value={reward}
                 id="card-value"
-                placeholder={awardsPagePath ? 'Добавить цену...' : 'Добавить баллы...'}
+                placeholder={awardsPagePath ? text[lang].addPrice : text[lang].addPoints}
                 type="number"
                 onChange={handleChange}
                 className="w-full border-b border-main-bg  bg-transparent py-[7px] pl-[28px] pr-[6px] text-[14px] font-normal italic text-main-bg outline-none placeholder:not-italic placeholder:text-main-bg"
@@ -214,7 +211,7 @@ const NewCardForm: React.FC<IProps> = ({ task, gift, onCloseModal }) => {
                 </span>
               ) : (
                 <span className="py-[7px] pr-[6px] text-[14px] font-normal italic text-main-bg">
-                  Добавить картинку...
+                  {text[lang].addImage}
                 </span>
               )}
             </label>

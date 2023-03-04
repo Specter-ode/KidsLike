@@ -1,6 +1,6 @@
 import LoginForm from '../../components/LoginForm/LoginForm';
 import Container from '../../components/Container/Container';
-import AuthContent from '../../components/AuthContent/AuthConten';
+import AuthContent from '../../components/AuthContent/AuthContent';
 import SocialAuth from '../../components/SocialAuth/SocialAuth';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { clearRedirectToLogin } from '../../redux/auth/auth-slice';

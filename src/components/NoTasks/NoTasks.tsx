@@ -7,26 +7,27 @@ import mainMobile2x from '../../assets/img/main/no-tasks-mobile@2x.png';
 import mainXl2x from '../../assets/img/main/no-tasks-xl@2x.png';
 import { useNavigate } from 'react-router-dom';
 import useWindowDimensions from '../../services/hooks/useDimensions';
+import { useAppSelector } from '../../redux/hooks';
+import text from './text.json';
 
 interface IProps {
   isBefore: boolean;
 }
 
 const NoTasks: React.FC<IProps> = ({ isBefore }) => {
+  const { lang } = useAppSelector(store => store.auth);
   const { height, width } = useWindowDimensions();
   const navigate = useNavigate();
   return (
     <div className="mt-[60px]">
       <div className="sLaptop:pr-[16px]">
         {isBefore ? (
-          <p className="mb-[20px] text-center text-[12px] font-bold text-main-color">
-            На этот день не было назначено задач
-          </p>
+          <p className="mb-[20px] text-center text-[12px] font-bold text-main-color">{text[lang].noPlannedTasks}</p>
         ) : (
           <>
-            <p className="mb-[20px] text-center text-[12px] font-bold text-main-color">На этот день нет задач</p>{' '}
+            <p className="mb-[20px] text-center text-[12px] font-bold text-main-color">{text[lang].noTasksToday}</p>
             <button className="btn mx-auto w-[160px]" onClick={() => navigate('/planning')} type="button">
-              Запланировать задачи
+              {text[lang].planTasks}
             </button>
           </>
         )}

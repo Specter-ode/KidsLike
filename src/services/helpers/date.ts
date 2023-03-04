@@ -18,16 +18,7 @@ export function getCurrentWeek(startWeekDate: string, endWeekDate: string, lang:
   }
 }
 
-export function getCurrentWeekDates(
-  language: string = 'ru',
-  length: 'long' | 'short' = 'long'
-): { date: string; day: string }[] {
-  let lang;
-  if (language === 'ua') {
-    lang = 'uk-UA';
-  } else {
-    lang = 'ru-RU';
-  }
+export function getCurrentWeekDates(lang: string, length: 'long' | 'short'): { date: string; day: string }[] {
   const today = new Date();
   const dayOfWeek = today.getDay();
   const diff = today.getDate() - dayOfWeek + (dayOfWeek === 0 ? -6 : 1);
@@ -63,7 +54,7 @@ export function getDay(): string {
   return `${year}-${month}-${day}`;
 }
 
-export function getDayOfWeek(dateString: string, lang: string = 'ru', length: 'long' | 'short' = 'long'): string {
+export function getDayOfWeek(dateString: string, lang: string, length: 'long' | 'short' = 'long'): string {
   const date = new Date(dateString);
   let day;
   if (length === 'long') {

@@ -3,15 +3,16 @@ import { useState } from 'react';
 import useWindowDimensions from '../../services/hooks/useDimensions';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setCurrentChild } from '../../redux/info/info-slice';
+import text from './text.json';
 
 interface IProps {
   toggleAddChildForm: () => void;
 }
 const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
   const { width } = useWindowDimensions();
-
-  const [upgradeProfile, setUpdateProfile] = useState(false);
+  const { lang } = useAppSelector(store => store.auth);
   const { currentChild, children } = useAppSelector(store => store.info);
+  const [upgradeProfile, setUpdateProfile] = useState(false);
   const [childId, setChildId] = useState(currentChild?._id);
   const dispatch = useAppDispatch();
 
@@ -32,26 +33,29 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
     setUpdateProfile(false);
     setChildId('');
   };
+  console.log('currentChild?.gender: ', currentChild?.gender);
 
+  const profileTitle = !currentChild || !currentChild?._id ? text[lang].profileIsNotChosen : text[lang].profileIsChosen;
   return (
     <div className="relative mb-[20px]" style={{ minHeight: children.length > 1 ? 56 : 'auto' }}>
       {upgradeProfile ? (
         <>
           <button
-            className="btn absolute z-10 w-[100px] sTablet:left-0 sTablet:top-0 lessTablet:bottom-[-10px] lessTablet:right-0 "
+            className="btn absolute z-10 w-[120px] sTablet:left-0 sTablet:top-0 lessTablet:bottom-[-10px] lessTablet:right-0 "
             style={{
               height: 'auto',
             }}
             type="button"
             onClick={handleBack}
           >
-            Вернуться
+            {text[lang].back}
           </button>
           <div className="relative flex items-center justify-between sMob:w-[376px] sTablet:h-[25px] sTablet:w-auto sTablet:justify-center lessMob:w-[280px]">
-            <p className="text-[14px] font-medium text-fifth-color">
-              {!currentChild || !currentChild?._id ? 'Профиль ребенка не выбран' : 'Выбран профиль ребенка:'}
-            </p>
+            <p className="text-[14px] font-medium text-fifth-color">{profileTitle}</p>
             <p className="ml-[10px] flex items-center text-[14px] font-bold text-main-color">{currentChild?.name}</p>
+            <svg className="ml-[5px] pb-[2px]" width="23" height="23">
+              <use href={sprite + `#${currentChild?.gender}`}></use>
+            </svg>
           </div>
           <form
             onSubmit={handleSubmit}
@@ -89,12 +93,12 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
                     </label>
                     {childId === el._id && (
                       <button
-                        className="btn w-[100px] sTablet:absolute sTablet:right-0  sTablet:top-0 lessTablet:ml-auto"
+                        className="btn w-[120px] sTablet:absolute sTablet:right-0  sTablet:top-0 lessTablet:ml-auto"
                         style={{
                           height: 'auto',
                         }}
                       >
-                        Выбрать
+                        {text[lang].choose}
                       </button>
                     )}
                   </div>
@@ -106,13 +110,14 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
         <>
           {width < 768 ? (
             <div className="w-[280px] sMob:w-[376px]">
-              <div className="flex justify-between">
-                <p className="text-[14px] font-medium text-fifth-color">
-                  {!currentChild || !currentChild?._id ? 'Профиль ребенка не выбран' : 'Выбран профиль ребенка:'}
-                </p>
-                <p className="ml-[10px] flex items-center text-[14px] font-bold text-main-color">
-                  {currentChild?.name || ''}
-                </p>
+              <div className="flex items-center justify-between">
+                <p className="text-[14px] font-medium text-fifth-color">{profileTitle}</p>
+                <div className="ml-[10px] flex items-center">
+                  <p className=" text-[14px] font-bold text-main-color">{currentChild?.name || ''}</p>
+                  <svg className="ml-[5px] pb-[2px]" width="23" height="23">
+                    <use href={sprite + `#${currentChild?.gender}`}></use>
+                  </svg>
+                </div>
               </div>
               <div className="mt-[10px] flex justify-between">
                 <button
@@ -123,7 +128,7 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
                   type="button"
                   onClick={toggleAddChildForm}
                 >
-                  Добавить
+                  {text[lang].add}
                 </button>
                 {children.length > 1 && (
                   <button
@@ -136,7 +141,7 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
                       setUpdateProfile(true);
                     }}
                   >
-                    Изменить
+                    {text[lang].change}
                   </button>
                 )}
               </div>
@@ -144,26 +149,27 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
           ) : (
             <div className="flex justify-between">
               <button
-                className="btn w-[100px]"
+                className="btn w-[120px]"
                 style={{
                   height: 'auto',
                 }}
                 type="button"
                 onClick={toggleAddChildForm}
               >
-                Добавить
+                {text[lang].add}
               </button>
               <div className=" flex items-center">
-                <p className="text-[14px] font-medium text-fifth-color">
-                  {!currentChild || !currentChild._id ? 'Профиль ребенка не выбран' : 'Выбран профиль ребенка:'}
-                </p>
+                <p className="text-[14px] font-medium text-fifth-color">{profileTitle}</p>
                 <p className="ml-[10px] flex items-center text-[14px] font-bold text-main-color">
                   {currentChild?.name}
                 </p>
+                <svg className="ml-[5px] pb-[2px]" width="23" height="23">
+                  <use href={sprite + `#${currentChild?.gender}`}></use>
+                </svg>
               </div>
               {
                 <button
-                  className="btn w-[100px]"
+                  className="btn w-[120px]"
                   style={{
                     height: 'auto',
                     opacity: children.length > 1 ? 1 : 0,
@@ -174,7 +180,7 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
                     setUpdateProfile(true);
                   }}
                 >
-                  Изменить
+                  {text[lang].change}
                 </button>
               }
             </div>

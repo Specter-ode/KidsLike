@@ -2,9 +2,10 @@
 import sprite from '../../assets/icons/sprite.svg';
 import { useState } from 'react';
 import FormTextField from '../FormTextField/FormTextField';
-import { useAppDispatch } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { addChild } from '../../redux/info/info-operations';
 import { INewChildData } from '../../types/info-types';
+import text from './text.json';
 
 interface IProp {
   toggleAddChildForm?: () => void;
@@ -16,6 +17,7 @@ const initialState: INewChildData = {
 };
 
 const AddChildForm: React.FC<IProp> = ({ toggleAddChildForm }) => {
+  const { lang } = useAppSelector(store => store.auth);
   const [child, setChild] = useState(initialState);
   const dispatch = useAppDispatch();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,12 +42,12 @@ const AddChildForm: React.FC<IProp> = ({ toggleAddChildForm }) => {
         name="name"
         type="text"
         maxLength={20}
-        helper="от 3 до 20 символов"
-        title="Имя ребенка должно содержать от 3 до 20 символов."
-        label="Имя ребенка"
+        helper={text[lang].nameInputHelper}
+        title={text[lang].nameInputTitle}
+        label={text[lang].nameInputLabel}
       />
       <div className="flex items-center justify-center">
-        <p className="mr-[40px] text-[14px] font-medium text-second-color">Выбрать пол:</p>
+        <p className="mr-[40px] text-[14px] font-medium text-second-color">{text[lang].chooseGender}</p>
 
         <div>
           <div className="mb-[10px]">
@@ -69,7 +71,7 @@ const AddChildForm: React.FC<IProp> = ({ toggleAddChildForm }) => {
                   <use href={sprite + '#unchecked'}></use>
                 </svg>
               )}
-              Мальчик
+              {text[lang].boyInputLabel}
             </label>
           </div>
           <div>
@@ -92,13 +94,13 @@ const AddChildForm: React.FC<IProp> = ({ toggleAddChildForm }) => {
                   <use href={sprite + '#unchecked'}></use>
                 </svg>
               )}
-              Девочка
+              {text[lang].girlInputLabel}
             </label>
           </div>
         </div>
       </div>
       <button className="btn mx-auto mt-[20px] w-full text-[12px]" type="submit">
-        Сохранить
+        {text[lang].saveBtn}
       </button>
     </form>
   );

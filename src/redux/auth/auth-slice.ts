@@ -1,6 +1,6 @@
 import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { handleRegistration, handleLogin, handleLogout, handleRefresh, getUser } from './auth-operations';
-import { IAuthState, IResponseError, ISocialAuthAction } from '../../types/auth-types';
+import { IAuthState, IResponseError, ISocialAuthAction, ILang } from '../../types/auth-types';
 
 const initialState: IAuthState = {
   id: '',
@@ -11,7 +11,7 @@ const initialState: IAuthState = {
   sid: '',
   startWeekDate: '',
   endWeekDate: '',
-  lang: 'ru',
+  lang: 'uk-UA',
   isAuth: false,
   isLoading: false,
   isModal: false,
@@ -40,6 +40,9 @@ const authSlice = createSlice({
     },
     setIsAuth: (store, { payload }: PayloadAction<boolean>) => {
       store.isAuth = payload;
+    },
+    setLanguage: (store, { payload }: PayloadAction<'ru-RU' | 'uk-UA'>) => {
+      store.lang = payload;
     },
   },
   extraReducers: builder => {
@@ -100,6 +103,6 @@ function Loading(action: AnyAction) {
   return action.type.endsWith('pending');
 }
 
-export const { setSidAndTokens, setModalStatus, setFormModalStatus, clearRedirectToLogin, setIsAuth } =
+export const { setSidAndTokens, setModalStatus, setFormModalStatus, clearRedirectToLogin, setIsAuth, setLanguage } =
   authSlice.actions;
 export default authSlice.reducer;

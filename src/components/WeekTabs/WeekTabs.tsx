@@ -13,32 +13,32 @@ const WeekTabs: React.FC = () => {
     dispatch(setSelectedDay(date));
   };
   const laptop = width > 1279;
-  const tablet = width > 767 && width < 1280;
   const days = useMemo(() => {
     return laptop ? getCurrentWeekDates(lang, 'long') : getCurrentWeekDates(lang, 'short');
   }, [lang, laptop]);
+  console.log('getCurrentWeekDates ', getCurrentWeekDates(lang, 'long'));
+
   return (
     <ul className="flex w-[280px] justify-between sMob:w-[376px] sLaptop:w-[181px] sLaptop:flex-col sLaptop:space-y-[8px]">
-      {days.map(el => {
-        return (
-          <li
-            key={el.date}
-            className="flex h-[24px] w-[35px] items-center justify-center  sMob:w-[40px] sLaptop:h-[42px] sLaptop:w-full sLaptop:justify-start sLaptop:rounded-l-[6px] sLaptop:pl-[20px]"
-            style={{
-              backgroundColor: selectedDay !== el.date ? '#f7e58f' : tablet ? '#FFBC33' : 'fff',
+      {days.map(el => (
+        <li
+          key={el.date}
+          className={`${
+            selectedDay === el.date ? 'sTablet:bg-main-bg' : 'sTablet:bg-day'
+          } flex h-[24px] w-[35px] items-center justify-center sMob:w-[40px]  sLaptop:h-[42px] sLaptop:w-full sLaptop:justify-start sLaptop:rounded-l-[6px] lessTablet:bg-accent-color lessLaptop:rounded-[6px] `}
+        >
+          <button
+            className={`${
+              selectedDay !== el.date && 'lessTablet:bg-day'
+            } h-full w-full text-[12px] font-bold text-main-color sLaptop:pl-[20px] sLaptop:text-start sLaptop:text-[14px]`}
+            onClick={() => {
+              setDay(el.date);
             }}
           >
-            <button
-              className="text-[12px] font-bold text-main-color sLaptop:text-[14px]"
-              onClick={() => {
-                setDay(el.date);
-              }}
-            >
-              {el.day}
-            </button>
-          </li>
-        );
-      })}
+            {el.day}
+          </button>
+        </li>
+      ))}
     </ul>
   );
 };

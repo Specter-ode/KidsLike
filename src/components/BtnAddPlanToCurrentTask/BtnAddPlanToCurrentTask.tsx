@@ -2,10 +2,11 @@ import DaysSelection from '../DaysSelection/DaysSelection';
 import sprite from '../../assets/icons/sprite.svg';
 import { useState } from 'react';
 import { IDay } from '../../types/info-types';
-import { useAppDispatch } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { changeTaskActiveStatus } from '../../redux/info/info-operations';
 import { toast } from 'react-toastify';
 import DotedLoader from '../Loader/DotedLoader';
+import text from './text.json';
 
 interface IProps {
   cardId: string;
@@ -13,6 +14,7 @@ interface IProps {
 }
 
 const BtnAddPlanToCurrentTask: React.FC<IProps> = ({ cardId, days }) => {
+  const { lang } = useAppSelector(store => store.auth);
   const [isLoading, setIsLoading] = useState(false);
   const [isSelection, setSelection] = useState(false);
   const [selectedDays, setSelectedDays] = useState(days);
@@ -23,7 +25,7 @@ const BtnAddPlanToCurrentTask: React.FC<IProps> = ({ cardId, days }) => {
     setSelectedDays(prevState =>
       prevState.map(day => {
         if (day.date === name && day.isCompleted) {
-          toast.error(`Это задание уже выполнено, его нельзя убрать из запланированных`);
+          toast.error(`${text[lang].canNotCancelPlan}`);
           return day;
         }
         return day.date === name ? { ...day, isActive: !day.isActive } : day;

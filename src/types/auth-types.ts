@@ -59,7 +59,7 @@ export interface IAuthState {
   startWeekDate: string;
   endWeekDate: string;
   sid: string;
-  lang: 'ru' | 'ua';
+  lang: 'ru-RU' | 'uk-UA';
   isAuth: boolean;
   isLoading: boolean;
   isModal: boolean;
@@ -81,3 +81,5 @@ export interface ISocialAuthAction {
   refreshToken: string;
   sid: string;
 }
+
+export interface ILang {}

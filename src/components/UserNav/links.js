@@ -2,31 +2,31 @@ export const links = [
   {
     id: '1',
     to: '/main',
-    text: 'Главная',
+    text: { 'ru-RU': 'Главная', 'uk-UA': 'Головна' },
     auth: true,
   },
   {
     id: '2',
     to: '/planning',
-    text: 'Планирование',
+    text: { 'ru-RU': 'Планирование', 'uk-UA': 'Планування' },
     auth: true,
   },
   {
     id: '3',
     to: '/awards',
-    text: 'Награды',
+    text: { 'ru-RU': 'Награды', 'uk-UA': 'Нагороди' },
     auth: true,
   },
   {
     id: '4',
     to: '/register',
-    text: 'Регистрация',
+    text: { 'ru-RU': 'Регистрация', 'uk-UA': 'Реєстрація' },
     auth: false,
   },
   {
     id: '5',
     to: '/login',
-    text: 'Войти',
+    text: { 'ru-RU': 'Войти', 'uk-UA': 'Увійти' },
     auth: false,
   },
 ];

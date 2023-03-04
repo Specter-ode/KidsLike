@@ -5,6 +5,7 @@ import useWindowDimensions from '../../services/hooks/useDimensions';
 import Balance from '../Balance/Balance';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import Container from '../Container/Container';
+import LanguageSelector from '../LanguageSelector/LanguageSelector';
 import Logo from '../Logo/Logo';
 import UserInfo from '../UserInfo/UserInfo';
 import UserNav from '../UserNav/UserNav';
@@ -78,7 +79,12 @@ const Header: React.FC = () => {
             style={isAuth ? { justifyContent: 'space-between' } : { justifyContent: 'flex-end' }}
           >
             {isAuth && <Balance />}
+
             <div className="flex items-center">
+              <div className="mr-[48px]">
+                <LanguageSelector />
+              </div>
+
               <UserNav onClose={onClose} />
 
               {isAuth && (

@@ -1,0 +1,20 @@
+{
+  "ru-RU": {
+    "nameInputHelper": "от 3 до 20 символов",
+    "nameInputTitle": "Имя ребенка должно содержать от 3 до 20 символов.",
+    "nameInputLabel": "Имя ребенка",
+    "chooseGender": "Выбрать пол:",
+    "girlInputLabel": "Мальчик",
+    "boyInputLabel": "Девочка",
+    "saveBtn": "Сохранить"
+  },
+  "uk-UA": {
+    "nameInputHelper": "від 3 до 20 символів",
+    "nameInputTitle": "Ім'я дитини повинно містити від 3 до 20 символів",
+    "nameInputLabel": "Ім'я дитини",
+    "chooseGender": "Выбрать стать:",
+    "girlInputLabel": "Хлопчик",
+    "boyInputLabel": "Дівчинка",
+    "saveBtn": "Зберегти"
+  }
+}

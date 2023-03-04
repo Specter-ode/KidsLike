@@ -1,23 +1,22 @@
 import authTablet1x from '../../assets/img/auth/auth-tablet-1x.png';
 import authTablet2x from '../../assets/img/auth/auth-tablet-2x.png';
 import { useLocation } from 'react-router-dom';
-import imageURL from '../../assets/img/hero/img-2.png';
 import Logo from '../Logo/Logo';
 import useWindowDimensions from '../../services/hooks/useDimensions';
+import text from './text.json';
+import { useAppSelector } from '../../redux/hooks';
 
 const Footer: React.FC = () => {
+  const { lang } = useAppSelector(store => store.auth);
   const { width } = useWindowDimensions();
   const { pathname } = useLocation();
   const authPage = pathname === '/register' || pathname === '/login';
-  const mainPage = pathname === '/main' || pathname === '/main/*';
   const isLaptopAuthPage = authPage && width >= 1280;
   return (
     <footer
-      className="hidden sTablet:mt-[20px] sTablet:flex sTablet:flex-col sTablet:items-center sLaptop:mx-auto sLaptop:items-end sLaptop:px-[20px]"
-      style={{
-        marginTop: isLaptopAuthPage ? -56 : authPage ? 0 : 20,
-        marginBottom: authPage ? 0 : 20,
-      }}
+      className={`${isLaptopAuthPage && 'mt-[-56px]'}  ${
+        authPage ? 'mt-0 mb-0' : 'mt-[20x] mb-[20px]'
+      } hidden sTablet:mt-[20px] sTablet:flex sTablet:flex-col sTablet:items-center sLaptop:mx-auto sLaptop:items-end sLaptop:px-[20px]`}
     >
       <div className="flex ">
         <Logo
@@ -25,7 +24,7 @@ const Footer: React.FC = () => {
           logoIconStyles="w-[10px] h-[12px]"
         />
         <p className="ml-3 border-l-2 border-line-color pl-3 text-xs font-normal text-second-color">
-          Делаем жизнь родителей и детей изи :)
+          {text[lang].motto}
         </p>
         <p className="ml-3 border-l-2 border-line-color pl-3 text-xs font-normal text-second-color">2023</p>
       </div>

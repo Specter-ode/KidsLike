@@ -3,6 +3,7 @@ import sprite from '../../assets/icons/sprite.svg';
 import UserNav from '../UserNav/UserNav';
 import { createPortal } from 'react-dom';
 import { useAppSelector } from '../../redux/hooks';
+import LanguageSelector from '../LanguageSelector/LanguageSelector';
 
 const modalRoot = document.querySelector('#modal-root') as HTMLDivElement;
 
@@ -31,7 +32,9 @@ const BurgerMenu: React.FC<IProps> = ({ onClose }) => {
             </svg>
           </button>
         </div>
-
+        <div className="mt-[40px] ml-[20px]">
+          <LanguageSelector />
+        </div>
         <div className="mt-[40px] sTablet:mt-[60px]">
           <UserNav onClose={onClose} />
         </div>

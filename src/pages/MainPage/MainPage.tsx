@@ -11,6 +11,7 @@ import WeekTabs from '../../components/WeekTabs/WeekTabs';
 import { useAppSelector } from '../../redux/hooks';
 import useWindowDimensions from '../../services/hooks/useDimensions';
 import { convertDate, getCurrentWeek, getDayOfWeek, hasActiveTaskOnDate } from '../../services/helpers/date';
+import text from './text.json';
 
 const MainPage: React.FC = () => {
   const [activeTasks, setActiveTasks] = useState('');
@@ -47,11 +48,13 @@ const MainPage: React.FC = () => {
             <WeekTabs />
           </div>
           <Container>
-            <p className="mb-[20px] text-center ">Неделя: {currentWeek} </p>
+            <p className="mb-[20px] text-center ">
+              {text[lang].week} {currentWeek}{' '}
+            </p>
             <div className="text-center ">
-              <p className="text-[14px] font-medium text-second-color ">Мои задачи:</p>
+              <p className="text-[14px] font-medium text-second-color ">{text[lang].myTasks}</p>
               <p className="text-[14px]  font-bold tracking-widest text-main-color">
-                {getDayOfWeek(selectedDay)}, {convertDate(selectedDay)}
+                {getDayOfWeek(selectedDay, lang, 'long')}, {convertDate(selectedDay)}
               </p>
             </div>
             <div></div>
@@ -68,16 +71,18 @@ const MainPage: React.FC = () => {
       {tablet && (
         <>
           <div className="mb-[40px] flex items-center  justify-center bg-accent-color py-[22px]">
-            <p className="mr-[28px] text-[14px] font-normal text-main-color">Неделя: {currentWeek}</p>
+            <p className="mr-[28px] text-[14px] font-normal text-main-color">
+              {text[lang].week} {currentWeek}
+            </p>
             <WeekTabs />
           </div>
           <Container>
             <KidsProfile toggleAddChildForm={toggleAddChildForm} />
             {currentChild?._id && <ProgressBar />}
             <div className="mt-[20px] flex justify-center">
-              <p className="mr-[20px] text-[14px] font-medium text-second-color ">Мои задачи:</p>
+              <p className="mr-[20px] text-[14px] font-medium text-second-color ">{text[lang].myTasks}</p>
               <p className="text-[14px] font-bold tracking-widest text-main-color ">
-                {getDayOfWeek(selectedDay)}, {convertDate(selectedDay)}
+                {getDayOfWeek(selectedDay, lang, 'long')}, {convertDate(selectedDay)}
               </p>
             </div>
             {activeTasks === 'active tasks' && <CardList cards={currentChild.tasks} />}
@@ -97,11 +102,13 @@ const MainPage: React.FC = () => {
               <KidsProfile toggleAddChildForm={toggleAddChildForm} />
               <div className="flex">
                 <div className="w-1/2">
-                  <p className="mb-[38px]">Неделя: {currentWeek}</p>
+                  <p className="mb-[38px]">
+                    {text[lang].week} {currentWeek}
+                  </p>
                   <div className="flex">
-                    <p className="mr-[20px] text-[14px] font-medium text-second-color ">Мои задачи:</p>
+                    <p className="mr-[20px] text-[14px] font-medium text-second-color ">{text[lang].myTasks}</p>
                     <p className="text-[14px] font-bold tracking-widest text-main-color">
-                      {getDayOfWeek(selectedDay)}, {convertDate(selectedDay)}
+                      {getDayOfWeek(selectedDay, lang, 'long')}, {convertDate(selectedDay)}
                     </p>
                   </div>
                 </div>
@@ -118,10 +125,8 @@ const MainPage: React.FC = () => {
       {children.length < 1 && (
         <Modal onClose={closeModalWithoutChildren}>
           <div className="p-[20px]">
-            <h3 className="mb-[20px] text-[14px] font-bold text-main-color">Приветствуем Вас</h3>
-            <p className="mb-[20px] text-[14px] font-medium text-main-color">
-              Для работы с приложением нужно внести данные ребенка
-            </p>
+            <h3 className="mb-[20px] text-[14px] font-bold text-main-color">{text[lang].welcome}</h3>
+            <p className="mb-[20px] text-[14px] font-medium text-main-color">{text[lang].addChildToContinue}</p>
             <AddChildForm />
           </div>
         </Modal>
@@ -129,9 +134,7 @@ const MainPage: React.FC = () => {
       {showAddChildForm && (
         <Modal onClose={toggleAddChildForm}>
           <div className="px-[20px] pt-[40px] pb-[20px] sMob:w-[376px] lessMob:w-[280px]">
-            <h3 className="mb-[20px] text-center text-[14px] font-bold text-main-color">
-              Добавить новый профиль ребенка
-            </h3>
+            <h3 className="mb-[20px] text-center text-[14px] font-bold text-main-color">{text[lang].addNewChild}</h3>
             <AddChildForm toggleAddChildForm={toggleAddChildForm} />
           </div>
         </Modal>

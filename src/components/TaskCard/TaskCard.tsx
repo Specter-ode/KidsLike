@@ -13,10 +13,12 @@ import DeleteCardModalContent from '../DeleteCardModalContent/DeleteCardModalCon
 import { removeTask } from '../../redux/info/info-operations';
 import EditAndDeleteCardBtn from '../EditAndDeleteCardBtn/EditAndDeleteCardBtn';
 import { toast } from 'react-toastify';
+import text from './text.json';
 
 const TaskCard: React.FC<ITask> = ({ _id, title, reward, imageUrl, days }) => {
   const [isEditModal, setIsEditModal] = useState(false);
   const [isDeleteModal, setIsDeleteModal] = useState(false);
+  const { lang } = useAppSelector(store => store.auth);
   const { selectedDay, currentChild } = useAppSelector(store => store.info);
   const stringReward = getScoreString(reward).toUpperCase();
   const { pathname } = useLocation();
@@ -40,11 +42,9 @@ const TaskCard: React.FC<ITask> = ({ _id, title, reward, imageUrl, days }) => {
 
   const handleDelete = () => {
     const currentTask = currentChild.tasks.find(task => task._id === _id);
-    console.log('currentTask: ', currentTask);
     const isCurrentTaskWasPlanned = currentTask?.days.find(day => day.isActive);
-    console.log('isCurrentTaskWasPlanned: ', isCurrentTaskWasPlanned);
     if (isCurrentTaskWasPlanned) {
-      toast.error('Уберите это задание из запланированных для удаления');
+      toast.error(text[lang].plannedCanNotDeleted);
       return;
     }
     dispatch(removeTask(_id));

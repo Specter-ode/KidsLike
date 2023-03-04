@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { buyGifts } from '../../redux/info/info-operations';
 import { refreshPurchasedGifts } from '../../redux/info/info-slice';
 import useWindowDimensions from '../../services/hooks/useDimensions';
+import text from './text.json';
 
 const AwardsPage: React.FC = () => {
   const [isModal, setIsModal] = useState<boolean>(false);
@@ -19,6 +20,7 @@ const AwardsPage: React.FC = () => {
   const tablet = 767 < width && width < 1280;
   const laptop = width > 1279;
   const { currentChild, purchasedGifts } = useAppSelector(store => store.info);
+  const { lang } = useAppSelector(store => store.auth);
   const dispatch = useAppDispatch();
 
   const closeModal = () => {
@@ -51,7 +53,7 @@ const AwardsPage: React.FC = () => {
                 <AwardTitle />
                 {newPurchase.length > 0 && (
                   <button className="btn w-[168px]" style={{ height: 32 }} type="submit" onClick={handleSubmit}>
-                    Подтвердить выбор
+                    {text[lang].acceptChoice}
                   </button>
                 )}
               </div>
@@ -59,7 +61,7 @@ const AwardsPage: React.FC = () => {
               <div className="mx-auto flex  justify-center lessTablet:max-w-[376px]">
                 {newPurchase.length > 0 ? (
                   <button className="btn w-[168px]" style={{ height: 32 }} type="submit" onClick={handleSubmit}>
-                    Подтвердить выбор
+                    {text[lang].acceptChoice}
                   </button>
                 ) : (
                   <AwardTitle />
@@ -79,9 +81,7 @@ const AwardsPage: React.FC = () => {
           <div className="relative flex justify-between pb-[16px]">
             <AwardTitle />
             <div className="flex items-center justify-center">
-              <p className="mr-[20px] text-[14px] font-medium text-second-color">
-                Хочешь новых подарков - добавь их :)
-              </p>
+              <p className="mr-[20px] text-[14px] font-medium text-second-color">{text[lang].wantNewAwardsAddThem}</p>
               <OpenCardFormBtn />
             </div>
             {newPurchase.length > 0 && (
@@ -91,7 +91,7 @@ const AwardsPage: React.FC = () => {
                 type="submit"
                 onClick={handleSubmit}
               >
-                Подтвердить выбор
+                {text[lang].acceptChoice}
               </button>
             )}
           </div>
@@ -110,13 +110,11 @@ const AwardsPage: React.FC = () => {
                   style={{ height: 40 }}
                   onClick={handleSubmit}
                 >
-                  Подтвердить выбор
+                  {text[lang].acceptChoice}
                 </button>
               )}
               <div className="flex items-center justify-center">
-                <p className="mr-[20px] text-[14px] font-medium text-second-color">
-                  Хочешь новых подарков - добавь их :)
-                </p>
+                <p className="mr-[20px] text-[14px] font-medium text-second-color">{text[lang].wantNewAwardsAddThem}</p>
                 <OpenCardFormBtn />
               </div>
             </div>

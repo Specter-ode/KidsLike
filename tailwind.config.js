@@ -20,6 +20,7 @@ module.exports = {
         'second-bg-color': '#F1F1F1',
         'third-bg-color': '#F6F7FB',
         'main-bg': '#FFFFFF',
+        day: 'hsla(0, 0%, 100%, 0.5);',
       },
       boxShadow: {
         header: '0px 2px 4px rgba(0, 0, 0, 0.15)',

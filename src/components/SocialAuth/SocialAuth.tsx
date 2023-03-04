@@ -1,12 +1,14 @@
 import sprite from '../../assets/icons/sprite.svg';
+import { useAppSelector } from '../../redux/hooks';
+import text from './text.json';
+
 const { REACT_APP_BACKEND_URL } = process.env;
 
 const SocialAuth: React.FC = () => {
+  const { lang } = useAppSelector(store => store.auth);
   return (
     <div className="mb-[20px]">
-      <h3 className="mb-[20px] text-xs font-normal text-second-color">
-        Вы можете авторизоваться с помощью Google или Facebook Account:
-      </h3>
+      <h3 className="mb-[20px] text-xs font-normal text-second-color">{text[lang].socialAuth}</h3>
       <div className="flex justify-between">
         <a
           href={`${REACT_APP_BACKEND_URL}/auth/google`}

@@ -8,8 +8,6 @@ import {
   IGift,
   IGiftData,
   INewChildData,
-  IRemoveGiftResponse,
-  IRemoveTaskResponse,
   ITask,
   ITaskActiveStatusData,
   ITaskActiveStatusResponse,

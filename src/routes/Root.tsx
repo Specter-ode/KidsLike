@@ -12,29 +12,6 @@ const RegisterPage = lazy(() => import('../pages/RegisterPage/RegisterPage'));
 const PlanningPage = lazy(() => import('../pages/PlanningPage/PlanningPage'));
 const AwardsPage = lazy(() => import('../pages/AwardsPage/AwardsPage'));
 
-// const PageRoutes: React.FC = () => {
-
-//   const correctComponent = isAuth ? <MainPage /> : <RegisterPage />;
-//   return (
-//     <Suspense fallback={<Loader />}>
-//       <Routes>
-//         <Route path="/" element={<PublicRoutes />}>
-//           <Route index path="/register" element={<RegisterPage />} />
-//           <Route path="/login" element={<LoginPage />} />
-//         </Route>
-//         <Route path="/" element={<PrivateRoutes />}>
-//           <Route index path="/main" element={<MainPage />} />
-//           <Route path="/planning" element={<PlanningPage />} />
-//           <Route path="/awards" element={<AwardsPage />} />
-//         </Route>
-//         <Route path="*" element={correctComponent} />
-//        </Routes>
-//     </Suspense>
-//   );
-// };
-
-// export default PageRoutes;
-
 const Root = (
   <Route path="/" element={<Layout />} errorElement={<ErrorPage />}>
     <Route element={<AuthLayout />}>
