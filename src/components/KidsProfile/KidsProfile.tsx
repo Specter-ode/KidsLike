@@ -12,16 +12,16 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
   const { width } = useWindowDimensions();
   const { lang } = useAppSelector(store => store.auth);
   const { currentChild, children } = useAppSelector(store => store.info);
-  const [upgradeProfile, setUpdateProfile] = useState(false);
-  const [childId, setChildId] = useState(currentChild?._id);
+  const [upgradeProfile, setUpdateProfile] = useState<boolean>(false);
+  const [childId, setChildId] = useState<string>(currentChild?._id);
   const dispatch = useAppDispatch();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { value } = e.target;
     setChildId(value);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     const childData = children.find(el => el._id === childId);
     if (childData) {

@@ -19,7 +19,7 @@ const LoginForm: React.FC = () => {
   const [validationErrors, setValidationErrors] = useState<IState>(initialState);
   const { lang } = useAppSelector(store => store.auth);
   const dispatch = useAppDispatch();
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { value, name, validationMessage } = e.target;
     setValidationErrors(prevState => ({
       ...prevState,
@@ -31,7 +31,7 @@ const LoginForm: React.FC = () => {
     }));
   };
 
-  const handleAuth = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleAuth = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     dispatch(handleLogin(state));
     setState(initialState);

@@ -1,4 +1,3 @@
-// import AddKi from '../../assets/img/AddTask.jpg';
 import sprite from '../../assets/icons/sprite.svg';
 import { useState } from 'react';
 import FormTextField from '../FormTextField/FormTextField';
@@ -21,16 +20,16 @@ const initialState: IState = {
 
 const AddChildForm: React.FC<IProp> = ({ toggleAddChildForm }) => {
   const { lang } = useAppSelector(store => store.auth);
-  const [child, setChild] = useState(initialState);
+  const [child, setChild] = useState<IState>(initialState);
   const dispatch = useAppDispatch();
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { value, name } = e.target;
     setChild(prevState => ({
       ...prevState,
       [name]: value,
     }));
   };
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     dispatch(addChild({ ...child, lang }));
     setChild(initialState);

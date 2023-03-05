@@ -40,12 +40,13 @@ const initialState = {
 
 const NewCardForm: React.FC<IProps> = ({ task, gift, onCloseModal }) => {
   const { lang } = useAppSelector(store => store.auth);
+  const { currentChild } = useAppSelector(store => store.info);
   const { pathname } = useLocation();
   const awardsPagePath = pathname === '/awards' || pathname === '/awards/*';
   const { width } = useWindowDimensions();
   const [state, setState] = useState(initialState as IState); // state формы, который мы отправляем при onSubmit
-  const [avatarName, setAvatarName] = useState(''); // название файла, необходимо для рендера в custom file input
-  const { currentChild } = useAppSelector(store => store.info);
+  const [avatarName, setAvatarName] = useState<string>(''); // название файла, необходимо для рендера в custom file input
+
   const dispatch = useAppDispatch();
   const { title, reward, avatar } = state;
 
@@ -58,7 +59,7 @@ const NewCardForm: React.FC<IProps> = ({ task, gift, onCloseModal }) => {
     }
   }, [task, gift]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { type, name, value } = e.target;
     const newValue = () => {
       if (type === 'number') {
@@ -72,7 +73,7 @@ const NewCardForm: React.FC<IProps> = ({ task, gift, onCloseModal }) => {
     }));
   };
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { files } = event.target;
     if (files && files[0]) {
       const avatarFile = files[0];

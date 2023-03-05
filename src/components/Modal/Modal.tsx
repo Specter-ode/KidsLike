@@ -25,7 +25,7 @@ const Modal: React.FC<IProps> = ({ onClose, children }) => {
     };
   }, [onClose]);
 
-  const onBackdropClose = (e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
+  const onBackdropClose = (e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>): void => {
     if (e.target === e.currentTarget) {
       onClose();
     }

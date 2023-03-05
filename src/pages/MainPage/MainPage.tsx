@@ -14,8 +14,8 @@ import { convertDate, getCurrentWeek, getDayOfWeek, hasActiveTaskOnDate } from '
 import text from './text.json';
 
 const MainPage: React.FC = () => {
-  const [activeTasks, setActiveTasks] = useState('');
-  const [showAddChildForm, setShowAddChildForm] = useState(false);
+  const [activeTasks, setActiveTasks] = useState<string>('');
+  const [showAddChildForm, setShowAddChildForm] = useState<boolean>(false);
   const { width } = useWindowDimensions();
   const mobile = width < 768;
   const tablet = 767 < width && width < 1280;

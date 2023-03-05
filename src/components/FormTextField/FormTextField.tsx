@@ -19,7 +19,7 @@ const FormTextField: React.FC<IFormTextField> = ({
   helper,
 }) => {
   const id = useMemo(() => nanoid(), []);
-  const [isFocused, setIsFocused] = useState(false);
+  const [isFocused, setIsFocused] = useState<boolean>(false);
 
   const handleFocus = () => {
     setIsFocused(true);

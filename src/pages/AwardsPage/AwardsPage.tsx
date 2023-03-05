@@ -23,13 +23,13 @@ const AwardsPage: React.FC = () => {
   const { lang } = useAppSelector(store => store.auth);
   const dispatch = useAppDispatch();
 
-  const closeModal = () => {
+  const closeModal = (): void => {
     setIsModal(false);
     document.body.classList.remove('overflow-hidden');
     dispatch(refreshPurchasedGifts());
   };
   const newPurchase = currentChild.gifts.filter(gift => gift.isPurchased && !purchasedGifts.includes(gift._id));
-  const handleSubmit = (e: { preventDefault: () => void }) => {
+  const handleSubmit = (e: { preventDefault: () => void }): void => {
     e.preventDefault();
     let expense = 0;
     newPurchase.forEach(el => (expense += el.price));

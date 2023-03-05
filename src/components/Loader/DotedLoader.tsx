@@ -1,6 +1,6 @@
 import { ThreeDots } from 'react-loader-spinner';
 
-const DotedLoader = () => {
+const DotedLoader: React.FC = () => {
   return (
     <ThreeDots
       width="40"

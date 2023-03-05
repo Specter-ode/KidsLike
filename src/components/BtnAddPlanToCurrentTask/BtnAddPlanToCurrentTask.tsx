@@ -15,12 +15,12 @@ interface IProps {
 
 const BtnAddPlanToCurrentTask: React.FC<IProps> = ({ cardId, days }) => {
   const { lang } = useAppSelector(store => store.auth);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSelection, setSelection] = useState(false);
-  const [selectedDays, setSelectedDays] = useState(days);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isSelection, setSelection] = useState<boolean>(false);
+  const [selectedDays, setSelectedDays] = useState<IDay[]>(days);
   const dispatch = useAppDispatch();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name } = e.target;
     setSelectedDays(prevState =>
       prevState.map(day => {
@@ -32,7 +32,7 @@ const BtnAddPlanToCurrentTask: React.FC<IProps> = ({ cardId, days }) => {
       })
     );
   };
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     setSelection(false);
     const isActiveEqual = selectedDays.every((day, i) => day.isActive === days[i].isActive);
