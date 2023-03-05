@@ -33,7 +33,6 @@ const KidsProfile: React.FC<IProps> = ({ toggleAddChildForm }) => {
     setUpdateProfile(false);
     setChildId('');
   };
-  console.log('currentChild?.gender: ', currentChild?.gender);
 
   const profileTitle = !currentChild || !currentChild?._id ? text[lang].profileIsNotChosen : text[lang].profileIsChosen;
   return (

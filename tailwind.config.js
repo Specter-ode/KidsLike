@@ -25,7 +25,7 @@ module.exports = {
       boxShadow: {
         header: '0px 2px 4px rgba(0, 0, 0, 0.15)',
         base: '0px 2px 4px 1px rgba(0, 0, 0, 0.2)',
-        card: '4px 6px 15px 0px rgba(0, 0, 0, 0.1)',
+        hover: '0px 2px 12px 2px rgba(0, 0, 0, 0.3)',
       },
       fontFamily: {
         main: ['Montserrat'],

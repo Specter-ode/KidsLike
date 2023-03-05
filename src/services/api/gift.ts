@@ -37,7 +37,5 @@ export const removeGift = async (giftId: string): Promise<void> => {
 
 export const buyGifts = async ({ childId, giftIds }: IBuyGiftsData): Promise<IBuyGiftsResponse> => {
   const result = await instance.patch<IBuyGiftsResponse>(`/gift/buy/${childId}`, { giftIds });
-  console.log('buyGifts result.data: ', result.data);
-
   return result.data;
 };

@@ -7,10 +7,9 @@ import NewCardForm from '../components/NewCardForm/NewCardForm';
 import { getUser } from '../redux/auth/auth-operations';
 import { setSidAndTokens, setFormModalStatus } from '../redux/auth/auth-slice';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { setToken } from '../services/api/auth';
 
 const Layout: React.FC = () => {
-  const { isAuth, accessToken, isFormModal } = useAppSelector(store => store.auth);
+  const { isAuth, accessToken, isFormModal, isLoading } = useAppSelector(store => store.auth);
   const [searchParams] = useSearchParams();
   const accessTokenFromURL = searchParams.get('accessToken');
   const refreshTokenFromURL = searchParams.get('refreshToken');
@@ -26,10 +25,10 @@ const Layout: React.FC = () => {
   }, [accessTokenFromURL, refreshTokenFromURL, dispatch, sidFromURL]);
 
   useEffect(() => {
-    if (!isAuth) {
+    if (!isAuth && !isLoading) {
       dispatch(getUser());
     }
-  }, [dispatch, isAuth, accessToken]);
+  }, [dispatch, isAuth, accessToken, isLoading]);
 
   const { pathname } = useLocation();
   const navigate = useNavigate();

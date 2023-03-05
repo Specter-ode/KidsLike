@@ -45,6 +45,7 @@ export interface IInfoState {
 export interface INewChildData {
   name: string;
   gender: 'male' | 'female';
+  lang: 'ru-RU' | 'uk-UA';
 }
 
 export interface ITaskData {

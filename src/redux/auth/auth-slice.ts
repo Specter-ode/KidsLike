@@ -1,6 +1,6 @@
 import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { handleRegistration, handleLogin, handleLogout, handleRefresh, getUser } from './auth-operations';
-import { IAuthState, IResponseError, ISocialAuthAction, ILang } from '../../types/auth-types';
+import { IAuthState, IResponseError, ISocialAuthAction } from '../../types/auth-types';
 
 const initialState: IAuthState = {
   id: '',
@@ -25,6 +25,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setSidAndTokens: (store, { payload }: PayloadAction<ISocialAuthAction>) => {
+      console.log('setSidAndTokens payload: ', payload);
       store.accessToken = payload.accessToken;
       store.refreshToken = payload.refreshToken;
       store.sid = payload.sid;

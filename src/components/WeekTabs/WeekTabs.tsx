@@ -16,7 +16,6 @@ const WeekTabs: React.FC = () => {
   const days = useMemo(() => {
     return laptop ? getCurrentWeekDates(lang, 'long') : getCurrentWeekDates(lang, 'short');
   }, [lang, laptop]);
-  console.log('getCurrentWeekDates ', getCurrentWeekDates(lang, 'long'));
 
   return (
     <ul className="flex w-[280px] justify-between sMob:w-[376px] sLaptop:w-[181px] sLaptop:flex-col sLaptop:space-y-[8px]">

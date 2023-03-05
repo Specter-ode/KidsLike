@@ -32,7 +32,7 @@ const GiftCard: React.FC<IGift> = ({ _id, title, price, isPurchased, imageUrl, c
     dispatch(removeGift(_id));
   };
   return (
-    <li className="card overflow-hidden rounded-[6px] shadow-base sTablet:w-[336px]  sLaptop:w-[288px] lessTablet:w-full">
+    <li className="card hover:shadow-hover overflow-hidden rounded-[6px] shadow-base transition duration-500 hover:scale-110 focus:scale-110 sTablet:w-[336px] sLaptop:w-[288px] lessTablet:w-full">
       <div className="relative flex h-[194px] items-center justify-center">
         <img alt={title} src={imageUrl} width={280} className=" h-full w-full" />
         <EditAndDeleteCardBtn onOpenEditModal={onOpenEditModal} onOpeneDeleteModal={onOpeneDeleteModal} />

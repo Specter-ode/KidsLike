@@ -55,14 +55,12 @@ const infoSlice = createSlice({
           // if (store.currentChild?._id) {
           //   const childIndex = payload.children.findIndex(child => child._id === store.currentChild._id);
           //   if (childIndex > -1) {
-          //     console.log('ЮЗ ЄФФЕКТ setCurrentChild1');
           //     store.currentChild = payload.children[childIndex];
           //     store.purchasedGifts = payload.children[childIndex].gifts
           //       .filter(gift => gift.isPurchased)
           //       .map(gift => gift._id);
           //   }
           // } else {
-          //   console.log('setCurrentChild2');
           //   store.currentChild = payload.children[0];
           //   store.purchasedGifts = payload.children[0].gifts.filter(gift => gift.isPurchased).map(gift => gift._id);
           // }
@@ -77,20 +75,6 @@ const infoSlice = createSlice({
         if (payload.children.length > 0) {
           store.currentChild = payload.children[0];
           store.purchasedGifts = payload.children[0].gifts.filter(gift => gift.isPurchased).map(gift => gift._id);
-
-          // if (store.currentChild?._id) {
-          //   const childIndex = payload.children.findIndex(child => child._id === store.currentChild._id);
-          //   if (childIndex !== -1) {
-          //     store.currentChild = payload.children[childIndex];
-          //     store.purchasedGifts = payload.children[childIndex].gifts
-          //       .filter(gift => gift.isPurchased)
-          //       .map(gift => gift._id);
-          //   }
-          // } else {
-          //   console.log('getUser2');
-          //   store.currentChild = payload.children[0];
-          //   store.purchasedGifts = payload.children[0].gifts.filter(gift => gift.isPurchased).map(gift => gift._id);
-          // }
         }
       })
       .addCase(addChild.fulfilled, (store, { payload }) => {

@@ -11,7 +11,11 @@ interface IProp {
   toggleAddChildForm?: () => void;
 }
 
-const initialState: INewChildData = {
+interface IState {
+  name: string;
+  gender: 'male' | 'female';
+}
+const initialState: IState = {
   name: '',
   gender: 'male',
 };
@@ -29,7 +33,7 @@ const AddChildForm: React.FC<IProp> = ({ toggleAddChildForm }) => {
   };
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(addChild(child));
+    dispatch(addChild({ ...child, lang }));
     setChild(initialState);
     if (toggleAddChildForm) toggleAddChildForm();
   };

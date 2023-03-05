@@ -1,6 +1,6 @@
 import { IChild } from '../../types/info-types';
 
-export function getCurrentWeek(startWeekDate: string, endWeekDate: string, lang: string = 'ru'): string {
+export function getCurrentWeek(startWeekDate: string, endWeekDate: string, lang: string = 'uk-UA'): string {
   const startOfWeek = new Date(startWeekDate);
   const endOfWeek = new Date(endWeekDate);
 

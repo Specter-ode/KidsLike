@@ -7,7 +7,6 @@ interface IProps {
   disabled: boolean;
 }
 const CheckBox: React.FC<IProps> = ({ name, label, checked, id, onChange, disabled }) => {
-  console.log('checked: ', checked);
   return (
     <li className="mb-[8px] h-[18px] last:mb-0">
       <input

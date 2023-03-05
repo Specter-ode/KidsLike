@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { handleRefresh } from '../../redux/auth/auth-operations';
 import { setSidAndTokens } from '../../redux/auth/auth-slice';
 import { store } from '../../redux/store';
 import {
@@ -16,9 +15,7 @@ const instance = axios.create({
 });
 
 export const setToken = (token: string = ''): void => {
-  console.log('setToken token: ', token);
   if (token) {
-    console.log('setTtoken выполняется: ');
     instance.defaults.headers['Authorization'] = `Bearer ${token}`;
   } else {
     instance.defaults.headers['Authorization'] = '';
@@ -45,7 +42,6 @@ export const getCurrentUser = async (): Promise<IUserResponse> => {
 };
 
 export const refresh = async (data: IRefreshData): Promise<IRefreshResponse> => {
-  console.log('data: ', data);
   const result = await instance.post<IRefreshResponse>('/auth/refresh', data);
   setToken(result.data.accessToken);
   return result.data;
@@ -54,7 +50,6 @@ export const refresh = async (data: IRefreshData): Promise<IRefreshResponse> => 
 instance.interceptors.response.use(
   response => response,
   async error => {
-    console.log('error.response.status: ', error.response.status);
     if (error.response.status === 401) {
       const storage = localStorage.getItem('persist:auth');
       if (storage) {
@@ -68,7 +63,7 @@ instance.interceptors.response.use(
           error.config.headers.Authorization = `Bearer ${data.accessToken}`;
           return axios(error.config);
         } catch (error) {
-          console.log('error: ', error);
+          console.log('interceptors error: ', error);
           return Promise.reject(error);
         }
       }

@@ -14,9 +14,9 @@ const Footer: React.FC = () => {
   const isLaptopAuthPage = authPage && width >= 1280;
   return (
     <footer
-      className={`${isLaptopAuthPage && 'mt-[-56px]'}  ${
-        authPage ? 'mt-0 mb-0' : 'mt-[20x] mb-[20px]'
-      } hidden sTablet:mt-[20px] sTablet:flex sTablet:flex-col sTablet:items-center sLaptop:mx-auto sLaptop:items-end sLaptop:px-[20px]`}
+      className={`${
+        isLaptopAuthPage ? 'sLaptop:mt-[-56px]' : authPage ? 'mt-0 mb-0' : 'mt-[20px] mb-[20px]'
+      } hidden sTablet:flex sTablet:flex-col sTablet:items-center sLaptop:mx-auto sLaptop:items-end sLaptop:px-[20px]`}
     >
       <div className="flex ">
         <Logo

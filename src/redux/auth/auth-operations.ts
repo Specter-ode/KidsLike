@@ -11,14 +11,15 @@ import {
 import { AxiosError } from 'axios';
 import { AppDispatch, RootState } from '../store';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import text from './text.json';
 
-export const handleRegistration = createAsyncThunk<void, IRegisterData, { rejectValue: string }>(
+export const handleRegistration = createAsyncThunk<void, IRegisterData, { rejectValue: string; state: RootState }>(
   'auth/register',
-  async (data, { rejectWithValue }) => {
-    console.log('handleRegistration data: ', data);
+  async (data, { rejectWithValue, getState }) => {
+    const { lang } = getState().auth;
     try {
       await api.register(data);
-      toast.success(`Registration is success.`);
+      toast.success(text[lang].userRegistered);
 
       return;
     } catch (error) {
@@ -27,10 +28,10 @@ export const handleRegistration = createAsyncThunk<void, IRegisterData, { reject
         throw error;
       } else {
         if (err.response.status === 409) {
-          toast.error(`Такой пользователь уже существует`);
+          toast.error(text[lang].userExisted);
           return rejectWithValue('User with this email already exists');
         } else {
-          toast.error(`Извините, регистрация не удалась. Попробуйте еще раз`);
+          toast.error(text[lang].registerFailed);
           return rejectWithValue(err.message);
         }
       }
@@ -38,12 +39,12 @@ export const handleRegistration = createAsyncThunk<void, IRegisterData, { reject
   }
 );
 
-export const handleLogin = createAsyncThunk<ILoginResponse, ILoginData, { rejectValue: string }>(
+export const handleLogin = createAsyncThunk<ILoginResponse, ILoginData, { rejectValue: string; state: RootState }>(
   'auth/login',
-  async (data, { rejectWithValue }) => {
+  async (data, { rejectWithValue, getState }) => {
+    const { lang } = getState().auth;
     try {
       const result = await api.login(data);
-      console.log('handleLogin result: ', result);
       return result;
     } catch (error) {
       const err = error as AxiosError<string>;
@@ -51,10 +52,10 @@ export const handleLogin = createAsyncThunk<ILoginResponse, ILoginData, { reject
         throw error;
       } else {
         if (err.response.status === 403) {
-          toast.error(`Неправильная электронная почта или пароль`);
+          toast.error(text[lang].emailOrPassFailed);
           return rejectWithValue('Login failed. Check email and password. Try again.');
         } else {
-          toast.error(`Извините, регистрация не удалась. Попробуйте еще раз`);
+          toast.error(text[lang].loginFailed);
           return rejectWithValue(err.message);
         }
       }
@@ -62,9 +63,10 @@ export const handleLogin = createAsyncThunk<ILoginResponse, ILoginData, { reject
   }
 );
 
-export const handleLogout = createAsyncThunk<void, undefined, { rejectValue: string }>(
+export const handleLogout = createAsyncThunk<void, undefined, { rejectValue: string; state: RootState }>(
   'auth/logout',
-  async (_, { rejectWithValue }) => {
+  async (_, { rejectWithValue, getState }) => {
+    const { lang } = getState().auth;
     try {
       await api.logout();
       return;
@@ -73,7 +75,7 @@ export const handleLogout = createAsyncThunk<void, undefined, { rejectValue: str
       if (!err.response) {
         throw error;
       } else {
-        toast.error(`Извините, выход с аккаунта не удался. Попробуйте еще раз`);
+        toast.error(text[lang].logoutFailed);
         return rejectWithValue(err.message);
       }
     }
@@ -102,13 +104,9 @@ export const handleRefresh = createAsyncThunk<
   {
     condition: (_, { getState }) => {
       const { refreshToken, sid } = getState().auth;
-      console.log('refreshToken && sid: ', refreshToken && sid);
-
       if (refreshToken && sid) {
-        console.log('все есть, выполняй санку рефреш');
         return true;
       }
-      // dispatch(setRefreshToken(''));
       return false;
     },
   }
@@ -116,17 +114,18 @@ export const handleRefresh = createAsyncThunk<
 
 export const getUser = createAsyncThunk<IUserResponse, undefined, { rejectValue: string; state: RootState }>(
   'auth/getUser',
-  async (_, { rejectWithValue }) => {
+  async (_, { rejectWithValue, getState }) => {
+    const { lang } = getState().auth;
+
     try {
       const result = await api.getCurrentUser();
-      console.log('getCurrentUser result: ', result);
       return result;
     } catch (error) {
       const err = error as AxiosError<string>;
       if (!err.response) {
         throw error;
       } else {
-        toast.error(`Не удалось получить данные о пользователе`);
+        toast.error(text[lang].getUserFailed);
         return rejectWithValue(err.message);
       }
     }
@@ -134,7 +133,6 @@ export const getUser = createAsyncThunk<IUserResponse, undefined, { rejectValue:
   {
     condition: (_, { getState }) => {
       const { accessToken } = getState().auth;
-      console.log('getUser accessToken: ', accessToken);
       if (!accessToken) {
         return false;
       }
