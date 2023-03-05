@@ -1,6 +1,5 @@
 import {
   IEditTaskData,
-  IRemoveTaskResponse,
   ITask,
   ITaskActiveStatusData,
   ITaskActiveStatusResponse,

@@ -4,7 +4,6 @@ import { useState } from 'react';
 import FormTextField from '../FormTextField/FormTextField';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { addChild } from '../../redux/info/info-operations';
-import { INewChildData } from '../../types/info-types';
 import text from './text.json';
 
 interface IProp {

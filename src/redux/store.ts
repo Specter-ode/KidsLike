@@ -1,4 +1,4 @@
-import { configureStore, ThunkAction, Action, createAsyncThunk, combineReducers } from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import authReducer from './auth/auth-slice';
 import infoReducer from './info/info-slice';
 import { persistReducer } from 'redux-persist';
@@ -37,7 +37,6 @@ export const store = configureStore({
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
-// export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, Action<string>>;
 
 // export const createAppAsyncThunk = createAsyncThunk.withTypes<{
 //   state: RootState;

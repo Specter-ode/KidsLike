@@ -1,11 +1,4 @@
-import {
-  IEditGiftData,
-  IRemoveGiftResponse,
-  IBuyGiftsResponse,
-  IGift,
-  IGiftData,
-  IBuyGiftsData,
-} from '../../types/info-types';
+import { IEditGiftData, IBuyGiftsResponse, IGift, IGiftData, IBuyGiftsData } from '../../types/info-types';
 import instance from './auth';
 
 export const getGifts = async (): Promise<IGift[]> => {
