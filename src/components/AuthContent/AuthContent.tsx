@@ -1,6 +1,7 @@
 import authDesktop1x from '../../assets/img/auth/auth-desktop-1x.png';
 import authDesktop2x from '../../assets/img/auth/auth-desktop-2x.png';
 import { useAppSelector } from '../../redux/hooks';
+import useWindowDimensions from '../../services/hooks/useDimensions';
 import text from './text.json';
 
 interface IProps {
@@ -20,7 +21,7 @@ const AuthContent: React.FC<IProps> = ({ children }) => {
         />
       </div>
       <div className="sLaptop:mt-[20px]">
-        <h2 className="mb-[32px] text-center text-[18px] font-semibold text-main-color sTablet:text-[28px] sLaptop:text-left sLaptop:text-[30px]">
+        <h2 className="mb-[32px] text-center text-[18px] font-semibold text-main-color sTablet:text-[28px] sLaptop:text-left">
           {text[lang].makeTasks}
           <br /> {text[lang].getAwards}
         </h2>

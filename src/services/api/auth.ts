@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { setSidAndTokens } from '../../redux/auth/auth-slice';
+import { setIsAuth, setSidAndTokens } from '../../redux/auth/auth-slice';
 import { store } from '../../redux/store';
 import {
   ILoginData,
@@ -10,8 +10,9 @@ import {
   IRegisterResponse,
   IUserResponse,
 } from '../../types/auth-types';
+const { REACT_APP_BACKEND_URL } = process.env;
 const instance = axios.create({
-  baseURL: 'http://localhost:4000/',
+  baseURL: REACT_APP_BACKEND_URL || 'http://localhost:4000/',
 });
 
 export const setToken = (token: string = ''): void => {
@@ -64,6 +65,8 @@ instance.interceptors.response.use(
           return axios(error.config);
         } catch (error) {
           console.log('interceptors error: ', error);
+          dispatch(setSidAndTokens({ accessToken: '', refreshToken: '', sid: '' }));
+          dispatch(setIsAuth(false));
           return Promise.reject(error);
         }
       }

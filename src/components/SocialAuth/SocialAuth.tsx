@@ -19,7 +19,7 @@ const SocialAuth: React.FC = () => {
           </svg>
         </a>
         <a
-          href={`${REACT_APP_BACKEND_URL}/auth/google`}
+          href={`${REACT_APP_BACKEND_URL}/auth/facebook`}
           className=" flex h-[42px] w-[45%] items-center justify-center rounded-[6px] border-gray-300 shadow-base hover:bg-accent-color"
         >
           <svg width="85" height="20">

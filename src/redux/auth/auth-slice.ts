@@ -25,7 +25,6 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setSidAndTokens: (store, { payload }: PayloadAction<ISocialAuthAction>) => {
-      console.log('setSidAndTokens payload: ', payload);
       store.accessToken = payload.accessToken;
       store.refreshToken = payload.refreshToken;
       store.sid = payload.sid;
@@ -73,7 +72,13 @@ const authSlice = createSlice({
         store.isAuth = true;
         store.isLoading = false;
       })
-
+      .addCase(handleRefresh.rejected, store => {
+        store.accessToken = '';
+        store.refreshToken = '';
+        store.sid = '';
+        store.isAuth = false;
+        store.isLoading = false;
+      })
       .addCase(getUser.fulfilled, (store, { payload }) => {
         store.email = payload.email;
         store.username = payload.username;
@@ -85,10 +90,13 @@ const authSlice = createSlice({
       })
 
       .addCase(handleLogout.fulfilled, () => ({ ...initialState }))
-
       .addMatcher(isError, (store, action: PayloadAction<IResponseError>) => {
-        store.error = action.payload.message;
         store.isLoading = false;
+        if (action.payload) {
+          store.error = action.payload.message;
+        } else {
+          store.error = 'No connection to database';
+        }
       })
       .addMatcher(Loading, store => {
         store.error = null;

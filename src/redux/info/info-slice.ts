@@ -187,8 +187,12 @@ const infoSlice = createSlice({
         store.isLoading = false;
       })
       .addMatcher(isError, (store, action: PayloadAction<{ message: string }>) => {
-        store.error = action.payload.message;
         store.isLoading = false;
+        if (action.payload) {
+          store.error = action.payload.message;
+        } else {
+          store.error = 'No connection to database';
+        }
       })
       .addMatcher(Loading, store => {
         store.error = null;
@@ -198,7 +202,7 @@ const infoSlice = createSlice({
 });
 
 function isError(action: AnyAction) {
-  return action.type.endsWith('rejected');
+  return action.type !== 'auth/refresh/rejected' && action.type.endsWith('rejected');
 }
 function Loading(action: AnyAction) {
   return action.type.endsWith('pending');
