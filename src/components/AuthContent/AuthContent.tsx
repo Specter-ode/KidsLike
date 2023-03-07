@@ -1,7 +1,6 @@
 import authDesktop1x from '../../assets/img/auth/auth-desktop-1x.png';
 import authDesktop2x from '../../assets/img/auth/auth-desktop-2x.png';
 import { useAppSelector } from '../../redux/hooks';
-import useWindowDimensions from '../../services/hooks/useDimensions';
 import text from './text.json';
 
 interface IProps {
