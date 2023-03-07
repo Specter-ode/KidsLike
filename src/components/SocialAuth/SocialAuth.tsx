@@ -13,6 +13,7 @@ const SocialAuth: React.FC = () => {
         <a
           href={`${REACT_APP_BACKEND_URL}/auth/google`}
           className=" flex h-[42px] w-[45%] items-center justify-center rounded-[6px] border-gray-300 shadow-base hover:bg-accent-color"
+          aria-label="Authorization with Google Account"
         >
           <svg width="85" height="20">
             <use href={sprite + '#google'}></use>
@@ -21,6 +22,7 @@ const SocialAuth: React.FC = () => {
         <a
           href={`${REACT_APP_BACKEND_URL}/auth/facebook`}
           className=" flex h-[42px] w-[45%] items-center justify-center rounded-[6px] border-gray-300 shadow-base hover:bg-accent-color"
+          aria-label="Authorization with Facebook Account"
         >
           <svg width="85" height="20">
             <use href={sprite + '#facebook'}></use>

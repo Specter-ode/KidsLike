@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
         </p>
         <p className="ml-3 border-l-2 border-line-color pl-3 text-xs font-normal text-second-color">2023</p>
       </div>
-      {authPage && (
+      {authPage && width > 767 && width < 1280 && (
         <img
           className="mt-[20px] hidden w-[768px] sTablet:block sLaptop:hidden"
           src={authTablet1x}

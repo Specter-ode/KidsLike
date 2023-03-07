@@ -26,6 +26,7 @@ const BurgerMenu: React.FC<IProps> = ({ onClose }) => {
             type="button"
             className=" flex h-[26px] w-[26px] items-center justify-center border-none bg-transparent text-main-bg outline-none transition duration-500 hover:scale-125 hover:text-main-color focus:scale-125 focus:text-main-color"
             onClick={onClose}
+            aria-label="navigation menu"
           >
             <svg className="fill-current" width={14} height={14}>
               <use href={sprite + '#modal-close'}></use>

@@ -4,8 +4,10 @@ import Container from '../Container/Container';
 import { useAppSelector } from '../../redux/hooks';
 import { getFormattedDateRange } from '../../services/helpers/date';
 import text from './text.json';
+import useWindowDimensions from '../../services/hooks/useDimensions';
 
 const PlanningPoints: React.FC = () => {
+  const { width } = useWindowDimensions();
   const { rewardsPlanned } = useAppSelector(store => store.info.currentChild);
   const { startWeekDate, endWeekDate, lang } = useAppSelector(store => store.auth);
   const week = getFormattedDateRange(startWeekDate, endWeekDate);
@@ -39,7 +41,13 @@ const PlanningPoints: React.FC = () => {
         <Container>
           <div className="relative">
             <div className="relative mx-auto flex h-[36px] w-[36px] items-center justify-center rounded-full bg-fourth-color">
-              <p className="absolute left-[-156px] text-[12px] font-medium text-second-color">{text[lang].tasksFor}</p>
+              <p
+                className={`${
+                  width < 400 ? 'left-[-90px] max-w-[100px]' : 'left-[-156px]'
+                } absolute  text-[12px] font-medium text-second-color`}
+              >
+                {text[lang].tasksFor}
+              </p>
               <p className="inline text-[16px] font-semibold text-main-bg">{rewardsPlanned || 0}</p>
               <p className="absolute right-[-53px]  text-[12px] font-medium text-second-color">{rewardsString || 0}</p>
             </div>
