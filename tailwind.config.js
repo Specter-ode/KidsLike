@@ -21,6 +21,11 @@ module.exports = {
         'third-bg-color': '#F6F7FB',
         'main-bg': '#FFFFFF',
         day: 'hsla(0, 0%, 100%, 0.5);',
+        // 'main-color': 'rgb(230, 234, 255)',
+        // 'main-bg': 'rgb(55, 61, 85)',
+        // 'second-color': 'rgb(192, 194, 202)',
+        // 'accent-color': 'rgba(0,0,50, 1)',
+        // 'accent-color-50opacity': 'rgba(0,0,50, 0.5)',
       },
       boxShadow: {
         header: '0px 2px 4px rgba(0, 0, 0, 0.15)',
