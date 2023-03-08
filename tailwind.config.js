@@ -42,6 +42,7 @@ module.exports = {
         lessMob: { max: '480px' },
         lessTablet: { max: '767px' },
         lessLaptop: { max: '1267px' },
+        onlyTablet: { min: '768px', max: '1279px' },
       },
       gridTemplateColumns: {
         award: 'repeat(auto-fill, minmax(100px, 1fr))',
@@ -52,7 +53,7 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/forms')({
-      strategy: 'class', // only generate classes
+      strategy: 'class',
     }),
     // plugin(function ({ addVariant }) {
     //   addVariant('focusnshown', 'input:not:focus:not:placeholder-shown:invalid');

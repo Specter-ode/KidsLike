@@ -50,7 +50,7 @@ const TaskCard: React.FC<ITask> = ({ _id, title, reward, imageUrl, days }) => {
     dispatch(removeTask(_id));
   };
   return (
-    <li className="card overflow-hidden rounded-[6px] shadow-base  transition duration-500 hover:scale-110 hover:shadow-hover focus:scale-110 sTablet:w-[336px]  sLaptop:w-[288px] lessTablet:w-full">
+    <li className="card overflow-hidden rounded-[6px] shadow-base  transition duration-500 hover:shadow-hover sTablet:w-[336px] sLaptop:w-[288px] sLaptop:hover:scale-105  sLaptop:focus:scale-105 lessTablet:w-full">
       <div className="relative flex h-[224px] items-center justify-center sTablet:h-[194px]">
         <img alt={title} src={imageUrl} width={280} className="h-full w-full" />
         {planningPagePath && (

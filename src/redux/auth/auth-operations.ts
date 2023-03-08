@@ -125,7 +125,6 @@ export const getUser = createAsyncThunk<IUserResponse, undefined, { rejectValue:
       if (!err.response) {
         throw error;
       } else {
-        toast.error(text[lang].getUserFailed);
         return rejectWithValue(err.message);
       }
     }
