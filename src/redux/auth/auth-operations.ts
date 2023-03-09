@@ -114,9 +114,7 @@ export const handleRefresh = createAsyncThunk<
 
 export const getUser = createAsyncThunk<IUserResponse, undefined, { rejectValue: string; state: RootState }>(
   'auth/getUser',
-  async (_, { rejectWithValue, getState }) => {
-    const { lang } = getState().auth;
-
+  async (_, { rejectWithValue }) => {
     try {
       const result = await api.getCurrentUser();
       return result;
