@@ -1,10 +1,12 @@
 {
   "ru-RU": {
     "acceptChoice": "Подтвердить выбор",
-    "wantNewAwardsAddThem": "Хочешь новых подарков - добавь их :)"
+    "wantNewAwardsAddThem": "Хочешь новых подарков - добавь их :)",
+    "balanceError": "Сумма покупки превышает баланс"
   },
   "uk-UA": {
     "acceptChoice": "Підтвердити вибір",
-    "wantNewAwardsAddThem": "Хочеш нових подарунків - додай їх :)"
+    "wantNewAwardsAddThem": "Хочеш нових подарунків - додай їх :)",
+    "balanceError": "Сума покупки перевищує баланс"
   }
 }

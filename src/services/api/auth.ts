@@ -23,6 +23,7 @@ export const setToken = (token: string = ''): void => {
   }
 };
 
+
 export const register = async (data: IRegisterData): Promise<void> => {
   await instance.post<IRegisterResponse>('/auth/register', data);
 };

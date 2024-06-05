@@ -9,7 +9,6 @@ interface IProps {
 const Loader: React.FC<IProps> = ({ size = 250 }) => {
   const { width } = useWindowDimensions();
   const { pathname } = useLocation();
-  console.log('pathname: ', pathname);
   const registerPage = pathname === '/register';
   const loginPage = pathname === '/login';
   const isLaptopAuthPage = (registerPage || loginPage) && width >= 1280;

@@ -34,7 +34,7 @@ const AwardsPage: React.FC = () => {
     let expense = 0;
     newPurchase.forEach(el => (expense += el.price));
     if (expense > currentChild.balance) {
-      toast.error(`Сумма покупки превышает баланс.`);
+      toast.error(text[lang].balanceError);
       return;
     }
     const newPurchaseIds = newPurchase.map(el => el._id);

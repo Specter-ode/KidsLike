@@ -33,7 +33,7 @@ const TaskCard: React.FC<ITask> = ({ _id, title, reward, imageUrl, days }) => {
   const onCloseEditModal = () => {
     setIsEditModal(false);
   };
-  const onOpeneDeleteModal = () => {
+  const onOpenDeleteModal = () => {
     setIsDeleteModal(true);
   };
   const onCloseDeleteModal = () => {
@@ -54,7 +54,7 @@ const TaskCard: React.FC<ITask> = ({ _id, title, reward, imageUrl, days }) => {
       <div className="relative flex h-[224px] items-center justify-center sTablet:h-[194px]">
         <img alt={title} src={imageUrl} width={280} className="h-full w-full" />
         {planningPagePath && (
-          <EditAndDeleteCardBtn onOpenEditModal={onOpenEditModal} onOpeneDeleteModal={onOpeneDeleteModal} />
+          <EditAndDeleteCardBtn onOpenEditModal={onOpenEditModal} onOpenDeleteModal={onOpenDeleteModal} />
         )}
       </div>
       <div className="relative flex items-center justify-between bg-accent-color px-[20px] py-[16px]">

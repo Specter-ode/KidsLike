@@ -27,7 +27,7 @@ const MainPage: React.FC = () => {
     setShowAddChildForm(!showAddChildForm);
   };
   const closeModalWithoutChildren = () => {
-    toast.error('Закрытие окна невозможно. Нет информации о детях на Вашем аккаунте');
+    toast.error(text[lang].canNotCloseModal);
   };
   const currentWeek = useMemo(
     () => getCurrentWeek(startWeekDate, endWeekDate, lang),

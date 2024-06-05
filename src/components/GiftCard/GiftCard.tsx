@@ -21,7 +21,7 @@ const GiftCard: React.FC<IGift> = ({ _id, title, price, isPurchased, imageUrl, c
   const onCloseEditModal = () => {
     setIsEditModal(false);
   };
-  const onOpeneDeleteModal = () => {
+  const onOpenDeleteModal = () => {
     setIsDeleteModal(true);
   };
   const onCloseDeleteModal = () => {
@@ -35,7 +35,7 @@ const GiftCard: React.FC<IGift> = ({ _id, title, price, isPurchased, imageUrl, c
     <li className="card overflow-hidden rounded-[6px] shadow-base transition duration-500 hover:shadow-hover sTablet:w-[336px] sLaptop:w-[288px] sLaptop:hover:scale-105 sLaptop:focus:scale-105 lessTablet:w-full">
       <div className="relative flex h-[194px] items-center justify-center">
         <img alt={title} src={imageUrl} width={280} className=" h-full w-full" />
-        <EditAndDeleteCardBtn onOpenEditModal={onOpenEditModal} onOpeneDeleteModal={onOpeneDeleteModal} />
+        <EditAndDeleteCardBtn onOpenEditModal={onOpenEditModal} onOpenDeleteModal={onOpenDeleteModal} />
       </div>
       <div className="relative flex items-center justify-between bg-accent-color px-[20px] py-[16px]">
         <div>
