@@ -19,7 +19,7 @@ const initialState = {
 const RegisterForm: React.FC = () => {
   const [state, setState] = useState<IState>(initialState);
   const [validationErrors, setValidationErrors] = useState<IState>(initialState);
-  const { lang } = useAppSelector(store => store.auth);
+  const { lang, isLoading } = useAppSelector(store => store.auth);
   const dispatch = useAppDispatch();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { value, name, validationMessage } = e.target;
@@ -59,7 +59,7 @@ const RegisterForm: React.FC = () => {
         value={email}
         name="email"
         type="email"
-        pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+        pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$"
         error={validationErrors.email}
         helper="example@gmail.com"
         title="example@gmail.com"
@@ -76,8 +76,8 @@ const RegisterForm: React.FC = () => {
         title={text[lang].passwordTitle}
         label={text[lang].passwordLabel}
       />
-      <button type="submit" className="btn w-full">
-        {text[lang].register}
+      <button type="submit" className="btn w-full" disabled={isLoading}>
+        {isLoading ? text[lang].loading : text[lang].register}
       </button>
     </form>
   );

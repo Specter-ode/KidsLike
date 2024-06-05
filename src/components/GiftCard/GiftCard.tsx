@@ -9,7 +9,7 @@ import NewCardForm from '../NewCardForm/NewCardForm';
 import DeleteCardModalContent from '../DeleteCardModalContent/DeleteCardModalContent';
 import EditAndDeleteCardBtn from '../EditAndDeleteCardBtn/EditAndDeleteCardBtn';
 
-const GiftCard: React.FC<IGift> = ({ _id, title, price, isPurchased, imageUrl, childId }) => {
+const GiftCard: React.FC<IGift> = ({ _id, title, price, isPurchased, imageUrl }) => {
   const stringReward = getScoreString(price).toUpperCase();
   const [isEditModal, setIsEditModal] = useState(false);
   const [isDeleteModal, setIsDeleteModal] = useState(false);

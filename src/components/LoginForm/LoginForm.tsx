@@ -17,7 +17,7 @@ const initialState = {
 const LoginForm: React.FC = () => {
   const [state, setState] = useState<IState>(initialState);
   const [validationErrors, setValidationErrors] = useState<IState>(initialState);
-  const { lang } = useAppSelector(store => store.auth);
+  const { lang, isLoading } = useAppSelector(store => store.auth);
   const dispatch = useAppDispatch();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { value, name, validationMessage } = e.target;
@@ -47,7 +47,7 @@ const LoginForm: React.FC = () => {
         value={email}
         name="email"
         type="email"
-        pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+        pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$"
         error={validationErrors.email}
         helper="example@gmail.com"
         title="example@gmail.com"
@@ -65,8 +65,8 @@ const LoginForm: React.FC = () => {
         label={text[lang].passwordLabel}
       />
       <div className="flex justify-center">
-        <button type="submit" className="btn w-full">
-          {text[lang].comeIn}
+        <button type="submit" className="btn w-full" disabled={isLoading}>
+          {isLoading ? text[lang].loading : text[lang].comeIn}
         </button>
       </div>
     </form>

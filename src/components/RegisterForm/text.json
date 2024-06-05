@@ -8,7 +8,8 @@
     "passwordLabel": "Пароль",
     "passwordHelper": "От 8 до 40 символов",
     "passwordTitle": "Пароль должен содержать от 8 до 40 символов.",
-    "register": "Регистрация"
+    "register": "Регистрация",
+    "loading": "Загрузка"
   },
   "uk-UA": {
     "notSocialAuth": "Або зареєструватися за допомогою форми:",
@@ -19,6 +20,7 @@
     "passwordLabel": "Пароль",
     "passwordHelper": "Від 8 до 40 символів",
     "passwordTitle": "Пароль має містити від 8 до 40 символів.",
-    "register": "Реєстрація"
+    "register": "Реєстрація",
+    "loading": "Завантаження"
   }
 }
